@@ -2,17 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>University Menus — DATE_PLACEHOLDER</title>
+  <title>Mensa Kawaii — DATE_PLACEHOLDER</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ETH & UZH mensa menus with full nutrition — kawaii edition.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=VER_PLACEHOLDER">
+  <!-- FOUC prevention: apply the stored/system theme before first paint. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+        if (t === 'dark') document.documentElement.classList.add('dark');
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
 </head>
 <body>
+  <!-- Scroll progress (koharu: thin gradient bar, fixed top). -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
   <!-- Hamburger: lives at BODY level (sibling of .app and #selector),
        position:fixed, so it can slide to the top-right corner while the
-       drawer opens. It must NOT live inside .app: a fixed element inside
-       a transformed ancestor is positioned relative to that ancestor
-       (containing-block trap), which would break the slide while .app
-       is translated off-screen. -->
+       drawer opens. A fixed element inside a transformed ancestor is
+       positioned relative to that ancestor (containing-block trap). -->
   <button class="menu-btn" id="menu-btn" type="button"
           aria-label="Toggle mensa selector"
           aria-controls="selector" aria-expanded="false">
@@ -23,23 +39,52 @@
 
   <div class="app" id="app">
 
-    <!-- ======================= Header ======================= -->
-    <header class="header">
-      <h1 id="date-heading">Loading…</h1>
-
-      <!-- Lunch/Dinner segmented switch (iOS style).
-           .seg-thumb is a CSS-driven sliding pill: fixed size at the
-           track origin, moved purely by transform (see style.css). -->
-      <div class="segmented" aria-label="Meal time">
-        <span class="seg-thumb" aria-hidden="true"></span>
-        <button class="seg-option active" type="button" data-meal="Lunch" aria-pressed="true">Lunch</button>
-        <button class="seg-option" type="button" data-meal="Dinner" aria-pressed="false">Dinner</button>
+    <!-- ================== Header (koharu slim bar) ================== -->
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <span class="header-date" id="date-heading">Loading…</span>
+        <div class="segmented" aria-label="Meal time">
+          <span class="seg-thumb" aria-hidden="true"></span>
+          <button class="seg-option active" type="button" data-meal="Lunch" aria-pressed="true">Lunch</button>
+          <button class="seg-option" type="button" data-meal="Dinner" aria-pressed="false">Dinner</button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="toggle">
+            <input type="checkbox" class="toggle-input" aria-hidden="true" tabindex="-1">
+            <span class="toggle-indicator" aria-hidden="true"></span>
+          </span>
+        </button>
       </div>
     </header>
 
+    <!-- ================== Hero cover (koharu style) ================== -->
+    <section class="hero" id="hero">
+      <span class="hero-float hero-float-1" aria-hidden="true">🍙</span>
+      <span class="hero-float hero-float-2" aria-hidden="true">🍜</span>
+      <span class="hero-float hero-float-3" aria-hidden="true">🧁</span>
+      <div class="hero-content">
+        <p class="hero-kicker">ETH ・ UZH 食堂营养</p>
+        <h1 class="hero-title">今天吃什么？</h1>
+        <p class="hero-sub" id="hero-date">…</p>
+      </div>
+      <!-- Parallax wave divider (ported from koharu wave.tsx). -->
+      <div class="wave-wrap">
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <path id="gentle-wave" d="m -160,44.4 c 30,0 58,-18 87.7,-18 30.3,0 58.3,18 87.3,18 30,0 58,-18 88,-18 30,0 58,18 88,18 l 0,34.5 -351,0 z" />
+          </defs>
+          <g class="parallax">
+            <use xlink:href="#gentle-wave" x="50" y="0" />
+            <use xlink:href="#gentle-wave" x="50" y="3" />
+            <use xlink:href="#gentle-wave" x="50" y="6" />
+          </g>
+        </svg>
+      </div>
+    </section>
+
     <!-- ======================= Content ======================= -->
     <main class="main" id="content" aria-live="polite">
-      <div class="loading">Loading menu data…</div>
+      <div class="loading"><span class="loading-emoji" aria-hidden="true">🍙</span><p>Loading menu data…</p></div>
     </main>
 
     <!-- ====================== Raw data ======================= -->
@@ -57,29 +102,29 @@
 
     <footer class="footer">
       <div class="footer-row">
-        <span>&copy; Aeneanicus</span>
-        <span class="footer-dot">&middot;</span>
-        <a href="https://github.com/LukasAxelsen/eth-uzh-nutrition" target="_blank" rel="noopener">GitHub</a>
+        <span>© Aeneanicus</span>
+        <span class="footer-dot">·</span>
+        <a href="https://github.com/LukasAxelsen/eth-uzh-nutrition-kawaii" target="_blank" rel="noopener">GitHub</a>
+        <span class="footer-dot">·</span>
+        <span class="footer-heart">made with ♡</span>
       </div>
       <div class="footer-sources">
         ETH data via <a href="https://idapps.ethz.ch/cookpit-pub-services/v1/meals" target="_blank" rel="noopener">Cookpit API</a>
-        &middot;
+        ·
         UZH data via <a href="https://app.food2050.ch" target="_blank" rel="noopener">Food2050</a>
       </div>
-      <div class="footer-updated">Daily at 06:00 Zurich time &middot; <span id="footer-date">DATE_PLACEHOLDER</span></div>
+      <div class="footer-updated">Daily at 06:00 Zurich time · <span id="footer-date">DATE_PLACEHOLDER</span></div>
     </footer>
   </div>
 
   <!-- ============ Mensa selector (drawer, sibling of .app) ============ -->
   <div id="selector" class="selector" aria-label="Mensa selector" aria-hidden="true">
     <div class="selector-columns">
-      <!-- Top pane: scrollable list of all mensas -->
       <section class="selector-pane">
         <h3 class="selector-pane-title">Mensas</h3>
         <div class="selector-mensas"></div>
       </section>
 
-      <!-- Bottom pane: group rows + custom group creation -->
       <section class="selector-pane">
         <h3 class="selector-pane-title">Groups</h3>
         <div class="selector-groups">
@@ -91,6 +136,15 @@
             <span class="group-add-msg" id="group-add-msg" role="status" aria-live="polite"></span>
           </div>
         </div>
+      </section>
+
+      <section class="selector-prefs" aria-label="Effects">
+        <label class="pref" title="Parallax hero wave">
+          <input type="checkbox" id="wave-toggle"> <span>Wave</span>
+        </label>
+        <label class="pref" title="Decorative motion (float/bounce)">
+          <input type="checkbox" id="motion-toggle"> <span>Motion</span>
+        </label>
       </section>
     </div>
   </div>

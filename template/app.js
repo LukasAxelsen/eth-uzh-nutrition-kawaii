@@ -1,21 +1,13 @@
 /* ============================================================
-   ETH/UZH University Menus — frontend logic (vanilla JS)
+   Mensa Kawaii — frontend logic (vanilla JS)
+   koharu design system port. Keeps the proven data layer from
+   the original eth-uzh-nutrition site (selection, groups, raw
+   text byte-identical with index.txt) and adds koharu
+   interactions: theme toggle with View-Transitions gradient
+   sweep, scroll progress, header gradient reveal, wave/motion
+   preferences.
 
-   - Fetches data.json (same directory as the page) and renders
-     mensa sections grouped/ordered by the data file.
-   - Lunch/Dinner segmented switch with a smoothly sliding thumb.
-   - Hamburger-driven mensa selector panel (two columns:
-     mensa list + group rows incl. custom groups).
-   - Selection, active meal and collapsed sections persist to
-     localStorage under "eth-uzh-nutrition-prefs".
-   - Filtered raw-data view (selected mensas, active meal slot)
-     with copy-to-clipboard.
-
-   DOM contract: class names in CONTRACT.md are mandatory — the
-   design stylesheet targets them; do not rename. Inline styles
-   in this file are functional fallbacks only (segmented thumb
-   geometry, collapse animation) and may be overridden by the
-   design stylesheet.
+   DOM contract: class names in CONTRACT.md are mandatory.
    ============================================================ */
 
 'use strict';
@@ -48,18 +40,15 @@ const NUTRITION_ROWS = [
   { label: 'Weight', key: 'weight' },
 ];
 
-const EMPTY_MEALS_TEXT = 'No meals available today.';
+const EMPTY_MEALS_TEXT = 'No meals today ✨';
+const GROUP_EMOJI = { Central: '🏛️', Hoengg: '🌊', Irchel: '🌿', Oerlikon: '🚂', Other: '✨' };
 
 /* ------------------------------------------------------------
    2. App state
    ------------------------------------------------------------ */
 
-// Normalized data.json contents.
 let data = null;
 
-// User preferences. Sets for membership (fast lookup), plain object
-// for custom groups. Mirrors the localStorage schema exactly:
-//   { meal, selected: [ids], customGroups: {name: [ids]}, collapsedMensas: [ids] }
 let prefs = {
   meal: 'Lunch',
   selected: new Set(),
@@ -67,14 +56,12 @@ let prefs = {
   collapsedMensas: new Set(),
 };
 
-// Most recently built filtered raw text (what the copy button copies).
 let rawFiltered = '';
 
 /* ------------------------------------------------------------
    3. Persistence (localStorage)
    ------------------------------------------------------------ */
 
-/** Read + sanitize stored prefs; fall back to defaults on any error. */
 function loadPrefs() {
   const p = { meal: 'Lunch', selected: new Set(), customGroups: {}, collapsedMensas: new Set() };
   try {
@@ -95,7 +82,6 @@ function loadPrefs() {
   return p;
 }
 
-/** Serialize prefs back to localStorage. */
 function savePrefs() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -113,7 +99,6 @@ function savePrefs() {
    4. Data loading & normalization
    ------------------------------------------------------------ */
 
-/** Fetch data.json (same directory as the page). */
 async function fetchData() {
   const resp = await fetch('data.json', { cache: 'no-cache' });
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -122,7 +107,6 @@ async function fetchData() {
   return json;
 }
 
-/** Guarantee every mensa has id/name/group and Lunch/Dinner arrays. */
 function normalizeMensas(raw) {
   return raw.map((m) => ({
     id: String(m.id),
@@ -135,7 +119,6 @@ function normalizeMensas(raw) {
   }));
 }
 
-/** Drop stale ids (closed mensas etc.), default selection to Central. */
 function validatePrefsAgainstData() {
   const ids = new Set(data.mensas.map((m) => m.id));
 
@@ -148,7 +131,6 @@ function validatePrefsAgainstData() {
 
   prefs.collapsedMensas = new Set(Array.from(prefs.collapsedMensas).filter((id) => ids.has(id)));
 
-  // No stored selection (or all of it went stale) -> default: all Central.
   if (!prefs.selected.size) {
     prefs.selected = new Set(mensasInGroup('Central').map((m) => m.id));
   }
@@ -156,18 +138,14 @@ function validatePrefsAgainstData() {
   savePrefs();
 }
 
-/* ---------- mensa/group lookup helpers ---------- */
-
 function mensaById(id) {
   return data.mensas.find((m) => m.id === id) || null;
 }
 
-/** All mensas belonging to a default group (data order). */
 function mensasInGroup(group) {
   return data.mensas.filter((m) => m.group === group);
 }
 
-/** Member ids of a group row — default group or custom group. */
 function groupMembers(name) {
   if (prefs.customGroups[name]) return prefs.customGroups[name];
   return mensasInGroup(name).map((m) => m.id);
@@ -177,7 +155,6 @@ function groupMembers(name) {
    5. Formatting helpers
    ------------------------------------------------------------ */
 
-/** Escape text for safe injection into innerHTML. */
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -196,24 +173,17 @@ function fmtNum(v) {
   return String(n);
 }
 
-/** Nutrition table cell: value + unit (kcal unitless). */
 function fmtCell(v, key) {
   if (v == null || v === '') return '';
   return fmtNum(v) + (key === 'kcal' ? ' kcal' : ' g');
 }
 
-/**
- * One nutrition segment for the raw text, e.g.
- * "kcal=152.0, protein=5.3g, fat=9.9g" (empty string when no data).
- * Matches the backend: falsy values are skipped, kcal has no unit,
- * everything else gets "g". weight is only included in total.
- */
 function nutriSegment(nutr, includeWeight) {
   const parts = [];
   for (const key of NUTRI_KEYS) {
     if (key === 'weight' && !includeWeight) continue;
     const v = nutr[key];
-    if (!v) continue; // skips null/undefined/0/''/NaN — same as backend
+    if (!v) continue;
     parts.push(key + '=' + fmtNum(v) + (key === 'kcal' ? '' : 'g'));
   }
   return parts.join(', ');
@@ -247,7 +217,6 @@ function dishRawLine(m, d) {
     (segs.length ? ' | ' + segs.join(' | ') : ' | nutrition=N/A');
 }
 
-/** Filtered raw text: selected mensas, current meal slot only. */
 function buildRawText() {
   const lines = [];
   for (const m of data.mensas) {
@@ -257,26 +226,102 @@ function buildRawText() {
   return lines.join('\n');
 }
 
-/** "Friday, August 7" from the DATE_STR placeholder (deploy replaces it). */
 function formatDate(iso) {
   let d = new Date(iso + 'T00:00:00');
-  if (isNaN(d.getTime())) d = new Date(); // placeholder not replaced yet
+  if (isNaN(d.getTime())) d = new Date();
   return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 }
 
 /* ------------------------------------------------------------
-   6. Rendering
+   6. Theme (koharu: class-based dark + View Transitions sweep)
    ------------------------------------------------------------ */
 
-/** Full re-render of everything derived from state. */
+function applyTheme(dark) {
+  const root = document.documentElement;
+  root.classList.toggle('dark', dark);
+  root.dataset.theme = dark ? 'dark' : 'light';
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+  const input = document.querySelector('#theme-toggle .toggle-input');
+  if (input) input.checked = dark;
+}
+
+function initTheme() {
+  const btn = document.getElementById('theme-toggle');
+  applyTheme(document.documentElement.classList.contains('dark')); // sync the checkbox
+
+  btn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = !root.classList.contains('dark');
+    root.classList.add('theme-transition');
+
+    if (document.startViewTransition) {
+      document.startViewTransition(() => applyTheme(dark))
+        .finished.finally(() => root.classList.remove('theme-transition'));
+    } else {
+      applyTheme(dark);
+      setTimeout(() => root.classList.remove('theme-transition'), 100);
+    }
+  });
+}
+
+/* ------------------------------------------------------------
+   7. Scroll progress + header reveal (koharu)
+   ------------------------------------------------------------ */
+
+function initProgress() {
+  const bar = document.getElementById('progress');
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+
+function initHeader() {
+  const header = document.getElementById('site-header');
+  const onScroll = () => header.classList.toggle('with-background', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+/* ------------------------------------------------------------
+   8. Effects preferences (koharu wave-off / motion-off)
+   ------------------------------------------------------------ */
+
+function initPrefs() {
+  const wave = localStorage.getItem('site-wave') !== 'false';
+  const motion = localStorage.getItem('site-motion') !== 'false';
+  const root = document.documentElement;
+  root.classList.toggle('wave-off', !wave);
+  root.classList.toggle('motion-off', !motion);
+
+  const w = document.getElementById('wave-toggle');
+  const m = document.getElementById('motion-toggle');
+  w.checked = wave;
+  m.checked = motion;
+  w.addEventListener('change', () => {
+    root.classList.toggle('wave-off', !w.checked);
+    localStorage.setItem('site-wave', String(w.checked));
+  });
+  m.addEventListener('change', () => {
+    root.classList.toggle('motion-off', !m.checked);
+    localStorage.setItem('site-motion', String(m.checked));
+  });
+}
+
+/* ------------------------------------------------------------
+   9. Rendering
+   ------------------------------------------------------------ */
+
 function renderAll() {
   updateSegmented();
   renderSelector();
   renderContent();
   updateRawText();
 }
-
-/* ---------- selector: mensa list (left column) ---------- */
 
 function renderSelector() {
   renderMensaList();
@@ -297,8 +342,6 @@ function renderMensaList() {
   container.innerHTML = data.mensas.map(mensaRowHTML).join('');
 }
 
-/** In-place update of every mensa row (preserves scroll position).
-    The filled dot is drawn by CSS (.mensa-check::after) — no text. */
 function refreshMensaRows() {
   document.querySelectorAll('.mensa-row').forEach((row) => {
     const sel = prefs.selected.has(row.dataset.mensa);
@@ -307,11 +350,7 @@ function refreshMensaRows() {
   });
 }
 
-/* ---------- selector: group chips (horizontal filter chips) ---------- */
-
 function groupRowHTML(g) {
-  // Material-style filter chip: click applies the group (replaces the
-  // current selection with its members); custom chips carry a delete (x).
   const count = g.members.length;
   return '<button class="group-chip' + (g.custom ? ' custom' : '') + '" type="button"' +
     (count ? '' : ' disabled') +
@@ -327,7 +366,6 @@ function groupRowHTML(g) {
 function renderGroupList() {
   const container = document.querySelector('.group-rows');
 
-  // Default groups in fixed order, then any data groups not listed, then custom.
   const known = new Set(DEFAULT_GROUPS);
   const groups = DEFAULT_GROUPS.map((name) => ({ name, members: mensasInGroup(name).map((m) => m.id), custom: false }));
   for (const m of data.mensas) {
@@ -343,12 +381,8 @@ function renderGroupList() {
   container.innerHTML = groups.map(groupRowHTML).join('');
 }
 
-/* ---------- content: mensa sections ---------- */
-
 function dishHTML(d) {
   const nutrition = d.nutrition || { p100: {}, total: {} };
-  // The label is dropped when it duplicates the dish name (Rice Up!
-  // publishes "Rice Up! Bowl" as both line and dish).
   const line = String(d.line || '').trim();
   const dish = String(d.dish || '').trim();
   const label = line && line.toLowerCase() !== dish.toLowerCase() ? line : '';
@@ -382,9 +416,8 @@ function nutritionTableHTML(nutrition) {
 function mensaSectionHTML(m) {
   const dishes = m.meals[prefs.meal];
   const collapsed = prefs.collapsedMensas.has(m.id);
+  const emoji = GROUP_EMOJI[m.group] || '✨';
 
-  // .mensa-dishes is the collapsible body (inline styles are the
-  // functional fallback for the max-height animation).
   const bodyStyle = 'overflow:hidden;transition:max-height .35s ease' + (collapsed ? ';max-height:0' : '');
   const body = '<div class="mensa-dishes" style="' + bodyStyle + '">' +
     (dishes.length
@@ -395,6 +428,7 @@ function mensaSectionHTML(m) {
   return '<section class="mensa-section' + (collapsed ? ' collapsed' : '') + '" data-mensa="' + esc(m.id) + '">' +
     '<h2 class="mensa-title" role="button" tabindex="0" aria-expanded="' + !collapsed + '">' +
     '<span class="mensa-caret" aria-hidden="true"></span>' +
+    '<span aria-hidden="true">' + emoji + '</span>' +
     esc(m.name) +
     '</h2>' + body +
     '</section>';
@@ -415,7 +449,7 @@ function renderContent() {
 
 function updateSegmented() {
   const seg = document.querySelector('.segmented');
-  if (seg) seg.dataset.meal = prefs.meal;   // CSS [data-meal=...] drives the thumb
+  if (seg) seg.dataset.meal = prefs.meal;
   document.querySelectorAll('.seg-option').forEach((btn) => {
     const active = btn.dataset.meal === prefs.meal;
     btn.classList.toggle('active', active);
@@ -423,14 +457,6 @@ function updateSegmented() {
   });
 }
 
-/**
- * Keep the CSS-driven thumb in sync. Best practice for a segmented
- * control: the thumb is a fixed-width pill at the track origin and the
- * active state is expressed purely via CSS transform (translateX 0%→100%)
- * keyed off the container's data-meal attribute. No inline geometry —
- * measuring offsets here would fight the CSS transition and cause
- * double-shift (the bug this replaces).
- */
 function positionThumb() {
   const seg = document.querySelector('.segmented');
   if (seg) seg.dataset.meal = prefs.meal;
@@ -454,7 +480,7 @@ function expandBody(body) {
       body.removeEventListener('transitionend', onEnd);
     }
   };
-  body._onExpandEnd = onEnd; // so an interrupted expand can be cleaned up
+  body._onExpandEnd = onEnd;
   body.addEventListener('transitionend', onEnd);
 }
 
@@ -464,17 +490,15 @@ function collapseBody(body) {
     body._onExpandEnd = null;
   }
   body.style.maxHeight = body.scrollHeight + 'px';
-  void body.offsetHeight; // force reflow so the transition actually runs
+  void body.offsetHeight;
   body.style.maxHeight = '0px';
 }
 
 /* ------------------------------------------------------------
-   7. Event handlers
+   10. Event handlers
    ------------------------------------------------------------ */
 
 function bindEvents() {
-  // The single hamburger both opens AND closes the drawer (it slides to
-  // the top-right corner while open, so it stays visible/tappable).
   document.getElementById('menu-btn').addEventListener('click', toggleSelector);
   document.querySelector('.segmented').addEventListener('click', onSegmentedClick);
 
@@ -496,9 +520,8 @@ function bindEvents() {
   document.getElementById('copy-btn').addEventListener('click', copyRaw);
 
   window.addEventListener('resize', positionThumb);
-  window.addEventListener('load', positionThumb); // fonts/layout settle
+  window.addEventListener('load', positionThumb);
 
-  // Esc closes the drawer (accessibility best practice).
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
       closeSelector();
@@ -506,9 +529,6 @@ function bindEvents() {
   });
 }
 
-/** Hamburger: slide the #selector drawer in/out.
-    Mobile: the .app content is pushed aside (CSS body.menu-open .app).
-    Desktop: the drawer overlays the left margin. */
 function toggleSelector() {
   const open = document.body.classList.toggle('menu-open');
   setSelectorOpen(open);
@@ -526,19 +546,12 @@ function setSelectorOpen(open) {
   panel.classList.toggle('open', open);
   panel.setAttribute('aria-hidden', String(!open));
   document.getElementById('menu-btn').setAttribute('aria-expanded', String(open));
-  // Scroll lock while the drawer is open (Bootstrap-offcanvas pattern).
-  // Prevents background scrolling that breaks position:fixed on iOS
-  // (drawer would "jump" to the scroll position instead of the left edge).
-  // On close, the lock is removed ONLY after the slide-out finishes:
-  // removing it mid-animation forces a full layout reflow that janks the
-  // return transition (the "return sticks" bug).
   const root = document.documentElement;
   if (open) {
     clearTimeout(unlockScrollTimer);
     root.classList.add('scroll-locked');
   } else {
     clearTimeout(unlockScrollTimer);
-    // 320ms > 300ms transition + small margin; cleared on reopen.
     unlockScrollTimer = setTimeout(() => root.classList.remove('scroll-locked'), 320);
   }
 }
@@ -548,8 +561,8 @@ function onSegmentedClick(e) {
   if (!btn || btn.dataset.meal === prefs.meal) return;
   prefs.meal = btn.dataset.meal;
   savePrefs();
-  updateSegmented(); // animates the thumb
-  renderContent();   // only this meal slot's dishes
+  updateSegmented();
+  renderContent();
   updateRawText();
 }
 
@@ -574,26 +587,19 @@ function toggleMensa(id) {
   renderGroupList();
   renderContent();
   updateRawText();
-  // NOTE: no auto-close — the drawer stays usable for multi-select;
-  // the user closes it via the hamburger (slides back to the top-left).
 }
 
 function onGroupsClick(e) {
-  // The chip's (x) deletes a custom group without applying it.
   const x = e.target.closest('.chip-x');
   if (x) {
     const chip = x.closest('.group-chip');
     if (chip) deleteCustomGroup(chip.dataset.group);
     return;
   }
-  // Clicking a chip applies the group: the selection is replaced by
-  // that group's members.
   const chip = e.target.closest('.group-chip');
   if (chip) applyGroup(chip.dataset.group);
 }
 
-/** Apply a group (default or custom): REPLACE the current selection
-    with the group's members (not a union). */
 function applyGroup(name) {
   const members = groupMembers(name);
   if (!members.length) return;
@@ -603,8 +609,6 @@ function applyGroup(name) {
   renderGroupList();
   renderContent();
   updateRawText();
-  // NOTE: no auto-close (same as toggleMensa) — drawer stays usable
-  // until the user closes it via the hamburger.
 }
 
 function deleteCustomGroup(name) {
@@ -613,8 +617,6 @@ function deleteCustomGroup(name) {
   renderGroupList();
 }
 
-/** Create a custom group whose members = currently selected mensas.
-    Recreating with an existing name redefines its members (update). */
 function addCustomGroup() {
   const input = document.getElementById('group-input');
   const name = input.value.trim();
@@ -654,7 +656,6 @@ function onContentKeydown(e) {
   toggleSection(title.closest('.mensa-section'));
 }
 
-/** Collapse/expand one mensa section; state persists in prefs. */
 function toggleSection(section) {
   const id = section.dataset.mensa;
   const collapsed = prefs.collapsedMensas.has(id);
@@ -693,7 +694,6 @@ function copyRaw() {
   }
 }
 
-/** execCommand fallback for older browsers / non-secure contexts. */
 function fallbackCopy(btn) {
   const ta = document.createElement('textarea');
   ta.value = rawFiltered;
@@ -705,7 +705,7 @@ function fallbackCopy(btn) {
     document.execCommand('copy');
     flashCopied(btn);
   } catch (err) {
-    /* ignore — nothing sensible to do */
+    /* ignore */
   }
   document.body.removeChild(ta);
 }
@@ -721,13 +721,18 @@ function flashCopied(btn) {
 }
 
 /* ------------------------------------------------------------
-   8. Boot
+   11. Boot
    ------------------------------------------------------------ */
 
 async function init() {
   document.getElementById('date-heading').textContent = formatDate(DATE_STR);
+  document.getElementById('hero-date').textContent = formatDate(DATE_STR);
   bindEvents();
   prefs = loadPrefs();
+  initTheme();
+  initProgress();
+  initHeader();
+  initPrefs();
 
   try {
     const json = await fetchData();
@@ -739,11 +744,6 @@ async function init() {
     console.error(err);
     document.getElementById('content').innerHTML =
       '<div class="error">Failed to load menu data. Please try again later.</div>';
-  }
-
-  // Re-position the thumb once webfonts settle (widths may shift).
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => positionThumb()).catch(() => {});
   }
 }
 

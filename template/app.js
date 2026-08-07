@@ -42,6 +42,8 @@ const NUTRITION_ROWS = [
 
 const EMPTY_MEALS_TEXT = 'No meals today ✨';
 const GROUP_EMOJI = { Central: '🏛️', Hoengg: '🌊', Irchel: '🌿', Oerlikon: '🚂', Other: '✨' };
+// Kami news-head pattern: each group gets a semantic color capsule.
+const GROUP_COLOR = { Central: 'Central', Hoengg: 'Hoengg', Irchel: 'Irchel', Oerlikon: 'Oerlikon', Other: 'Other' };
 
 /* ------------------------------------------------------------
    2. App state
@@ -265,7 +267,7 @@ function initTheme() {
 }
 
 /* ------------------------------------------------------------
-   7. Scroll progress + header reveal (koharu)
+   7. Scroll behaviors (kami: direction hide + glass depth)
    ------------------------------------------------------------ */
 
 function initProgress() {
@@ -280,11 +282,113 @@ function initProgress() {
   update();
 }
 
+/**
+ * Kami header behavior:
+ * - scroll down -> .hide (slide away), scroll up -> reveal
+ * - glass opacity maps scroll depth (--header-glass-opacity on html)
+ */
 function initHeader() {
   const header = document.getElementById('site-header');
-  const onScroll = () => header.classList.toggle('with-background', window.scrollY > 40);
+  const hero = document.getElementById('hero');
+  let lastY = 0;
+
+  const onScroll = () => {
+    const y = window.scrollY;
+    // Glass depth: fully opaque once the hero top is scrolled past.
+    const heroH = hero ? hero.offsetHeight : 0;
+    const t = heroH > 0 ? Math.min(y / heroH, 1) : (y > 40 ? 1 : 0);
+    document.documentElement.style.setProperty('--header-glass-opacity', String(t));
+
+    // Direction hide: skip while the drawer is open (no jump).
+    if (document.body.classList.contains('menu-open')) { lastY = y; return; }
+    if (y > lastY + 4 && y > 120) header.classList.add('hide');
+    else if (y < lastY - 4 || y <= 40) header.classList.remove('hide');
+    lastY = y;
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+}
+
+/* ------------------------------------------------------------
+   7b. Kami entry animations (vanilla: IO + rAF, no framer-motion)
+   ------------------------------------------------------------ */
+
+let dishObserver = null;
+
+/** BottomToUp entry: add .entered once a card enters the viewport. */
+function observeDishEntries(root) {
+  const cards = root.querySelectorAll('.dish:not(.entered)');
+  if (!cards.length) return;
+
+  if (document.documentElement.classList.contains('motion-off') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      typeof IntersectionObserver === 'undefined') {
+    cards.forEach((c) => c.classList.add('entered'));
+    return;
+  }
+
+  if (!dishObserver) {
+    dishObserver = new IntersectionObserver((entries) => {
+      for (const en of entries) {
+        if (en.isIntersecting) {
+          en.target.classList.add('entered');
+          dishObserver.unobserve(en.target);
+        }
+      }
+    }, { rootMargin: '0px 0px -48px 0px', threshold: 0.05 });
+  }
+  cards.forEach((c) => dishObserver.observe(c));
+}
+
+/**
+ * Kami NumberTransition (vanilla rAF): roll numeric cells (e.g. Energy)
+ * from 0 to their target with an ease-out cubic. Skips non-numeric cells.
+ */
+function animateNumbers(root) {
+  if (document.documentElement.classList.contains('motion-off') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  const cells = root.querySelectorAll('.n-val');
+  for (const el of cells) {
+    const text = el.textContent.trim();
+    const m = text.match(/^([\d.]+)(.*)$/);
+    if (!m) continue;
+    const target = parseFloat(m[1]);
+    const unit = m[2];
+    const hasDecimal = text.includes('.');
+    const dur = 600;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = (hasDecimal ? val.toFixed(1) : String(Math.round(val))) + unit;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+}
+
+/** Kami TextUp: wrap each hero-title char in span.char with --i delay. */
+function initHeroTitle() {
+  const title = document.querySelector('.hero-title');
+  if (!title) return;
+  const text = title.textContent;
+  if (document.documentElement.classList.contains('motion-off') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return; // leave the plain text visible
+  }
+  title.textContent = '';
+  Array.from(text).forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = 'char';
+    span.style.setProperty('--i', String(i));
+    span.textContent = ch;
+    title.appendChild(span);
+  });
+  // Kick the stagger on next frame (fonts/layout settled).
+  requestAnimationFrame(() => requestAnimationFrame(() => title.classList.add('entered')));
 }
 
 /* ------------------------------------------------------------
@@ -381,12 +485,12 @@ function renderGroupList() {
   container.innerHTML = groups.map(groupRowHTML).join('');
 }
 
-function dishHTML(d) {
+function dishHTML(d, i) {
   const nutrition = d.nutrition || { p100: {}, total: {} };
   const line = String(d.line || '').trim();
   const dish = String(d.dish || '').trim();
   const label = line && line.toLowerCase() !== dish.toLowerCase() ? line : '';
-  return '<div class="dish">' +
+  return '<div class="dish" style="--i:' + (i || 0) + '">' +
     '<div class="dish-main">' +
     (label ? '<div class="dish-label">' + esc(label) + '</div>' : '') +
     '<h3 class="dish-name">' + esc(dish) + '</h3>' +
@@ -413,22 +517,26 @@ function nutritionTableHTML(nutrition) {
     '</table>';
 }
 
-function mensaSectionHTML(m) {
+function mensaSectionHTML(m, sectionIndex) {
   const dishes = m.meals[prefs.meal];
   const collapsed = prefs.collapsedMensas.has(m.id);
   const emoji = GROUP_EMOJI[m.group] || '✨';
+  const color = GROUP_COLOR[m.group] || 'Other';
+  // Stagger: dishes after the first fold (sections below the fold
+  // animate on scroll anyway) — cap so long lists don't feel endless.
+  const base = Math.min((sectionIndex || 0) * 3, 9);
 
   const bodyStyle = 'overflow:hidden;transition:max-height .35s ease' + (collapsed ? ';max-height:0' : '');
   const body = '<div class="mensa-dishes" style="' + bodyStyle + '">' +
     (dishes.length
-      ? dishes.map(dishHTML).join('')
+      ? dishes.map((d, i) => dishHTML(d, base + i)).join('')
       : '<div class="no-meals">' + EMPTY_MEALS_TEXT + '</div>') +
     '</div>';
 
   return '<section class="mensa-section' + (collapsed ? ' collapsed' : '') + '" data-mensa="' + esc(m.id) + '">' +
-    '<h2 class="mensa-title" role="button" tabindex="0" aria-expanded="' + !collapsed + '">' +
+    '<h2 class="mensa-title" role="button" tabindex="0" aria-expanded="' + !collapsed + '"' +
+    ' data-emoji="' + esc(emoji) + '" data-group-color="' + esc(color) + '">' +
     '<span class="mensa-caret" aria-hidden="true"></span>' +
-    '<span aria-hidden="true">' + emoji + '</span>' +
     esc(m.name) +
     '</h2>' + body +
     '</section>';
@@ -443,6 +551,10 @@ function renderContent() {
     return;
   }
   content.innerHTML = selected.map(mensaSectionHTML).join('');
+  // Kami BottomToUp entry: observe cards, animate once on first sight.
+  observeDishEntries(content);
+  // Kami NumberTransition: roll Energy figures up on render.
+  animateNumbers(content);
 }
 
 /* ---------- segmented switch + sliding thumb ---------- */
@@ -733,6 +845,7 @@ async function init() {
   initProgress();
   initHeader();
   initPrefs();
+  initHeroTitle();
 
   try {
     const json = await fetchData();

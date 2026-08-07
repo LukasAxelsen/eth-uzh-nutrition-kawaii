@@ -79,6 +79,31 @@
   --shadow-card-darker: 0 0 2rem var(--box-bg-shadow);
   --content-w: 980px;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* spring rebound easing (kami motion: playful but fast) */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* kami semantic colors (imported from mx-space/kami variables.css) */
+  --red: rgb(255, 59, 48);
+  --yellow: #ffc107;
+  --blue: #6495ed;
+  --green: #39c5bb;
+  --brown: #795548;
+  --light-brown: #67492e;
+  --purple: #8a2be2;
+  --shallow: #eee;
+  --pink-kami: #eb445a;
+
+  /* kami iOS gray scale (hierarchy) */
+  --gray-1: #8e8e93;
+  --gray-2: #aeaeb2;
+  --gray-3: rgb(199, 199, 204);
+  --gray-4: rgb(209, 209, 214);
+  --gray-5: rgb(229, 229, 234);
+  --gray-6: rgb(242, 242, 247);
+
+  /* kami glass: translucent surface for floating layers */
+  --bg-opacity: rgba(255, 255, 255, 0.72);
+  --header-glass-opacity: 0;
 
   /* fonts */
   --font-display: "ZCOOL KuaiLe", "Yuanti SC", "YouYuan", "PingFang SC", sans-serif;
@@ -145,6 +170,26 @@
   --color-blue: #60a5fa;
   --color-purple: #c084fc;
   --color-grey: #9ca3af;
+
+  /* kami semantic colors (dark remap, brightened) */
+  --red: rgb(255, 69, 58);
+  --blue: #6495ed;
+  --green: #1f8f93;
+  --yellow: #ffc107;
+  --brown: #c6aa9f;
+  --purple: #b260ea;
+  --pink-kami: #eb4b63;
+  --shallow: #333;
+
+  /* kami iOS gray scale (dark) */
+  --gray-2: rgb(99, 99, 102);
+  --gray-3: rgb(72, 72, 74);
+  --gray-4: rgb(58, 58, 60);
+  --gray-5: rgb(44, 44, 46);
+  --gray-6: rgb(28, 28, 30);
+
+  /* kami glass (dark) */
+  --bg-opacity: rgba(29, 29, 31, 0.72);
 }
 
 /* ============================================================
@@ -214,28 +259,32 @@ html.scroll-locked { overflow: hidden; }
 }
 
 /* ============================================================
-   5. Header (koharu slim bar with gradient reveal on scroll)
+   5. Header (kami glass bar: blur + scroll-driven opacity + hide)
    ============================================================ */
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 150;
+  height: 56px;
   transition: transform 0.3s var(--ease);
 }
+.site-header.hide { transform: translateY(-100%); }
 
-/* Pseudo-element for gradient background with opacity transition */
+/* Glass layer (kami pattern): backdrop blur + translucent bg,
+   opacity driven by scroll depth via --header-glass-opacity. */
 .site-header::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--gradient-header);
-  opacity: 0;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--bg-opacity);
+  border-bottom: 1px solid rgb(187 187 187 / 20%);
+  opacity: var(--header-glass-opacity, 0);
   transition: opacity 0.3s ease-out;
   pointer-events: none;
 }
-
-.site-header.with-background::before { opacity: 1; }
 
 .header-inner {
   max-width: var(--content-w);
@@ -271,6 +320,12 @@ html.scroll-locked { overflow: hidden; }
   transition: transform 0.3s ease;
 }
 .theme-toggle:hover { transform: translateY(-50%) scale(1.1); }
+
+/* Glass fallback for browsers without backdrop-filter (kami pattern) */
+@supports not (backdrop-filter: blur(1px)) {
+  :root { --bg-opacity: #fff; }
+  .dark { --bg-opacity: rgba(29, 29, 31, 0.98); }
+}
 
 /* ============================================================
    6. Hero cover + parallax wave (koharu Cover + wave.css)
@@ -308,6 +363,22 @@ html.scroll-locked { overflow: hidden; }
   -webkit-text-fill-color: transparent;
   color: transparent;
   text-shadow: 0 0.4rem 1.2rem var(--color-pink-a3);
+}
+
+/* Kami TextUp pattern: char-by-char rise with staggered delay.
+   JS wraps each char in span.char; inline --i drives the delay. */
+.hero-title .char {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  transform: translateY(10px);
+}
+.hero-title.entered .char {
+  animation: char-up 0.55s var(--spring) forwards;
+  animation-delay: calc(var(--i) * 45ms);
+}
+@keyframes char-up {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-sub {
@@ -538,26 +609,51 @@ html.theme-transition #site-header { view-transition-name: none; }
 
 .mensa-section { display: flex; flex-direction: column; gap: 0.9rem; }
 
+/* Kami news-head pattern: colored capsule title with emoji slot.
+   Group -> color mapping set via data-group-color (JS). */
 .mensa-title {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   gap: 0.6rem;
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 4vw, 1.7rem);
-  color: hsl(var(--primary));
+  font-size: clamp(1.1rem, 3.4vw, 1.4rem);
+  font-weight: 400;
+  color: #fff;
+  background: var(--purple);
+  border-radius: 1em;
+  padding: 0.55em 1.6em 0.55em 3.2em;
   cursor: pointer;
   user-select: none;
-  padding: 0.25rem 0;
-  transition: color 0.3s ease;
+  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
-.mensa-title:hover { color: hsl(var(--primary) / 0.85); }
+.mensa-title:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+/* Emoji icon slot (kami: darker chip inside the capsule) */
+.mensa-title::before {
+  content: attr(data-emoji);
+  position: absolute;
+  left: 0.55em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* Group accent colors (kami semantic palette) */
+.mensa-title[data-group-color="Central"] { background: var(--purple); }
+.mensa-title[data-group-color="Hoengg"] { background: var(--blue); }
+.mensa-title[data-group-color="Irchel"] { background: var(--green); }
+.mensa-title[data-group-color="Oerlikon"] { background: var(--red); }
+.mensa-title[data-group-color="Other"] { background: var(--gray-1); }
 
 .mensa-caret {
   display: inline-block;
-  width: 0.6em;
-  height: 0.6em;
-  border-right: 2.5px solid currentColor;
-  border-bottom: 2.5px solid currentColor;
+  width: 0.5em;
+  height: 0.5em;
+  border-right: 2.5px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 2.5px solid rgba(255, 255, 255, 0.85);
   transform: rotate(45deg);
   transition: transform 0.3s var(--ease);
   flex-shrink: 0;
@@ -583,7 +679,27 @@ html.theme-transition #site-header { view-transition-name: none; }
   border-radius: var(--radius);
   padding: 1.1rem 1.4rem 1.1rem 1.6rem;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease,
+              opacity 0.55s var(--spring), translate 0.55s var(--spring);
+}
+
+/* Kami BottomToUp entry: cards rise with a spring ease and stagger
+   (--i set per card by JS; observed once via IntersectionObserver).
+   The entry delay applies ONLY to opacity/translate, so hover
+   effects (transform/shadow) stay instant. */
+.dish:not(.entered) {
+  opacity: 0;
+  translate: 0 2rem;
+}
+.dish.entered {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.55s var(--spring) calc(var(--i, 0) * 55ms),
+    translate 0.55s var(--spring) calc(var(--i, 0) * 55ms);
 }
 
 /* koharu gradient bar on the left edge */
@@ -667,6 +783,14 @@ html.theme-transition #site-header { view-transition-name: none; }
 .n-label { color: hsl(var(--muted-foreground)); }
 .n-val { color: hsl(var(--foreground)); }
 
+/* Kami data display: the Energy figure is the hero number of a dish */
+.nutrition-table tbody tr:first-child .n-val:not(:empty) {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: hsl(var(--primary));
+}
+
 /* ============================================================
    12. Selector drawer (koharu-styled, iOS push pattern)
    ============================================================ */
@@ -675,8 +799,11 @@ html.theme-transition #site-header { view-transition-name: none; }
   top: 0; left: 0; bottom: 0;
   width: min(380px, 100vw);
   z-index: 200;
-  background: hsl(var(--card));
-  border-right: 1px solid hsl(var(--border));
+  /* Kami glass drawer: translucent panel over the fixed background */
+  background: var(--bg-opacity);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid rgb(187 187 187 / 20%);
   box-shadow: var(--shadow-card-darker);
   transform: translateX(-100%);
   transition: transform 0.3s var(--ease);
@@ -1013,12 +1140,25 @@ html.motion-off .loading-emoji,
 html.motion-off .wave .parallax > use {
   animation: none;
 }
+html.motion-off .hero-title .char,
+html.motion-off .dish:not(.entered) {
+  opacity: 1;
+  translate: 0 0;
+  animation: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .hero-float,
   .loading-emoji,
-  .wave .parallax > use {
+  .wave .parallax > use,
+  .hero-title .char {
     animation: none !important;
+  }
+  .hero-title .char,
+  .dish:not(.entered) {
+    opacity: 1 !important;
+    translate: 0 0 !important;
+    transition-duration: 0.01ms !important;
   }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;

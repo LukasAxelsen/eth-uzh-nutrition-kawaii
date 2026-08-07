@@ -31,7 +31,9 @@ One line per dish: `NAME/SLOT: line — dish | desc | per100g: kcal=152.0, prote
 ## DOM class contract (frontend generates, design styles)
 ```
 .progress (fixed top scroll bar, gradient)
-header.site-header#site-header (fixed; ::before gradient reveal; .with-background when scrolled)
+header.site-header#site-header (fixed 56px kami glass bar; .hide slides away on scroll down;
+  ::before = backdrop-filter blur(20px) saturate(180%) + var(--bg-opacity), opacity driven by
+  --header-glass-opacity set on <html> by JS scroll-depth mapping)
   .header-inner
     span.header-date#date-heading
     .segmented (Lunch/Dinner switch, sliding .seg-thumb keyed off [data-meal])
@@ -39,26 +41,33 @@ header.site-header#site-header (fixed; ::before gradient reveal; .with-backgroun
     button.theme-toggle#theme-toggle
       .toggle > input.toggle-input + .toggle-indicator (sun/moon morph)
 section.hero (cover; #hero-date; .hero-float-1/2/3 decorative emoji)
+  h1.hero-title (JS wraps chars in span.char with --i; .entered kicks the stagger)
   .wave-wrap > svg.wave > g.parallax > use x3 (koharu wave)
 main#content
   section.mensa-section (collapsible: click .mensa-title toggles; .collapsed)
-    h2.mensa-title (with .mensa-caret + group emoji span)
+    h2.mensa-title (kami capsule: data-emoji -> ::before emoji slot, data-group-color ->
+      semantic bg Central=purple Hoengg=blue Irchel=green Oerlikon=red Other=gray; .mensa-caret)
     .mensa-dishes
-      .dish (card; ::before gradient bar)
+      .dish (card; ::before gradient bar; --i stagger index; .entered via IntersectionObserver
+        BottomToUp entry; opacity/translate transition only)
         .dish-main (.dish-label, .dish-name, .dish-desc)
-        .nutrition-col > table.nutrition-table (thead Nutrition|per 100g|Total; tbody 9 fixed rows)
+        .nutrition-col > table.nutrition-table (thead Nutrition|per 100g|Total; tbody 9 fixed rows;
+          first data row Energy rendered large via font-display; .n-val numbers roll via rAF)
 .raw-section (#raw-toggle button, #raw-panel with #copy-btn, #raw-text)
 footer.footer
-#selector (drawer; body.menu-open .app slides; .selector-columns > .selector-pane x2)
+#selector (glass drawer; body.menu-open .app slides; .selector-columns > .selector-pane x2)
   .selector-mensas > .mensa-row (.mensa-check + .mensa-label, .selected)
   .selector-groups > .group-rows > button.group-chip (.chip-name/.chip-count/.chip-x) + .group-add
   .selector-prefs > label.pref (#wave-toggle, #motion-toggle)
 button.menu-btn#menu-btn (body-level fixed, slides top-right when body.menu-open)
 ```
 - Theme: html.dark class + data-theme attr; html.theme-transition during View-Transitions sweep
-- Effects prefs: html.wave-off (hide wave), html.motion-off (stop decorative animations)
+- Effects prefs: html.wave-off (hide wave), html.motion-off (stop decorative animations incl.
+  hero chars / dish entry / number roll — those also fall back under prefers-reduced-motion)
+- Glass: --bg-opacity (0.72 alpha, @supports fallback to solid) + backdrop-filter; used by
+  header + drawer
 - Mensa row selected style: gradient-filled check dot
-- Dark mode via `.dark` class (tokens in style.css); responsive at 768px/992px/480px
+- Responsive at 768px/992px/480px
 
 ## localStorage key: "eth-uzh-nutrition-prefs"
 ```json

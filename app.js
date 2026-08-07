@@ -1,11 +1,23 @@
 /* ============================================================
    Mensa Kawaii — frontend logic (vanilla JS)
-   koharu design system port. Keeps the proven data layer from
-   the original eth-uzh-nutrition site (selection, groups, raw
-   text byte-identical with index.txt) and adds koharu
-   interactions: theme toggle with View-Transitions gradient
-   sweep, scroll progress, header gradient reveal, wave/motion
-   preferences.
+
+   Extracted patterns:
+   - kami: glass-header opacity formula (threshold 50, 0.01 steps),
+     hide-on-mobile-past-first-screen, dark-mode detector (storage +
+     media query + storage event), bottom-to-up entry (spring), number
+     transition, TextUp char animation
+   - koharu: View-Transitions theme sweep, sun/moon toggle sync,
+     scroll progress, wave-off / motion-off preference classes
+
+   Reliability contract (this rewrite fixes the previous version):
+   1. PROGRESSIVE ENHANCEMENT — html.js is added on boot; every
+      JS-gated hidden state in style.css lives under html.js. If this
+      script fails or is disabled, all content stays visible.
+   2. safeStorage — every localStorage access is wrapped; private
+      mode / disabled storage can never break the init chain.
+   3. Module isolation — each init() step is independently
+      try/catch'd; one failure never blocks data rendering.
+   4. Raw copy stays byte-identical with index.txt (backend contract).
 
    DOM contract: class names in CONTRACT.md are mandatory.
    ============================================================ */
@@ -13,7 +25,12 @@
 'use strict';
 
 /* ------------------------------------------------------------
-   1. Constants & configuration
+   1. Boot guard: announce JS to the stylesheet FIRST.
+   ------------------------------------------------------------ */
+document.documentElement.classList.add('js');
+
+/* ------------------------------------------------------------
+   2. Constants & configuration
    ------------------------------------------------------------ */
 
 // Replaced at deploy time (e.g. "2026-08-07"). Keep the token verbatim.
@@ -42,11 +59,25 @@ const NUTRITION_ROWS = [
 
 const EMPTY_MEALS_TEXT = 'No meals today ✨';
 const GROUP_EMOJI = { Central: '🏛️', Hoengg: '🌊', Irchel: '🌿', Oerlikon: '🚂', Other: '✨' };
-// Kami news-head pattern: each group gets a semantic color capsule.
-const GROUP_COLOR = { Central: 'Central', Hoengg: 'Hoengg', Irchel: 'Irchel', Oerlikon: 'Oerlikon', Other: 'Other' };
 
 /* ------------------------------------------------------------
-   2. App state
+   3. Safe storage (kami use-dark-mode-detector hardening)
+   ------------------------------------------------------------ */
+
+const safeStorage = {
+  get(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
+  },
+  remove(key) {
+    try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+  },
+};
+
+/* ------------------------------------------------------------
+   4. App state
    ------------------------------------------------------------ */
 
 let data = null;
@@ -61,14 +92,14 @@ let prefs = {
 let rawFiltered = '';
 
 /* ------------------------------------------------------------
-   3. Persistence (localStorage)
+   5. Persistence (localStorage)
    ------------------------------------------------------------ */
 
 function loadPrefs() {
   const p = { meal: 'Lunch', selected: new Set(), customGroups: {}, collapsedMensas: new Set() };
+  const raw = safeStorage.get(STORAGE_KEY);
+  if (!raw) return p;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return p;
     const parsed = JSON.parse(raw);
     if (parsed.meal === 'Lunch' || parsed.meal === 'Dinner') p.meal = parsed.meal;
     if (Array.isArray(parsed.selected)) p.selected = new Set(parsed.selected.map(String));
@@ -85,20 +116,16 @@ function loadPrefs() {
 }
 
 function savePrefs() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      meal: prefs.meal,
-      selected: Array.from(prefs.selected),
-      customGroups: prefs.customGroups,
-      collapsedMensas: Array.from(prefs.collapsedMensas),
-    }));
-  } catch (err) {
-    console.warn('Could not save prefs.', err);
-  }
+  safeStorage.set(STORAGE_KEY, JSON.stringify({
+    meal: prefs.meal,
+    selected: Array.from(prefs.selected),
+    customGroups: prefs.customGroups,
+    collapsedMensas: Array.from(prefs.collapsedMensas),
+  }));
 }
 
 /* ------------------------------------------------------------
-   4. Data loading & normalization
+   6. Data loading & normalization
    ------------------------------------------------------------ */
 
 async function fetchData() {
@@ -154,7 +181,7 @@ function groupMembers(name) {
 }
 
 /* ------------------------------------------------------------
-   5. Formatting helpers
+   7. Formatting helpers
    ------------------------------------------------------------ */
 
 function esc(s) {
@@ -235,21 +262,31 @@ function formatDate(iso) {
 }
 
 /* ------------------------------------------------------------
-   6. Theme (koharu: class-based dark + View Transitions sweep)
+   8. Theme — koharu sun/moon + View-Transitions sweep,
+      kami dark-detector (storage + media query + storage event)
    ------------------------------------------------------------ */
 
 function applyTheme(dark) {
   const root = document.documentElement;
   root.classList.toggle('dark', dark);
   root.dataset.theme = dark ? 'dark' : 'light';
-  localStorage.setItem('theme', dark ? 'dark' : 'light');
+  safeStorage.set('theme', dark ? 'dark' : 'light');
   const input = document.querySelector('#theme-toggle .toggle-input');
   if (input) input.checked = dark;
 }
 
 function initTheme() {
   const btn = document.getElementById('theme-toggle');
-  applyTheme(document.documentElement.classList.contains('dark')); // sync the checkbox
+  if (!btn) return;
+  applyTheme(document.documentElement.classList.contains('dark')); // sync checkbox
+
+  // koharu ThemeToggle: keep the checkbox in sync with outside changes
+  // (e.g. another tab, storage events) via a MutationObserver.
+  const observer = new MutationObserver(() => {
+    const input = document.querySelector('#theme-toggle .toggle-input');
+    if (input) input.checked = document.documentElement.classList.contains('dark');
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
   btn.addEventListener('click', () => {
     const root = document.documentElement;
@@ -264,14 +301,22 @@ function initTheme() {
       setTimeout(() => root.classList.remove('theme-transition'), 100);
     }
   });
+
+  // kami: cross-tab theme sync via the storage event.
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'theme') applyTheme(e.newValue === 'dark');
+  });
 }
 
 /* ------------------------------------------------------------
-   7. Scroll behaviors (kami: direction hide + glass depth)
+   9. Scroll behaviors — kami HeaderBase formulas
+      opacity: position >= 50 ? 1 : floor((position/50)*100)/100
+      hide: mobile && position > first-screen-height
    ------------------------------------------------------------ */
 
 function initProgress() {
   const bar = document.getElementById('progress');
+  if (!bar) return;
   const update = () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
@@ -282,47 +327,44 @@ function initProgress() {
   update();
 }
 
-/**
- * Kami header behavior:
- * - scroll down -> .hide (slide away), scroll up -> reveal
- * - glass opacity maps scroll depth (--header-glass-opacity on html)
- */
 function initHeader() {
   const header = document.getElementById('site-header');
-  const hero = document.getElementById('hero');
-  let lastY = 0;
+  if (!header) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
   const onScroll = () => {
-    const y = window.scrollY;
-    // Glass depth: fully opaque once the hero top is scrolled past.
-    const heroH = hero ? hero.offsetHeight : 0;
-    const t = heroH > 0 ? Math.min(y / heroH, 1) : (y > 40 ? 1 : 0);
-    document.documentElement.style.setProperty('--header-glass-opacity', String(t));
+    const position = window.scrollY;
 
-    // Direction hide: skip while the drawer is open (no jump).
-    if (document.body.classList.contains('menu-open')) { lastY = y; return; }
-    if (y > lastY + 4 && y > 120) header.classList.add('hide');
-    else if (y < lastY - 4 || y <= 40) header.classList.remove('hide');
-    lastY = y;
+    // Kami useHeaderOpacity: threshold 50px, 0.01 steps, clamp at 1.
+    const threshold = 50;
+    const opacity = position >= threshold ? 1 : Math.floor((position / threshold) * 100) / 100;
+    document.documentElement.style.setProperty('--header-opacity', String(opacity));
+
+    // Kami HeaderBase: hide only on mobile past the first screen height.
+    const overFirstScreen = position > window.innerHeight || position > window.screen.height;
+    header.classList.toggle('hide', isMobile() && overFirstScreen);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
 
 /* ------------------------------------------------------------
-   7b. Kami entry animations (vanilla: IO + rAF, no framer-motion)
+   10. Entry animations — kami pattern, vanilla + progressive
    ------------------------------------------------------------ */
+
+const prefersReducedMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+  document.documentElement.classList.contains('motion-off');
 
 let dishObserver = null;
 
-/** BottomToUp entry: add .entered once a card enters the viewport. */
+/** Kami BottomToUp entry: add .entered once a card enters the viewport. */
 function observeDishEntries(root) {
   const cards = root.querySelectorAll('.dish:not(.entered)');
   if (!cards.length) return;
 
-  if (document.documentElement.classList.contains('motion-off') ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      typeof IntersectionObserver === 'undefined') {
+  if (prefersReducedMotion() || typeof IntersectionObserver === 'undefined') {
     cards.forEach((c) => c.classList.add('entered'));
     return;
   }
@@ -341,15 +383,13 @@ function observeDishEntries(root) {
 }
 
 /**
- * Kami NumberTransition (vanilla rAF): roll numeric cells (e.g. Energy)
- * from 0 to their target with an ease-out cubic. Skips non-numeric cells.
+ * Kami NumberTransition (vanilla rAF): roll the Energy figure of each
+ * dish from 0 to its target. Other cells render their final value
+ * directly (focused motion, no flicker across the table).
  */
-function animateNumbers(root) {
-  if (document.documentElement.classList.contains('motion-off') ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return;
-  }
-  const cells = root.querySelectorAll('.n-val');
+function animateEnergy(root) {
+  if (prefersReducedMotion()) return;
+  const cells = root.querySelectorAll('.nutrition-table tbody tr:first-child .n-val');
   for (const el of cells) {
     const text = el.textContent.trim();
     const m = text.match(/^([\d.]+)(.*)$/);
@@ -373,12 +413,8 @@ function animateNumbers(root) {
 /** Kami TextUp: wrap each hero-title char in span.char with --i delay. */
 function initHeroTitle() {
   const title = document.querySelector('.hero-title');
-  if (!title) return;
+  if (!title || prefersReducedMotion()) return; // plain text stays visible
   const text = title.textContent;
-  if (document.documentElement.classList.contains('motion-off') ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return; // leave the plain text visible
-  }
   title.textContent = '';
   Array.from(text).forEach((ch, i) => {
     const span = document.createElement('span');
@@ -387,37 +423,40 @@ function initHeroTitle() {
     span.textContent = ch;
     title.appendChild(span);
   });
-  // Kick the stagger on next frame (fonts/layout settled).
   requestAnimationFrame(() => requestAnimationFrame(() => title.classList.add('entered')));
 }
 
 /* ------------------------------------------------------------
-   8. Effects preferences (koharu wave-off / motion-off)
+   11. Effects preferences — koharu wave-off / motion-off
    ------------------------------------------------------------ */
 
 function initPrefs() {
-  const wave = localStorage.getItem('site-wave') !== 'false';
-  const motion = localStorage.getItem('site-motion') !== 'false';
+  const wave = safeStorage.get('site-wave') !== 'false';
+  const motion = safeStorage.get('site-motion') !== 'false';
   const root = document.documentElement;
   root.classList.toggle('wave-off', !wave);
   root.classList.toggle('motion-off', !motion);
 
   const w = document.getElementById('wave-toggle');
   const m = document.getElementById('motion-toggle');
-  w.checked = wave;
-  m.checked = motion;
-  w.addEventListener('change', () => {
-    root.classList.toggle('wave-off', !w.checked);
-    localStorage.setItem('site-wave', String(w.checked));
-  });
-  m.addEventListener('change', () => {
-    root.classList.toggle('motion-off', !m.checked);
-    localStorage.setItem('site-motion', String(m.checked));
-  });
+  if (w) {
+    w.checked = wave;
+    w.addEventListener('change', () => {
+      root.classList.toggle('wave-off', !w.checked);
+      safeStorage.set('site-wave', String(w.checked));
+    });
+  }
+  if (m) {
+    m.checked = motion;
+    m.addEventListener('change', () => {
+      root.classList.toggle('motion-off', !m.checked);
+      safeStorage.set('site-motion', String(m.checked));
+    });
+  }
 }
 
 /* ------------------------------------------------------------
-   9. Rendering
+   12. Rendering
    ------------------------------------------------------------ */
 
 function renderAll() {
@@ -443,7 +482,7 @@ function mensaRowHTML(m) {
 
 function renderMensaList() {
   const container = document.querySelector('.selector-mensas');
-  container.innerHTML = data.mensas.map(mensaRowHTML).join('');
+  if (container) container.innerHTML = data.mensas.map(mensaRowHTML).join('');
 }
 
 function refreshMensaRows() {
@@ -469,6 +508,7 @@ function groupRowHTML(g) {
 
 function renderGroupList() {
   const container = document.querySelector('.group-rows');
+  if (!container) return;
 
   const known = new Set(DEFAULT_GROUPS);
   const groups = DEFAULT_GROUPS.map((name) => ({ name, members: mensasInGroup(name).map((m) => m.id), custom: false }));
@@ -521,9 +561,6 @@ function mensaSectionHTML(m, sectionIndex) {
   const dishes = m.meals[prefs.meal];
   const collapsed = prefs.collapsedMensas.has(m.id);
   const emoji = GROUP_EMOJI[m.group] || '✨';
-  const color = GROUP_COLOR[m.group] || 'Other';
-  // Stagger: dishes after the first fold (sections below the fold
-  // animate on scroll anyway) — cap so long lists don't feel endless.
   const base = Math.min((sectionIndex || 0) * 3, 9);
 
   const bodyStyle = 'overflow:hidden;transition:max-height .35s ease' + (collapsed ? ';max-height:0' : '');
@@ -535,7 +572,7 @@ function mensaSectionHTML(m, sectionIndex) {
 
   return '<section class="mensa-section' + (collapsed ? ' collapsed' : '') + '" data-mensa="' + esc(m.id) + '">' +
     '<h2 class="mensa-title" role="button" tabindex="0" aria-expanded="' + !collapsed + '"' +
-    ' data-emoji="' + esc(emoji) + '" data-group-color="' + esc(color) + '">' +
+    ' data-emoji="' + esc(emoji) + '" data-group-color="' + esc(m.group || 'Other') + '">' +
     '<span class="mensa-caret" aria-hidden="true"></span>' +
     esc(m.name) +
     '</h2>' + body +
@@ -551,10 +588,8 @@ function renderContent() {
     return;
   }
   content.innerHTML = selected.map(mensaSectionHTML).join('');
-  // Kami BottomToUp entry: observe cards, animate once on first sight.
   observeDishEntries(content);
-  // Kami NumberTransition: roll Energy figures up on render.
-  animateNumbers(content);
+  animateEnergy(content);
 }
 
 /* ---------- segmented switch + sliding thumb ---------- */
@@ -569,17 +604,12 @@ function updateSegmented() {
   });
 }
 
-function positionThumb() {
-  const seg = document.querySelector('.segmented');
-  if (seg) seg.dataset.meal = prefs.meal;
-}
-
 /* ---------- raw panel ---------- */
 
 function updateRawText() {
   rawFiltered = buildRawText();
-  document.getElementById('raw-text').textContent =
-    rawFiltered || 'No dishes available for the current selection.';
+  const el = document.getElementById('raw-text');
+  if (el) el.textContent = rawFiltered || 'No dishes available for the current selection.';
 }
 
 /* ---------- collapse animation (max-height) ---------- */
@@ -607,32 +637,29 @@ function collapseBody(body) {
 }
 
 /* ------------------------------------------------------------
-   10. Event handlers
+   13. Event handlers
    ------------------------------------------------------------ */
 
 function bindEvents() {
-  document.getElementById('menu-btn').addEventListener('click', toggleSelector);
-  document.querySelector('.segmented').addEventListener('click', onSegmentedClick);
+  document.getElementById('menu-btn')?.addEventListener('click', toggleSelector);
+  document.querySelector('.segmented')?.addEventListener('click', onSegmentedClick);
 
   const mensaList = document.querySelector('.selector-mensas');
-  mensaList.addEventListener('click', onMensaListClick);
-  mensaList.addEventListener('keydown', onMensaListKeydown);
+  mensaList?.addEventListener('click', onMensaListClick);
+  mensaList?.addEventListener('keydown', onMensaListKeydown);
 
-  document.querySelector('.selector-groups').addEventListener('click', onGroupsClick);
-  document.getElementById('group-add-btn').addEventListener('click', addCustomGroup);
-  document.getElementById('group-input').addEventListener('keydown', (e) => {
+  document.querySelector('.selector-groups')?.addEventListener('click', onGroupsClick);
+  document.getElementById('group-add-btn')?.addEventListener('click', addCustomGroup);
+  document.getElementById('group-input')?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') addCustomGroup();
   });
 
   const content = document.getElementById('content');
-  content.addEventListener('click', onContentClick);
-  content.addEventListener('keydown', onContentKeydown);
+  content?.addEventListener('click', onContentClick);
+  content?.addEventListener('keydown', onContentKeydown);
 
-  document.getElementById('raw-toggle').addEventListener('click', toggleRaw);
-  document.getElementById('copy-btn').addEventListener('click', copyRaw);
-
-  window.addEventListener('resize', positionThumb);
-  window.addEventListener('load', positionThumb);
+  document.getElementById('raw-toggle')?.addEventListener('click', toggleRaw);
+  document.getElementById('copy-btn')?.addEventListener('click', copyRaw);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
@@ -655,9 +682,10 @@ let unlockScrollTimer = null;
 
 function setSelectorOpen(open) {
   const panel = document.getElementById('selector');
+  if (!panel) return;
   panel.classList.toggle('open', open);
   panel.setAttribute('aria-hidden', String(!open));
-  document.getElementById('menu-btn').setAttribute('aria-expanded', String(open));
+  document.getElementById('menu-btn')?.setAttribute('aria-expanded', String(open));
   const root = document.documentElement;
   if (open) {
     clearTimeout(unlockScrollTimer);
@@ -731,6 +759,7 @@ function deleteCustomGroup(name) {
 
 function addCustomGroup() {
   const input = document.getElementById('group-input');
+  if (!input) return;
   const name = input.value.trim();
   if (!name) {
     showGroupMsg('Enter a group name');
@@ -750,6 +779,7 @@ function addCustomGroup() {
 let groupMsgTimer = null;
 function showGroupMsg(text) {
   const msg = document.getElementById('group-add-msg');
+  if (!msg) return;
   msg.textContent = text;
   clearTimeout(groupMsgTimer);
   if (text) groupMsgTimer = setTimeout(() => { msg.textContent = ''; }, 2000);
@@ -769,6 +799,7 @@ function onContentKeydown(e) {
 }
 
 function toggleSection(section) {
+  if (!section) return;
   const id = section.dataset.mensa;
   const collapsed = prefs.collapsedMensas.has(id);
   const body = section.querySelector('.mensa-dishes');
@@ -790,6 +821,7 @@ function toggleSection(section) {
 function toggleRaw() {
   const panel = document.getElementById('raw-panel');
   const btn = document.getElementById('raw-toggle');
+  if (!panel || !btn) return;
   const open = panel.classList.toggle('open');
   btn.textContent = open ? 'Hide Raw Data' : 'Show Raw Data';
   btn.setAttribute('aria-expanded', String(open));
@@ -823,6 +855,7 @@ function fallbackCopy(btn) {
 }
 
 function flashCopied(btn) {
+  if (!btn) return;
   const orig = btn.textContent;
   btn.textContent = 'Copied';
   btn.classList.add('copied');
@@ -833,30 +866,38 @@ function flashCopied(btn) {
 }
 
 /* ------------------------------------------------------------
-   11. Boot
+   14. Boot — each step isolated; one failure never blocks data
    ------------------------------------------------------------ */
 
+function safeInit(fn) {
+  try { fn(); } catch (err) { console.warn('init step failed:', err); }
+}
+
 async function init() {
-  document.getElementById('date-heading').textContent = formatDate(DATE_STR);
-  document.getElementById('hero-date').textContent = formatDate(DATE_STR);
-  bindEvents();
-  prefs = loadPrefs();
-  initTheme();
-  initProgress();
-  initHeader();
-  initPrefs();
-  initHeroTitle();
+  // Static chrome first (independent of data).
+  safeInit(() => {
+    document.getElementById('date-heading').textContent = formatDate(DATE_STR);
+    document.getElementById('hero-date').textContent = formatDate(DATE_STR);
+  });
+  safeInit(bindEvents);
+  safeInit(() => { prefs = loadPrefs(); });
+  safeInit(initTheme);
+  safeInit(initProgress);
+  safeInit(initHeader);
+  safeInit(initPrefs);
+  safeInit(initHeroTitle);
 
   try {
     const json = await fetchData();
     data = { date: json.date, mensas: normalizeMensas(json.mensas) };
     validatePrefsAgainstData();
     renderAll();
-    positionThumb();
   } catch (err) {
     console.error(err);
-    document.getElementById('content').innerHTML =
-      '<div class="error">Failed to load menu data. Please try again later.</div>';
+    const content = document.getElementById('content');
+    if (content) {
+      content.innerHTML = '<div class="error">Failed to load menu data. Please try again later.</div>';
+    }
   }
 }
 

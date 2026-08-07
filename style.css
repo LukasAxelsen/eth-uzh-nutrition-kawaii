@@ -1,99 +1,67 @@
 /* ============================================================
    Mensa Kawaii — style.css
-   koharu design system (astro-koharu v6.2.2) ported to a
-   no-build vanilla static site. Visual DNA: shadcn HSL tokens
-   (rose-pink primary), gradient backgrounds, parallax hero wave,
-   View-Transitions theme sweep, sun/moon toggle, note-block cards.
+   Fusion of two proven design systems, extracted verbatim where
+   possible (minimal translation, no reinvention):
+   - kami  (mx-space/kami): semantic color tokens, iOS gray scale,
+     glass surfaces (blur 20px saturate 180%), header opacity
+     formula (threshold 50px), colored capsule section titles,
+     bottom-to-up entry motion, number transition, custom checkbox
+   - koharu (astro-koharu v6.2.2): shadcn HSL tokens, gradient
+     backgrounds, parallax hero wave, View-Transitions theme sweep,
+     sun/moon toggle, motion-off / wave-off preference classes,
+     note-block dish cards
 
-   Sections mirror the koharu source layout:
-   1 tokens  2 reset/base  3 utilities  4 progress  5 header
-   6 hero/wave  7 segmented  8 theme toggle  9 theme transition
-   10 content/cards  11 nutrition  12 drawer  13 groups
-   14 raw  15 footer  16 motion/accessibility
+   PROGRESSIVE ENHANCEMENT (critical): content is visible WITHOUT
+   JavaScript. Every hidden state is gated behind html.js, which
+   app.js adds on boot. If JS fails, users still see everything.
    ============================================================ */
 
 /* ============================================================
-   1. Design tokens (shadcn.css + theme/index.css from koharu)
+   1. Design tokens
+   - shadcn HSL base + gradients + pink primary: koharu
+   - semantic colors + iOS gray scale + glass: kami variables.css
    ============================================================ */
 :root {
-  /* shadcn theme */
+  /* --- koharu / shadcn theme --- */
   --background: 0 12% 99%;
   --foreground: 0 0% 20%;
   --card: 0 12% 99%;
   --card-foreground: 240 10% 3.9%;
-  --popover: 0 12% 99%;
-  --popover-foreground: 240 10% 3.9%;
   --primary: 351 77% 62%;
   --primary-foreground: 355.7 100% 97.3%;
   --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
   --muted: 240 4.8% 95.9%;
   --muted-foreground: 0 0% 35%;
   --accent: 240 4.8% 95.9%;
-  --accent-foreground: 240 5.9% 10%;
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
-  --badge-primary: 351 49% 50%;
   --radius: 0.75rem;
 
-  /* koharu gradients */
+  /* --- koharu gradients --- */
   --gradient-bg-start: #fdfbfb;
   --gradient-bg-end: #ebedee;
   --gradient-bg: linear-gradient(180deg, var(--gradient-bg-start) 10%, var(--gradient-bg-end) 100%);
   --gradient-pink: linear-gradient(279deg, #f96676 0%, #e91e63 100%);
   --gradient-header: linear-gradient(-225deg, #e3fdf5 0, #ffe6fa 100%);
-
-  /* shoka migrate */
-  --box-bg-shadow: rgba(0, 0, 0, 0.1);
   --gradient-shoka-button-start: #ed6ea0;
   --gradient-shoka-button-end: #ec8c69;
   --gradient-shoka-button: linear-gradient(to right, var(--gradient-shoka-button-start) 0, var(--gradient-shoka-button-end) 100%);
-  --shoka-blue: 201 69% 54%;
-  --grey-4: 0 0% 80%;
   --color-pink: #ed6ea0;
   --color-pink-a3: rgba(237, 110, 160, 0.3);
 
-  /* shoka container/effect colors */
-  --shoka-default: 0 0% 40%;
-  --shoka-info: 210 100% 50%;
-  --shoka-success: 142 76% 36%;
-  --shoka-warning: 45 100% 40%;
-  --shoka-danger: 0 84% 60%;
-
-  /* named text colors */
-  --color-red: #e74c3c;
-  --color-pink-text: #e91e63;
-  --color-orange: #f39c12;
-  --color-yellow: #d4a017;
-  --color-green: #27ae60;
-  --color-aqua: #1abc9c;
-  --color-blue: #2e86c1;
-  --color-purple: #8e44ad;
-  --color-grey: #7f8c8d;
-
-  /* koharu shadows + layout */
-  --shadow-card: 0 0.625rem 1.875rem rgba(90, 97, 105, 0.12);
-  --shadow-card-darker: 0 0 2rem var(--box-bg-shadow);
-  --content-w: 980px;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  /* spring rebound easing (kami motion: playful but fast) */
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* kami semantic colors (imported from mx-space/kami variables.css) */
+  /* --- kami semantic colors (variables.css, verbatim) --- */
   --red: rgb(255, 59, 48);
   --yellow: #ffc107;
   --blue: #6495ed;
   --green: #39c5bb;
   --brown: #795548;
-  --light-brown: #67492e;
   --purple: #8a2be2;
-  --shallow: #eee;
   --pink-kami: #eb445a;
+  --shallow: #eee;
 
-  /* kami iOS gray scale (hierarchy) */
+  /* --- kami iOS gray scale (hierarchy) --- */
   --gray-1: #8e8e93;
   --gray-2: #aeaeb2;
   --gray-3: rgb(199, 199, 204);
@@ -101,77 +69,56 @@
   --gray-5: rgb(229, 229, 234);
   --gray-6: rgb(242, 242, 247);
 
-  /* kami glass: translucent surface for floating layers */
+  /* --- kami glass --- */
   --bg-opacity: rgba(255, 255, 255, 0.72);
-  --header-glass-opacity: 0;
 
-  /* fonts */
+  /* --- kami shadows --- */
+  --shadow-card: 0 0.625rem 1.875rem rgba(90, 97, 105, 0.12);
+  --shadow-card-darker: 0 0 2rem rgba(0, 0, 0, 0.1);
+
+  /* --- kami motion: spring rebound easing + durations --- */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- layout & fonts --- */
+  --content-w: 980px;
   --font-display: "ZCOOL KuaiLe", "Yuanti SC", "YouYuan", "PingFang SC", sans-serif;
   --font-body: "Yuanti SC", "YouYuan", -apple-system, BlinkMacSystemFont, "Segoe UI",
                "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  /* theme toggle color (koharu uses currentColor) */
+  /* --- koharu theme-toggle colors --- */
   --theme-toggle-color: #ffbb52;
   --theme-background-color: #17181c;
 }
 
 .dark {
-  /* shadcn theme */
+  /* --- koharu / shadcn dark --- */
   --background: 216 13% 15%;
   --foreground: 0 0% 95%;
   --card: 216 13% 15%;
   --card-foreground: 0 0% 95%;
-  --popover: 216 13% 15%;
-  --popover-foreground: 0 0% 95%;
   --primary: 350 77% 70%;
   --primary-foreground: 355.7 100% 97.3%;
   --secondary: 216 13% 22%;
-  --secondary-foreground: 0 0% 98%;
   --muted: 216 13% 22%;
   --muted-foreground: 0 0% 63%;
   --accent: 216 13% 22%;
-  --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 85.7% 97.3%;
   --border: 216 13% 25%;
   --input: 216 13% 25%;
   --ring: 346.8 77.2% 49.8%;
-  --badge-primary: 350 77% 70%;
 
-  /* koharu gradients */
+  /* --- koharu dark gradients --- */
   --gradient-bg-start: #21252b;
   --gradient-bg-end: #000;
   --gradient-header: linear-gradient(-225deg, #2d3230 0, #322d31 100%);
-
-  /* shoka migrate */
-  --box-bg-shadow: rgba(0, 0, 0, 0.5);
   --gradient-shoka-button-start: #f18bb3cc;
   --gradient-shoka-button-end: #f0a387cc;
-  --shoka-blue: 201 69% 77%;
-  --grey-4: 0 0% 40%;
   --color-pink: #f18bb3;
   --color-pink-a3: rgba(237, 110, 160, 0.3);
 
-  /* shoka container/effect colors (brightened) */
-  --shoka-default: 0 0% 60%;
-  --shoka-info: 210 100% 65%;
-  --shoka-success: 142 76% 50%;
-  --shoka-warning: 45 100% 55%;
-  --shoka-danger: 0 84% 70%;
-
-  /* named text colors (brighter) */
-  --color-red: #f87171;
-  --color-pink-text: #f472b6;
-  --color-orange: #fbbf24;
-  --color-yellow: #facc15;
-  --color-green: #4ade80;
-  --color-aqua: #2dd4bf;
-  --color-blue: #60a5fa;
-  --color-purple: #c084fc;
-  --color-grey: #9ca3af;
-
-  /* kami semantic colors (dark remap, brightened) */
+  /* --- kami semantic colors (dark remap, brightened) --- */
   --red: rgb(255, 69, 58);
   --blue: #6495ed;
   --green: #1f8f93;
@@ -181,21 +128,31 @@
   --pink-kami: #eb4b63;
   --shallow: #333;
 
-  /* kami iOS gray scale (dark) */
+  /* --- kami iOS gray scale (dark) --- */
   --gray-2: rgb(99, 99, 102);
   --gray-3: rgb(72, 72, 74);
   --gray-4: rgb(58, 58, 60);
   --gray-5: rgb(44, 44, 46);
   --gray-6: rgb(28, 28, 30);
 
-  /* kami glass (dark) */
+  /* --- kami glass (dark) --- */
   --bg-opacity: rgba(29, 29, 31, 0.72);
+  --shadow-card-darker: 0 0 2rem rgba(0, 0, 0, 0.5);
+}
+
+/* kami: glass fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  :root { --bg-opacity: #fff; }
+  .dark { --bg-opacity: rgba(29, 29, 31, 0.98); }
 }
 
 /* ============================================================
-   2. Reset & base (koharu tailwind.css base layer, hand-rolled)
+   2. Reset & base
+   (koharu tailwind.css base layer + kami theme.css essentials)
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scrollbar-gutter: stable; }
 
 body {
   background: linear-gradient(to top, var(--gradient-bg-end) 0, var(--gradient-bg-start) 30%) no-repeat bottom;
@@ -207,42 +164,37 @@ body {
   letter-spacing: 0.02em;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
   overscroll-behavior-y: none;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html { scrollbar-gutter: stable; }
-
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); letter-spacing: 0.02em; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 400; }
 
 button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-a { color: inherit; }
+a { color: inherit; text-decoration: none; }
 
 ::selection { background: hsl(var(--primary) / 0.25); }
 
 :focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
 
-/* koharu custom scrollbars */
-::-webkit-scrollbar { width: 0.375rem; height: 0.375rem; }
-::-webkit-scrollbar-track { background: hsl(var(--background)); }
-::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.5); border-radius: 0.5rem; }
-::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.7); }
-
 html.scroll-locked { overflow: hidden; }
+
+/* kami scrollbar (theme.css): primary thumb, light-bg track */
+::-webkit-scrollbar { width: 10px; height: 10px; background: hsl(var(--background)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--primary)); border-radius: 5px; border: 3px solid hsl(var(--background)); }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.8); }
+
+/* kami: focus ring via primary box-shadow instead of outline */
+*:not(input):not(textarea):focus-visible {
+  outline: 0 !important;
+  box-shadow: hsl(var(--primary)) 0px 0px 0px 2px !important;
+}
 
 /* ============================================================
    3. Utilities
    ============================================================ */
 .flex-center { display: flex; align-items: center; justify-content: center; }
-
 .shadow-text { text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5); }
-
-.shoka-button-shadow { box-shadow: 0 0 0.75rem var(--color-pink-a3); }
-.shoka-button-shadow:hover { box-shadow: 0 0 0.75rem var(--color-pink); }
-
-.shadow-card { box-shadow: var(--shadow-card); }
-.shadow-card-darker { box-shadow: var(--shadow-card-darker); }
 
 /* ============================================================
    4. Scroll progress (koharu scrollProgress)
@@ -259,7 +211,11 @@ html.scroll-locked { overflow: hidden; }
 }
 
 /* ============================================================
-   5. Header (kami glass bar: blur + scroll-driven opacity + hide)
+   5. Header — kami glass bar
+   extracted from kami Header/index.module.css + HeaderBase.tsx:
+   backdrop blur(20px) saturate(180%), bg var(--bg-opacity),
+   opacity = position/50 (0.01 steps, clamps at 1), hide only on
+   mobile after scrolling past the first screen height.
    ============================================================ */
 .site-header {
   position: fixed;
@@ -268,10 +224,8 @@ html.scroll-locked { overflow: hidden; }
   height: 56px;
   transition: transform 0.3s var(--ease);
 }
-.site-header.hide { transform: translateY(-100%); }
 
-/* Glass layer (kami pattern): backdrop blur + translucent bg,
-   opacity driven by scroll depth via --header-glass-opacity. */
+/* Glass layer */
 .site-header::before {
   content: "";
   position: absolute;
@@ -281,10 +235,12 @@ html.scroll-locked { overflow: hidden; }
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   background-color: var(--bg-opacity);
   border-bottom: 1px solid rgb(187 187 187 / 20%);
-  opacity: var(--header-glass-opacity, 0);
+  opacity: var(--header-opacity, 0);
   transition: opacity 0.3s ease-out;
   pointer-events: none;
 }
+
+.site-header.hide { transform: translateY(-100%); }
 
 .header-inner {
   max-width: var(--content-w);
@@ -295,6 +251,7 @@ html.scroll-locked { overflow: hidden; }
   justify-content: center;
   gap: 1rem;
   position: relative;
+  height: 100%;
 }
 
 .header-date {
@@ -307,7 +264,7 @@ html.scroll-locked { overflow: hidden; }
   left: 4.5rem;
 }
 
-/* Theme toggle sits at the right edge of the header bar */
+/* koharu sun/moon toggle, right edge of the header */
 .theme-toggle {
   position: absolute;
   right: 1rem;
@@ -321,14 +278,9 @@ html.scroll-locked { overflow: hidden; }
 }
 .theme-toggle:hover { transform: translateY(-50%) scale(1.1); }
 
-/* Glass fallback for browsers without backdrop-filter (kami pattern) */
-@supports not (backdrop-filter: blur(1px)) {
-  :root { --bg-opacity: #fff; }
-  .dark { --bg-opacity: rgba(29, 29, 31, 0.98); }
-}
-
 /* ============================================================
-   6. Hero cover + parallax wave (koharu Cover + wave.css)
+   6. Hero cover + parallax wave
+   koharu Cover.astro + wave.tsx + wave.css (verbatim port)
    ============================================================ */
 .hero {
   position: relative;
@@ -365,16 +317,16 @@ html.scroll-locked { overflow: hidden; }
   text-shadow: 0 0.4rem 1.2rem var(--color-pink-a3);
 }
 
-/* Kami TextUp pattern: char-by-char rise with staggered delay.
-   JS wraps each char in span.char; inline --i drives the delay. */
-.hero-title .char {
+/* Kami TextUp char stagger — progressive enhancement: chars are only
+   hidden AFTER app.js adds html.js and wraps them in span.char. */
+.js .hero-title .char {
   display: inline-block;
   white-space: pre;
   opacity: 0;
   transform: translateY(10px);
 }
-.hero-title.entered .char {
-  animation: char-up 0.55s var(--spring) forwards;
+.js .hero-title.entered .char {
+  animation: char-up 0.55s var(--spring) backwards;
   animation-delay: calc(var(--i) * 45ms);
 }
 @keyframes char-up {
@@ -387,25 +339,7 @@ html.scroll-locked { overflow: hidden; }
   color: hsl(var(--muted-foreground));
 }
 
-/* floating decorative emoji (killed by motion-off) */
-.hero-float {
-  position: absolute;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  opacity: 0.45;
-  z-index: 0;
-  animation: float-y 6s ease-in-out infinite;
-  pointer-events: none;
-}
-.hero-float-1 { left: 12%; top: 26%; animation-delay: -1s; }
-.hero-float-2 { right: 14%; top: 38%; animation-delay: -3s; font-size: clamp(2rem, 5vw, 3.2rem); }
-.hero-float-3 { left: 22%; bottom: 30%; animation-delay: -5s; }
-
-@keyframes float-y {
-  0%, 100% { transform: translateY(0) rotate(-3deg); }
-  50% { transform: translateY(-14px) rotate(3deg); }
-}
-
-/* --- Wave (ported from koharu wave.tsx + wave.css) --- */
+/* --- Wave (koharu wave.tsx + wave.css) --- */
 .wave-wrap {
   width: 100%;
   height: 15dvh;
@@ -455,7 +389,7 @@ html.scroll-locked { overflow: hidden; }
 html.wave-off .wave-wrap { display: none; }
 
 /* ============================================================
-   7. Segmented control (sliding pink thumb, iOS-style track)
+   7. Segmented control (sliding gradient thumb)
    ============================================================ */
 .segmented {
   position: relative;
@@ -494,7 +428,7 @@ html.wave-off .wave-wrap { display: none; }
 .seg-option.active { color: #fff; }
 
 /* ============================================================
-   8. Theme toggle — sun/moon morph (koharu theme-toggle.css)
+   8. Theme toggle — koharu sun/moon morph (theme-toggle.css verbatim)
    ============================================================ */
 .toggle { display: block; cursor: pointer; }
 .toggle-input { position: absolute; opacity: 0; pointer-events: none; }
@@ -556,7 +490,7 @@ html.wave-off .wave-wrap { display: none; }
 }
 
 /* ============================================================
-   9. Theme transition — gradient sweep (koharu theme-transition.css)
+   9. Theme transition — koharu gradient sweep (theme-transition.css)
    ============================================================ */
 @keyframes gradient-sweep {
   from { mask-position: 100% 0; }
@@ -590,11 +524,6 @@ html.theme-transition::view-transition-new(root) {
 
 html.theme-transition #site-header { view-transition-name: none; }
 
-@media (prefers-reduced-motion: reduce) {
-  html.theme-transition::view-transition-new(root),
-  html.theme-transition::view-transition-old(root) { animation: none; }
-}
-
 /* ============================================================
    10. Content: mensa sections + dish cards
    ============================================================ */
@@ -609,8 +538,8 @@ html.theme-transition #site-header { view-transition-name: none; }
 
 .mensa-section { display: flex; flex-direction: column; gap: 0.9rem; }
 
-/* Kami news-head pattern: colored capsule title with emoji slot.
-   Group -> color mapping set via data-group-color (JS). */
+/* Kami news-head capsule title (extra.css): colored capsule + emoji slot.
+   Group -> color set via data-group-color by JS. */
 .mensa-title {
   position: relative;
   display: inline-flex;
@@ -619,18 +548,16 @@ html.theme-transition #site-header { view-transition-name: none; }
   gap: 0.6rem;
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 3.4vw, 1.4rem);
-  font-weight: 400;
   color: #fff;
   background: var(--purple);
   border-radius: 1em;
   padding: 0.55em 1.6em 0.55em 3.2em;
   cursor: pointer;
   user-select: none;
-  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  transition: filter 0.2s ease, transform 0.2s ease;
 }
 .mensa-title:hover { filter: brightness(1.12); transform: translateY(-1px); }
 
-/* Emoji icon slot (kami: darker chip inside the capsule) */
 .mensa-title::before {
   content: attr(data-emoji);
   position: absolute;
@@ -668,7 +595,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   gap: 0.9rem;
 }
 
-/* --- Dish card (koharu note-block pattern: gradient bar + tint) --- */
+/* --- Dish card: koharu note-block (gradient bar) + kami entry motion --- */
 .dish {
   position: relative;
   display: flex;
@@ -679,27 +606,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   border-radius: var(--radius);
   padding: 1.1rem 1.4rem 1.1rem 1.6rem;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease,
-              opacity 0.55s var(--spring), translate 0.55s var(--spring);
-}
-
-/* Kami BottomToUp entry: cards rise with a spring ease and stagger
-   (--i set per card by JS; observed once via IntersectionObserver).
-   The entry delay applies ONLY to opacity/translate, so hover
-   effects (transform/shadow) stay instant. */
-.dish:not(.entered) {
-  opacity: 0;
-  translate: 0 2rem;
-}
-.dish.entered {
-  opacity: 1;
-  translate: 0 0;
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    opacity 0.55s var(--spring) calc(var(--i, 0) * 55ms),
-    translate 0.55s var(--spring) calc(var(--i, 0) * 55ms);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* koharu gradient bar on the left edge */
@@ -715,6 +622,20 @@ html.theme-transition #site-header { view-transition-name: none; }
   opacity: 0.9;
 }
 
+/* Kami BottomToUp entry — PROGRESSIVE: cards are only pre-hidden under
+   html.js; the .entered class (added by IntersectionObserver) plays the
+   spring animation with a per-card stagger. No JS -> fully visible. */
+.js .dish { opacity: 0; }
+.js .dish.entered {
+  animation: dish-in 0.55s var(--spring) backwards;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+@keyframes dish-in {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dish.entered:hover,
 .dish:hover {
   box-shadow: var(--shadow-card-darker);
   transform: translateY(-2px);
@@ -735,7 +656,6 @@ html.theme-transition #site-header { view-transition-name: none; }
 .dish-name {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 400;
   line-height: 1.35;
   color: hsl(var(--foreground));
 }
@@ -761,7 +681,6 @@ html.theme-transition #site-header { view-transition-name: none; }
 .nutrition-table thead th {
   font-family: var(--font-display);
   font-size: 0.68rem;
-  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: hsl(var(--muted-foreground));
@@ -783,23 +702,22 @@ html.theme-transition #site-header { view-transition-name: none; }
 .n-label { color: hsl(var(--muted-foreground)); }
 .n-val { color: hsl(var(--foreground)); }
 
-/* Kami data display: the Energy figure is the hero number of a dish */
+/* Energy is the hero number of a dish (kami NumberRecorder display) */
 .nutrition-table tbody tr:first-child .n-val:not(:empty) {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   line-height: 1.2;
   color: hsl(var(--primary));
 }
 
 /* ============================================================
-   12. Selector drawer (koharu-styled, iOS push pattern)
+   12. Selector drawer — kami glass panel
    ============================================================ */
 #selector {
   position: fixed;
   top: 0; left: 0; bottom: 0;
   width: min(380px, 100vw);
   z-index: 200;
-  /* Kami glass drawer: translucent panel over the fixed background */
   background: var(--bg-opacity);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -820,7 +738,6 @@ html.theme-transition #site-header { view-transition-name: none; }
 .selector-pane-title {
   font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 400;
   color: hsl(var(--primary));
   margin-bottom: 0.6rem;
   letter-spacing: 0.08em;
@@ -866,7 +783,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   line-height: 1.3;
 }
 
-/* --- Group chips (koharu pill style) --- */
+/* --- Group chips --- */
 .group-rows {
   display: flex;
   flex-wrap: wrap;
@@ -884,12 +801,11 @@ html.theme-transition #site-header { view-transition-name: none; }
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
   font-size: 0.85rem;
-  transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, color 0.25s ease;
 }
 .group-chip:hover:not(:disabled) {
   border-color: hsl(var(--primary));
   color: hsl(var(--primary));
-  box-shadow: 0 0 0.5rem var(--color-pink-a3);
 }
 .group-chip:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -937,10 +853,9 @@ html.theme-transition #site-header { view-transition-name: none; }
   border-radius: 0.5rem;
   padding: 0.5rem 1.1rem;
   font-size: 0.9rem;
-  box-shadow: 0 0 0.6rem var(--color-pink-a3);
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  transition: filter 0.2s ease, transform 0.2s ease;
 }
-.group-add button:hover { box-shadow: 0 0 0.75rem var(--color-pink); transform: translateY(-1px); }
+.group-add button:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
 .group-add-msg {
   width: 100%;
@@ -949,7 +864,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   min-height: 1em;
 }
 
-/* --- Effects prefs row (wave / motion) --- */
+/* --- Effects prefs row --- */
 .selector-prefs {
   display: flex;
   gap: 1rem;
@@ -972,7 +887,7 @@ html.theme-transition #site-header { view-transition-name: none; }
 }
 
 /* ============================================================
-   13. Hamburger (body-level fixed, koharu pink pill)
+   13. Hamburger (body-level fixed)
    ============================================================ */
 .menu-btn {
   position: fixed;
@@ -999,7 +914,6 @@ html.theme-transition #site-header { view-transition-name: none; }
   height: 2.5px;
   border-radius: 2px;
   background: #fff;
-  transition: transform 0.3s var(--ease), opacity 0.3s ease;
 }
 
 body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
@@ -1024,12 +938,11 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
   border-radius: 999px;
   padding: 0.5rem 1.4rem;
   font-size: 0.9rem;
-  transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, color 0.25s ease;
 }
 .raw-btn:hover {
   border-color: hsl(var(--primary));
   color: hsl(var(--primary));
-  box-shadow: 0 0 0.5rem var(--color-pink-a3);
 }
 
 .raw-panel {
@@ -1066,7 +979,7 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
   transition: border-color 0.25s ease, color 0.25s ease;
 }
 .copy-btn:hover { border-color: hsl(var(--primary)); color: hsl(var(--primary)); }
-.copy-btn.copied { border-color: hsl(var(--shoka-success)); color: hsl(var(--shoka-success)); }
+.copy-btn.copied { border-color: hsl(var(--green)); color: hsl(var(--green)); }
 
 .raw-text {
   padding: 1rem;
@@ -1131,34 +1044,26 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
 }
 
 /* ============================================================
-   17. Motion & accessibility (koharu motion.css pattern)
+   17. Motion & accessibility
+   (koharu motion.css pattern: master motion-off + reduced-motion)
    ============================================================ */
-/* Master motion preference disables continuous decorative motion
-   while preserving interaction feedback. */
-html.motion-off .hero-float,
 html.motion-off .loading-emoji,
 html.motion-off .wave .parallax > use {
   animation: none;
 }
 html.motion-off .hero-title .char,
-html.motion-off .dish:not(.entered) {
-  opacity: 1;
-  translate: 0 0;
-  animation: none;
+html.motion-off .dish {
+  opacity: 1 !important;
+  animation: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-float,
   .loading-emoji,
   .wave .parallax > use,
-  .hero-title .char {
-    animation: none !important;
-  }
   .hero-title .char,
-  .dish:not(.entered) {
+  .dish {
+    animation: none !important;
     opacity: 1 !important;
-    translate: 0 0 !important;
-    transition-duration: 0.01ms !important;
   }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
@@ -1178,12 +1083,10 @@ html.motion-off .dish:not(.entered) {
   .nutrition-col { width: 100%; }
   .nutrition-table { min-width: 0; width: 100%; }
   .hero { min-height: 40dvh; }
-  .header-date { display: none; } /* declutter on phones */
+  .header-date { display: none; }
   .header-inner { justify-content: center; padding: 0.75rem 3.5rem; }
 }
 
-/* iOS drawer: on phones the drawer takes the full width and the app
-   is pushed fully off-screen (koharu-style slide). */
 @media (max-width: 480px) {
   #selector { width: 100vw; }
   body.menu-open .app { transform: translateX(100vw); }

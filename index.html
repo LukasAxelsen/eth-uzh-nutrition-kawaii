@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=a1b787a">
-  <!-- FOUC prevention: apply the stored/system theme before first paint. -->
+  <link rel="stylesheet" href="style.css?v=9000116">
+  <!-- FOUC prevention (koharu Layout.astro pattern): apply stored/system
+       theme before first paint. -->
   <script>
     (function () {
       try {
@@ -22,13 +23,11 @@
   </script>
 </head>
 <body>
-  <!-- Scroll progress (koharu: thin gradient bar, fixed top). -->
+  <!-- Scroll progress (koharu scrollProgress pattern). -->
   <div class="progress" id="progress" aria-hidden="true"></div>
 
-  <!-- Hamburger: lives at BODY level (sibling of .app and #selector),
-       position:fixed, so it can slide to the top-right corner while the
-       drawer opens. A fixed element inside a transformed ancestor is
-       positioned relative to that ancestor (containing-block trap). -->
+  <!-- Hamburger: BODY-level fixed sibling of .app and #selector (containing-
+       block trap avoidance, from the original eth-uzh-nutrition site). -->
   <button class="menu-btn" id="menu-btn" type="button"
           aria-label="Toggle mensa selector"
           aria-controls="selector" aria-expanded="false">
@@ -39,7 +38,8 @@
 
   <div class="app" id="app">
 
-    <!-- ================== Header (koharu slim bar) ================== -->
+    <!-- ============ Header: kami glass bar (blur 20px saturate 180%,
+         scroll-driven opacity, hide-on-mobile-past-first-screen) ============ -->
     <header class="site-header" id="site-header">
       <div class="header-inner">
         <span class="header-date" id="date-heading">Loading…</span>
@@ -48,6 +48,7 @@
           <button class="seg-option active" type="button" data-meal="Lunch" aria-pressed="true">Lunch</button>
           <button class="seg-option" type="button" data-meal="Dinner" aria-pressed="false">Dinner</button>
         </div>
+        <!-- koharu sun/moon morph toggle -->
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
           <span class="toggle">
             <input type="checkbox" class="toggle-input" aria-hidden="true" tabindex="-1">
@@ -57,17 +58,14 @@
       </div>
     </header>
 
-    <!-- ================== Hero cover (koharu style) ================== -->
+    <!-- ============ Hero: koharu gradient cover + parallax wave ============ -->
     <section class="hero" id="hero">
-      <span class="hero-float hero-float-1" aria-hidden="true">🍙</span>
-      <span class="hero-float hero-float-2" aria-hidden="true">🍜</span>
-      <span class="hero-float hero-float-3" aria-hidden="true">🧁</span>
       <div class="hero-content">
         <p class="hero-kicker">ETH ・ UZH 食堂营养</p>
         <h1 class="hero-title">今天吃什么？</h1>
         <p class="hero-sub" id="hero-date">…</p>
       </div>
-      <!-- Parallax wave divider (ported from koharu wave.tsx). -->
+      <!-- Parallax wave divider — verbatim port of koharu wave.tsx -->
       <div class="wave-wrap">
         <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" aria-hidden="true">
           <defs>
@@ -117,7 +115,7 @@
     </footer>
   </div>
 
-  <!-- ============ Mensa selector (drawer, sibling of .app) ============ -->
+  <!-- ============ Mensa selector: kami glass drawer ============ -->
   <div id="selector" class="selector" aria-label="Mensa selector" aria-hidden="true">
     <div class="selector-columns">
       <section class="selector-pane">
@@ -138,17 +136,18 @@
         </div>
       </section>
 
+      <!-- koharu effect prefs (wave-off / motion-off html classes) -->
       <section class="selector-prefs" aria-label="Effects">
         <label class="pref" title="Parallax hero wave">
           <input type="checkbox" id="wave-toggle"> <span>Wave</span>
         </label>
-        <label class="pref" title="Decorative motion (float/bounce)">
+        <label class="pref" title="Decorative motion (entry / number roll)">
           <input type="checkbox" id="motion-toggle"> <span>Motion</span>
         </label>
       </section>
     </div>
   </div>
 
-  <script src="app.js?v=a1b787a"></script>
+  <script src="app.js?v=9000116"></script>
 </body>
 </html>

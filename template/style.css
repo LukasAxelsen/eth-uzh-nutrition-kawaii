@@ -71,6 +71,7 @@
 
   /* --- kami glass --- */
   --bg-opacity: rgba(255, 255, 255, 0.72);
+  --glass-border: rgb(187 187 187 / 20%);
 
   /* --- kami shadows --- */
   --shadow-card: 0 0.625rem 1.875rem rgba(90, 97, 105, 0.12);
@@ -234,7 +235,7 @@ html.scroll-locked { overflow: hidden; }
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   background-color: var(--bg-opacity);
-  border-bottom: 1px solid rgb(187 187 187 / 20%);
+  border-bottom: 1px solid var(--glass-border);
   opacity: var(--header-opacity, 0);
   transition: opacity 0.3s ease-out;
   pointer-events: none;
@@ -409,7 +410,6 @@ html.wave-off .wave-wrap { display: none; }
   background: var(--gradient-shoka-button);
   box-shadow: 0 0 0.6rem var(--color-pink-a3);
   transition: transform 0.3s var(--ease);
-  will-change: transform;
 }
 .segmented[data-meal="Dinner"] .seg-thumb { transform: translateX(100%); }
 
@@ -721,7 +721,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   background: var(--bg-opacity);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-right: 1px solid rgb(187 187 187 / 20%);
+  border-right: 1px solid var(--glass-border);
   box-shadow: var(--shadow-card-darker);
   transform: translateX(-100%);
   transition: transform 0.3s var(--ease);

@@ -31,17 +31,18 @@ One line per dish: `NAME/SLOT: line — dish | desc | per100g: kcal=152.0, prote
 ## DOM class contract (frontend generates, design styles)
 ```
 .progress (fixed top scroll bar, gradient)
-header.site-header#site-header (fixed 56px kami glass bar; .hide slides away on scroll down;
-  ::before = backdrop-filter blur(20px) saturate(180%) + var(--bg-opacity), opacity driven by
-  --header-glass-opacity set on <html> by JS scroll-depth mapping)
+header.site-header#site-header (fixed 56px kami glass bar; ::before = backdrop-filter
+  blur(20px) saturate(180%) + var(--bg-opacity); opacity = --header-opacity set on <html>
+  by JS per kami formula: position>=50 ? 1 : floor(position/50*100)/100; .hide only on
+  mobile (<=768px) past the first screen height)
   .header-inner
     span.header-date#date-heading
     .segmented (Lunch/Dinner switch, sliding .seg-thumb keyed off [data-meal])
       .seg-thumb + button.seg-option[data-meal=Lunch|Dinner]
     button.theme-toggle#theme-toggle
-      .toggle > input.toggle-input + .toggle-indicator (sun/moon morph)
-section.hero (cover; #hero-date; .hero-float-1/2/3 decorative emoji)
-  h1.hero-title (JS wraps chars in span.char with --i; .entered kicks the stagger)
+      .toggle > input.toggle-input + .toggle-indicator (koharu sun/moon morph)
+section.hero (gradient cover; #hero-date)
+  h1.hero-title (JS wraps chars in span.char with --i; .entered kicks stagger)
   .wave-wrap > svg.wave > g.parallax > use x3 (koharu wave)
 main#content
   section.mensa-section (collapsible: click .mensa-title toggles; .collapsed)
@@ -49,23 +50,28 @@ main#content
       semantic bg Central=purple Hoengg=blue Irchel=green Oerlikon=red Other=gray; .mensa-caret)
     .mensa-dishes
       .dish (card; ::before gradient bar; --i stagger index; .entered via IntersectionObserver
-        BottomToUp entry; opacity/translate transition only)
+        plays dish-in animation with per-card delay; hover = shadow deepen + lift)
         .dish-main (.dish-label, .dish-name, .dish-desc)
         .nutrition-col > table.nutrition-table (thead Nutrition|per 100g|Total; tbody 9 fixed rows;
-          first data row Energy rendered large via font-display; .n-val numbers roll via rAF)
+          first data row Energy rendered large; Energy cell rolls via rAF on render)
 .raw-section (#raw-toggle button, #raw-panel with #copy-btn, #raw-text)
 footer.footer
-#selector (glass drawer; body.menu-open .app slides; .selector-columns > .selector-pane x2)
+#selector (kami glass drawer; body.menu-open .app slides; .selector-columns > .selector-pane x2)
   .selector-mensas > .mensa-row (.mensa-check + .mensa-label, .selected)
   .selector-groups > .group-rows > button.group-chip (.chip-name/.chip-count/.chip-x) + .group-add
   .selector-prefs > label.pref (#wave-toggle, #motion-toggle)
 button.menu-btn#menu-btn (body-level fixed, slides top-right when body.menu-open)
 ```
+- PROGRESSIVE ENHANCEMENT: app.js adds html.js on boot; ALL content-hidden
+  states (`.js .dish`, `.js .hero-title .char`) are gated behind html.js —
+  no-JS visitors see fully static content
 - Theme: html.dark class + data-theme attr; html.theme-transition during View-Transitions sweep
-- Effects prefs: html.wave-off (hide wave), html.motion-off (stop decorative animations incl.
-  hero chars / dish entry / number roll — those also fall back under prefers-reduced-motion)
-- Glass: --bg-opacity (0.72 alpha, @supports fallback to solid) + backdrop-filter; used by
-  header + drawer
+- Effects prefs: html.wave-off (hide wave), html.motion-off (stop entry/number/char motion —
+  those also fall back under prefers-reduced-motion)
+- Glass: --bg-opacity (0.72 alpha, @supports fallback to solid) + backdrop-filter;
+  used by header + drawer only (floating layers)
+- Storage: every localStorage access goes through safeStorage (try/catch) —
+  private mode can never break the init chain; init steps are independently try/catch'd
 - Mensa row selected style: gradient-filled check dot
 - Responsive at 768px/992px/480px
 

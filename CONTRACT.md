@@ -30,7 +30,7 @@ One line per dish: `NAME/SLOT: line — dish | desc | per100g: kcal=152.0, prote
 
 ## DOM class contract (frontend generates, design styles)
 ```
-.progress (fixed top scroll bar, gradient)
+.progress (fixed top scroll bar, primary-colored)
 header.site-header#site-header (fixed 56px kami glass bar; ::before = backdrop-filter
   blur(20px) saturate(180%) + var(--bg-opacity); opacity = --header-opacity set on <html>
   by JS per kami formula: position>=50 ? 1 : floor(position/50*100)/100; .hide only on
@@ -41,38 +41,42 @@ header.site-header#site-header (fixed 56px kami glass bar; ::before = backdrop-f
       .seg-thumb + button.seg-option[data-meal=Lunch|Dinner]
     button.theme-toggle#theme-toggle
       .toggle > input.toggle-input + .toggle-indicator (koharu sun/moon morph)
-section.hero (gradient cover; #hero-date)
-  h1.hero-title (JS wraps chars in span.char with --i; .entered kicks stagger)
-  .wave-wrap > svg.wave > g.parallax > use x3 (koharu wave)
-main#content
+section.intro (kami homepage pattern — OUTSIDE #content, sibling of main)
+  .intro-badge (rounded teal tile + ::after glow copy: blur(10px) brightness(0.9) opacity(0.45))
+  h1.intro-title#intro-title (JS wraps chars in span.char with --i; .entered kicks stagger)
+  p.intro-sub#intro-date
+main.main#content (aria-live; renderContent() replaces its innerHTML)
   section.mensa-section (collapsible: click .mensa-title toggles; .collapsed)
-    h2.mensa-title (kami capsule: data-emoji -> ::before emoji slot, data-group-color ->
-      semantic bg Central=purple Hoengg=blue Irchel=green Oerlikon=red Other=gray; .mensa-caret)
+    h2.mensa-title (kami news-head capsule: data-emoji -> ::before icon slot,
+      data-group-color -> semantic bg Central=purple Hoengg=blue Irchel=green
+      Oerlikon=red Other=gray-1; .mensa-caret)
     .mensa-dishes
-      .dish (card; ::before gradient bar; --i stagger index; .entered via IntersectionObserver
-        plays dish-in animation with per-card delay; hover = shadow deepen + lift)
+      .dish (kami flat card: light-bg + glass-border + 0.5rem radius; --i stagger index;
+        .entered via IntersectionObserver + scroll fallback; animation settles VISIBLE;
+        hover = shadow deepen + border primary)
         .dish-main (.dish-label, .dish-name, .dish-desc)
         .nutrition-col > table.nutrition-table (thead Nutrition|per 100g|Total; tbody 9 fixed rows;
-          first data row Energy rendered large; Energy cell rolls via rAF on render)
+          first data row Energy rendered large in primary; Energy cell rolls via rAF on render)
 .raw-section (#raw-toggle button, #raw-panel with #copy-btn, #raw-text)
-footer.footer
+footer.footer (kami glass: blur + --bg-opacity + radius; .footer-social circle = primary)
 #selector (kami glass drawer; body.menu-open .app slides; .selector-columns > .selector-pane x2)
   .selector-mensas > .mensa-row (.mensa-check + .mensa-label, .selected)
-  .selector-groups > .group-rows > button.group-chip (.chip-name/.chip-count/.chip-x) + .group-add
-  .selector-prefs > label.pref (#wave-toggle, #motion-toggle)
+  .selector-groups > .group-rows > button.group-chip (.chip-name/.chip-count/.chip-x,
+    .active when selection matches the group) + .group-add
+  .selector-prefs > label.pref (#motion-toggle)
 button.menu-btn#menu-btn (body-level fixed, slides top-right when body.menu-open)
 ```
 - PROGRESSIVE ENHANCEMENT: app.js adds html.js on boot; ALL content-hidden
-  states (`.js .dish`, `.js .hero-title .char`) are gated behind html.js —
+  states (`.js .dish`, `.js .intro-title .char`) are gated behind html.js —
   no-JS visitors see fully static content
 - Theme: html.dark class + data-theme attr; html.theme-transition during View-Transitions sweep
-- Effects prefs: html.wave-off (hide wave), html.motion-off (stop entry/number/char motion —
-  those also fall back under prefers-reduced-motion)
+- Effects prefs: html.motion-off (stop entry/number/char motion — those also
+  fall back under prefers-reduced-motion)
 - Glass: --bg-opacity (0.72 alpha, @supports fallback to solid) + backdrop-filter;
-  used by header + drawer only (floating layers)
+  used by header + drawer + footer only (floating layers)
 - Storage: every localStorage access goes through safeStorage (try/catch) —
   private mode can never break the init chain; init steps are independently try/catch'd
-- Mensa row selected style: gradient-filled check dot
+- Mensa row selected style: primary-filled check dot
 - Responsive at 768px/992px/480px
 
 ## localStorage key: "eth-uzh-nutrition-prefs"

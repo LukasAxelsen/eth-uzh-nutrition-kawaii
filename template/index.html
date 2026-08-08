@@ -7,12 +7,11 @@
   <meta name="description" content="ETH & UZH mensa menus with full nutrition — kawaii edition.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- koharu type system: rounded modern sans for display (ChillRound
-       equivalent: Nunito for latin/digits + ZCOOL QingKe HuangYou for CJK) -->
+  <!-- Display type: rounded modern sans (koharu ChillRound equivalent:
+       Nunito for latin/digits + ZCOOL QingKe HuangYou for CJK) -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=VER_PLACEHOLDER">
-  <!-- FOUC prevention (koharu Layout.astro pattern): apply stored/system
-       theme before first paint. -->
+  <!-- FOUC prevention: apply the stored/system theme before first paint. -->
   <script>
     (function () {
       try {
@@ -25,7 +24,7 @@
   </script>
 </head>
 <body>
-  <!-- Scroll progress (koharu scrollProgress pattern). -->
+  <!-- Scroll progress (subtle primary bar). -->
   <div class="progress" id="progress" aria-hidden="true"></div>
 
   <!-- Hamburger: BODY-level fixed sibling of .app and #selector (containing-
@@ -40,8 +39,9 @@
 
   <div class="app" id="app">
 
-    <!-- ============ Header: kami glass bar (blur 20px saturate 180%,
-         scroll-driven opacity, hide-on-mobile-past-first-screen) ============ -->
+    <!-- ============ Header: kami glass bar ============
+         blur(20px) saturate(180%) + --bg-opacity; opacity mapped to
+         scroll depth (threshold 50px); hide on mobile past first screen -->
     <header class="site-header" id="site-header">
       <div class="header-inner">
         <span class="header-date" id="date-heading">Loading…</span>
@@ -50,7 +50,6 @@
           <button class="seg-option active" type="button" data-meal="Lunch" aria-pressed="true">Lunch</button>
           <button class="seg-option" type="button" data-meal="Dinner" aria-pressed="false">Dinner</button>
         </div>
-        <!-- koharu sun/moon morph toggle -->
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
           <span class="toggle">
             <input type="checkbox" class="toggle-input" aria-hidden="true" tabindex="-1">
@@ -60,31 +59,19 @@
       </div>
     </header>
 
-    <!-- ============ Hero: koharu gradient cover + parallax wave ============ -->
-    <section class="hero" id="hero">
-      <div class="hero-content">
-        <p class="hero-kicker"><span aria-hidden="true">🍙</span> ETH ・ UZH 食堂营养</p>
-        <h1 class="hero-title">今天吃什么？</h1>
-        <p class="hero-sub" id="hero-date">…</p>
-      </div>
-      <!-- Parallax wave divider — verbatim port of koharu wave.tsx -->
-      <div class="wave-wrap">
-        <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <path id="gentle-wave" d="m -160,44.4 c 30,0 58,-18 87.7,-18 30.3,0 58.3,18 87.3,18 30,0 58,-18 88,-18 30,0 58,18 88,18 l 0,34.5 -351,0 z" />
-          </defs>
-          <g class="parallax">
-            <use xlink:href="#gentle-wave" x="50" y="0" />
-            <use xlink:href="#gentle-wave" x="50" y="3" />
-            <use xlink:href="#gentle-wave" x="50" y="6" />
-          </g>
-        </svg>
-      </div>
+    <!-- ============ Intro: kami homepage pattern ============
+         avatar-badge (glow copy) + TextUp title + introduce line.
+         Lives OUTSIDE #content: renderContent() replaces main's
+         innerHTML, so intro must be a sibling of main. -->
+    <section class="intro">
+      <div class="intro-badge" aria-hidden="true">🍙</div>
+      <h1 class="intro-title" id="intro-title" aria-label="今天吃什么？">今天吃什么？</h1>
+      <p class="intro-sub" id="intro-date">…</p>
     </section>
 
-    <!-- ======================= Content ======================= -->
     <main class="main" id="content" aria-live="polite">
-      <div class="loading"><span class="loading-emoji" aria-hidden="true">🍙</span><p>Loading menu data…</p></div>
+      <!-- Mensa sections are rendered here by app.js -->
+      <div class="loading" id="loading"><span class="loading-emoji" aria-hidden="true">🍙</span><p>Loading menu data…</p></div>
     </main>
 
     <!-- ====================== Raw data ======================= -->
@@ -100,11 +87,14 @@
       </div>
     </div>
 
+    <!-- ============ Footer: kami glass + social circle ============ -->
     <footer class="footer">
+      <a class="footer-social" href="https://github.com/LukasAxelsen/eth-uzh-nutrition-kawaii"
+         target="_blank" rel="noopener" aria-label="GitHub repository">
+        <span class="footer-social-icon" aria-hidden="true">🐙</span>
+      </a>
       <div class="footer-row">
         <span>© Aeneanicus</span>
-        <span class="footer-dot">·</span>
-        <a href="https://github.com/LukasAxelsen/eth-uzh-nutrition-kawaii" target="_blank" rel="noopener">GitHub</a>
         <span class="footer-dot">·</span>
         <span class="footer-heart">made with ♡</span>
       </div>
@@ -138,11 +128,7 @@
         </div>
       </section>
 
-      <!-- koharu effect prefs (wave-off / motion-off html classes) -->
       <section class="selector-prefs" aria-label="Effects">
-        <label class="pref" title="Parallax hero wave">
-          <input type="checkbox" id="wave-toggle"> <span>Wave</span>
-        </label>
         <label class="pref" title="Decorative motion (entry / number roll)">
           <input type="checkbox" id="motion-toggle"> <span>Motion</span>
         </label>

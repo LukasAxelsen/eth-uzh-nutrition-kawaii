@@ -447,9 +447,9 @@ function animateEnergy(root) {
   }
 }
 
-/** Kami TextUp: wrap each hero-title char in span.char with --i delay. */
-function initHeroTitle() {
-  const title = document.querySelector('.hero-title');
+/** Kami TextUp: wrap each intro-title char in span.char with --i delay. */
+function initIntroTitle() {
+  const title = document.querySelector('.intro-title');
   if (!title || prefersReducedMotion()) return; // plain text stays visible
   const text = title.textContent;
   title.textContent = '';
@@ -460,7 +460,11 @@ function initHeroTitle() {
     span.textContent = ch;
     title.appendChild(span);
   });
-  requestAnimationFrame(() => requestAnimationFrame(() => title.classList.add('entered')));
+  const kick = () => title.classList.add('entered');
+  // Double rAF for settled layout; plus a setTimeout fallback so the
+  // title can never stay hidden when rAF is paused (background tab).
+  requestAnimationFrame(() => requestAnimationFrame(kick));
+  setTimeout(kick, 1200);
 }
 
 /* ------------------------------------------------------------
@@ -468,21 +472,11 @@ function initHeroTitle() {
    ------------------------------------------------------------ */
 
 function initPrefs() {
-  const wave = safeStorage.get('site-wave') !== 'false';
   const motion = safeStorage.get('site-motion') !== 'false';
   const root = document.documentElement;
-  root.classList.toggle('wave-off', !wave);
   root.classList.toggle('motion-off', !motion);
 
-  const w = document.getElementById('wave-toggle');
   const m = document.getElementById('motion-toggle');
-  if (w) {
-    w.checked = wave;
-    w.addEventListener('change', () => {
-      root.classList.toggle('wave-off', !w.checked);
-      safeStorage.set('site-wave', String(w.checked));
-    });
-  }
   if (m) {
     m.checked = motion;
     m.addEventListener('change', () => {
@@ -936,7 +930,7 @@ async function init() {
   // Static chrome first (independent of data).
   safeInit(() => {
     document.getElementById('date-heading').textContent = formatDate(DATE_STR);
-    document.getElementById('hero-date').textContent = formatDate(DATE_STR);
+    document.getElementById('intro-date').textContent = formatDate(DATE_STR);
   });
   safeInit(bindEvents);
   safeInit(() => { prefs = loadPrefs(); });
@@ -944,7 +938,7 @@ async function init() {
   safeInit(initProgress);
   safeInit(initHeader);
   safeInit(initPrefs);
-  safeInit(initHeroTitle);
+  safeInit(initIntroTitle);
 
   try {
     const json = await fetchData();

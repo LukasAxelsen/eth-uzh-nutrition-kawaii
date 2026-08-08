@@ -358,6 +358,45 @@ const prefersReducedMotion = () =>
   document.documentElement.classList.contains('motion-off');
 
 let dishObserver = null;
+let scrollFallbackActive = false;
+
+/** Mark a card as entered (visible state). */
+function enterCard(card) {
+  if (card.classList.contains('entered')) return;
+  card.classList.add('entered');
+  if (dishObserver) dishObserver.unobserve(card);
+}
+
+/**
+ * Scroll fallback (belt & braces): on scroll we re-check any card still
+ * waiting and enter it if it is inside the viewport. This guarantees
+ * content can never stay hidden even if IntersectionObserver misses
+ * callbacks in some environment. Removes itself once nothing is waiting.
+ */
+function scrollFallback(root) {
+  if (scrollFallbackActive) return;
+  scrollFallbackActive = true;
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      const waiting = root.querySelectorAll('.dish:not(.entered)');
+      if (!waiting.length) {
+        window.removeEventListener('scroll', onScroll, { passive: true });
+        scrollFallbackActive = false;
+        return;
+      }
+      const vh = window.innerHeight;
+      for (const card of waiting) {
+        const r = card.getBoundingClientRect();
+        if (r.top < vh - 40 && r.bottom > 0) enterCard(card);
+      }
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
 
 /** Kami BottomToUp entry: add .entered once a card enters the viewport. */
 function observeDishEntries(root) {
@@ -365,21 +404,19 @@ function observeDishEntries(root) {
   if (!cards.length) return;
 
   if (prefersReducedMotion() || typeof IntersectionObserver === 'undefined') {
-    cards.forEach((c) => c.classList.add('entered'));
+    cards.forEach(enterCard);
     return;
   }
 
   if (!dishObserver) {
     dishObserver = new IntersectionObserver((entries) => {
       for (const en of entries) {
-        if (en.isIntersecting) {
-          en.target.classList.add('entered');
-          dishObserver.unobserve(en.target);
-        }
+        if (en.isIntersecting) enterCard(en.target);
       }
     }, { rootMargin: '0px 0px -48px 0px', threshold: 0.05 });
   }
   cards.forEach((c) => dishObserver.observe(c));
+  scrollFallback(root);
 }
 
 /**
@@ -584,7 +621,14 @@ function renderContent() {
   const selected = data.mensas.filter((m) => prefs.selected.has(m.id));
 
   if (!selected.length) {
-    content.innerHTML = '<div class="no-meals">' + EMPTY_MEALS_TEXT + '</div>';
+    // Friendly empty state with an escape hatch: weekend quiet days
+    // should invite the user to browse all mensas, not look broken.
+    content.innerHTML =
+      '<div class="no-meals">' +
+      '<span style="font-size:2.4rem" aria-hidden="true">🍃</span>' +
+      '<p>' + EMPTY_MEALS_TEXT + '</p>' +
+      '<button class="no-meals-btn" type="button" data-open-selector>Browse all mensas</button>' +
+      '</div>';
     return;
   }
   content.innerHTML = selected.map(mensaSectionHTML).join('');
@@ -671,6 +715,11 @@ function bindEvents() {
 function toggleSelector() {
   const open = document.body.classList.toggle('menu-open');
   setSelectorOpen(open);
+}
+
+function openSelector() {
+  document.body.classList.add('menu-open');
+  setSelectorOpen(true);
 }
 
 function closeSelector() {
@@ -786,6 +835,10 @@ function showGroupMsg(text) {
 }
 
 function onContentClick(e) {
+  if (e.target.closest('[data-open-selector]')) {
+    openSelector();
+    return;
+  }
   const title = e.target.closest('.mensa-title');
   if (title) toggleSection(title.closest('.mensa-section'));
 }

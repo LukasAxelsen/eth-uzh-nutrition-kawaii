@@ -1,25 +1,40 @@
 /* ============================================================
-   Mensa Kawaii — style.css
-   Fusion of two proven design systems, extracted verbatim where
-   possible (minimal translation, no reinvention):
-   - kami  (mx-space/kami): semantic color tokens, iOS gray scale,
-     glass surfaces (blur 20px saturate 180%), header opacity
-     formula (threshold 50px), colored capsule section titles,
-     bottom-to-up entry motion, number transition, custom checkbox
-   - koharu (astro-koharu v6.2.2): shadcn HSL tokens, gradient
-     backgrounds, parallax hero wave, View-Transitions theme sweep,
-     sun/moon toggle, motion-off / wave-off preference classes,
-     note-block dish cards
+   Mensa Kawaii — style.css (rewrite)
+   A deliberate fusion of two proven design systems, extracted
+   from their sources (no reinvention):
 
-   PROGRESSIVE ENHANCEMENT (critical): content is visible WITHOUT
-   JavaScript. Every hidden state is gated behind html.js, which
-   app.js adds on boot. If JS fails, users still see everything.
+   KOHARU (astro-koharu v6.2.2) — the skin:
+   - shadcn HSL tokens, rose-pink primary (351 77% 62%)
+   - gradient backgrounds (#fdfbfb → #ebedee / #21252b → #000)
+   - parallax hero wave (wave.tsx, 12s/7s/4s)
+   - View-Transitions gradient-sweep theme change
+   - sun/moon morph toggle (theme-toggle.css)
+   - ZCOOL KuaiLe rounded display type, note-block card bars
+   - wave-off / motion-off preference classes
+
+   KAMI (mx-space/kami) — the structure:
+   - semantic colors + iOS gray scale (variables.css)
+   - glass surfaces: blur(20px) saturate(180%) + 72% alpha,
+     header opacity formula (threshold 50, 0.01 steps), hide on
+     mobile past first screen (HeaderBase.tsx)
+   - colored capsule section titles with emoji slot (news-head)
+   - spring rebound easing for entry motion (factor.tsx)
+   - Energy number transition, TextUp char stagger
+   - drawer / groups / prefs patterns
+
+   RELIABILITY (this rewrite):
+   - PROGRESSIVE ENHANCEMENT: content is visible WITHOUT JS; every
+     hidden state lives under html.js (added by app.js on boot)
+   - ENTRY ANIMATIONS SETTLE CORRECTLY: .entered sets a static
+     opacity:1 fallback; the keyframe animation uses `backwards`
+     fill only for its delay window, so after the animation the
+     element returns to the VISIBLE static state (fixes the
+     previous build where cards/title vanished after animating)
+   - hover effects stay instant (animation never pins transform)
    ============================================================ */
 
 /* ============================================================
    1. Design tokens
-   - shadcn HSL base + gradients + pink primary: koharu
-   - semantic colors + iOS gray scale + glass: kami variables.css
    ============================================================ */
 :root {
   /* --- koharu / shadcn theme --- */
@@ -51,7 +66,7 @@
   --color-pink: #ed6ea0;
   --color-pink-a3: rgba(237, 110, 160, 0.3);
 
-  /* --- kami semantic colors (variables.css, verbatim) --- */
+  /* --- kami semantic colors (variables.css) --- */
   --red: rgb(255, 59, 48);
   --yellow: #ffc107;
   --blue: #6495ed;
@@ -77,8 +92,8 @@
   --shadow-card: 0 0.625rem 1.875rem rgba(90, 97, 105, 0.12);
   --shadow-card-darker: 0 0 2rem rgba(0, 0, 0, 0.1);
 
-  /* --- kami motion: spring rebound easing + durations --- */
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* --- motion --- */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* kami rebound */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* --- layout & fonts --- */
@@ -119,7 +134,7 @@
   --color-pink: #f18bb3;
   --color-pink-a3: rgba(237, 110, 160, 0.3);
 
-  /* --- kami semantic colors (dark remap, brightened) --- */
+  /* --- kami semantic colors (dark remap) --- */
   --red: rgb(255, 69, 58);
   --blue: #6495ed;
   --green: #1f8f93;
@@ -149,7 +164,6 @@
 
 /* ============================================================
    2. Reset & base
-   (koharu tailwind.css base layer + kami theme.css essentials)
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -180,7 +194,7 @@ a { color: inherit; text-decoration: none; }
 
 html.scroll-locked { overflow: hidden; }
 
-/* kami scrollbar (theme.css): primary thumb, light-bg track */
+/* kami scrollbar (theme.css): primary thumb */
 ::-webkit-scrollbar { width: 10px; height: 10px; background: hsl(var(--background)); }
 ::-webkit-scrollbar-thumb { background: hsl(var(--primary)); border-radius: 5px; border: 3px solid hsl(var(--background)); }
 ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.8); }
@@ -213,10 +227,8 @@ html.scroll-locked { overflow: hidden; }
 
 /* ============================================================
    5. Header — kami glass bar
-   extracted from kami Header/index.module.css + HeaderBase.tsx:
-   backdrop blur(20px) saturate(180%), bg var(--bg-opacity),
-   opacity = position/50 (0.01 steps, clamps at 1), hide only on
-   mobile after scrolling past the first screen height.
+   (HeaderBase.tsx: opacity = position/50 clamped 0..1,
+    hide only on mobile past the first screen height)
    ============================================================ */
 .site-header {
   position: fixed;
@@ -226,7 +238,6 @@ html.scroll-locked { overflow: hidden; }
   transition: transform 0.3s var(--ease);
 }
 
-/* Glass layer */
 .site-header::before {
   content: "";
   position: absolute;
@@ -265,7 +276,6 @@ html.scroll-locked { overflow: hidden; }
   left: 4.5rem;
 }
 
-/* koharu sun/moon toggle, right edge of the header */
 .theme-toggle {
   position: absolute;
   right: 1rem;
@@ -280,8 +290,7 @@ html.scroll-locked { overflow: hidden; }
 .theme-toggle:hover { transform: translateY(-50%) scale(1.1); }
 
 /* ============================================================
-   6. Hero cover + parallax wave
-   koharu Cover.astro + wave.tsx + wave.css (verbatim port)
+   6. Hero cover + parallax wave (koharu)
    ============================================================ */
 .hero {
   position: relative;
@@ -298,12 +307,20 @@ html.scroll-locked { overflow: hidden; }
 
 .hero-content { position: relative; z-index: 1; padding-bottom: 4dvh; }
 
+/* kami news-head style: kicker as a small colored capsule */
 .hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   font-family: var(--font-display);
-  color: hsl(var(--primary));
-  font-size: clamp(0.9rem, 2.4vw, 1.15rem);
-  letter-spacing: 0.3em;
-  margin-bottom: 0.6rem;
+  color: #fff;
+  background: var(--gradient-shoka-button);
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  letter-spacing: 0.14em;
+  border-radius: 999px;
+  padding: 0.35em 1.2em;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 0.9rem var(--color-pink-a3);
 }
 
 .hero-title {
@@ -318,8 +335,9 @@ html.scroll-locked { overflow: hidden; }
   text-shadow: 0 0.4rem 1.2rem var(--color-pink-a3);
 }
 
-/* Kami TextUp char stagger — progressive enhancement: chars are only
-   hidden AFTER app.js adds html.js and wraps them in span.char. */
+/* Kami TextUp — progressive + settles visible:
+   .entered also sets static opacity:1, so after the keyframe
+   (backwards fill = only the delay window) the title stays. */
 .js .hero-title .char {
   display: inline-block;
   white-space: pre;
@@ -327,10 +345,12 @@ html.scroll-locked { overflow: hidden; }
   transform: translateY(10px);
 }
 .js .hero-title.entered .char {
+  opacity: 1;
   animation: char-up 0.55s var(--spring) backwards;
   animation-delay: calc(var(--i) * 45ms);
 }
 @keyframes char-up {
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -351,15 +371,8 @@ html.scroll-locked { overflow: hidden; }
   left: 0;
   z-index: 1;
 }
-.wave-wrap .wave {
-  display: block;
-  width: 100%;
-  margin: 0;
-  height: 100%;
-}
-.wave-wrap .wave .parallax > use {
-  animation: move-forever 12s linear infinite;
-}
+.wave-wrap .wave { display: block; width: 100%; margin: 0; height: 100%; }
+.wave-wrap .wave .parallax > use { animation: move-forever 12s linear infinite; }
 .wave-wrap .wave .parallax > use:nth-child(1) {
   animation-delay: -2s;
   transform: translate(-160px, 0%);
@@ -428,7 +441,7 @@ html.wave-off .wave-wrap { display: none; }
 .seg-option.active { color: #fff; }
 
 /* ============================================================
-   8. Theme toggle — koharu sun/moon morph (theme-toggle.css verbatim)
+   8. Theme toggle — koharu sun/moon morph (verbatim)
    ============================================================ */
 .toggle { display: block; cursor: pointer; }
 .toggle-input { position: absolute; opacity: 0; pointer-events: none; }
@@ -474,7 +487,6 @@ html.wave-off .wave-wrap { display: none; }
   transition: all 0.3s ease;
 }
 
-/* Dark mode (moon) */
 .toggle-input:checked + .toggle-indicator {
   box-shadow: inset 26px -26px 0 0 var(--theme-background-color, #17181c);
   transform: scale(0.5) rotate(0deg);
@@ -490,7 +502,7 @@ html.wave-off .wave-wrap { display: none; }
 }
 
 /* ============================================================
-   9. Theme transition — koharu gradient sweep (theme-transition.css)
+   9. Theme transition — koharu gradient sweep (verbatim)
    ============================================================ */
 @keyframes gradient-sweep {
   from { mask-position: 100% 0; }
@@ -538,8 +550,7 @@ html.theme-transition #site-header { view-transition-name: none; }
 
 .mensa-section { display: flex; flex-direction: column; gap: 0.9rem; }
 
-/* Kami news-head capsule title (extra.css): colored capsule + emoji slot.
-   Group -> color set via data-group-color by JS. */
+/* Kami news-head capsule: colored pill + emoji slot + group color */
 .mensa-title {
   position: relative;
   display: inline-flex;
@@ -568,7 +579,6 @@ html.theme-transition #site-header { view-transition-name: none; }
   line-height: 1;
 }
 
-/* Group accent colors (kami semantic palette) */
 .mensa-title[data-group-color="Central"] { background: var(--purple); }
 .mensa-title[data-group-color="Hoengg"] { background: var(--blue); }
 .mensa-title[data-group-color="Irchel"] { background: var(--green); }
@@ -595,7 +605,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   gap: 0.9rem;
 }
 
-/* --- Dish card: koharu note-block (gradient bar) + kami entry motion --- */
+/* --- Dish card: koharu note-block + kami entry motion --- */
 .dish {
   position: relative;
   display: flex;
@@ -609,7 +619,6 @@ html.theme-transition #site-header { view-transition-name: none; }
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* koharu gradient bar on the left edge */
 .dish::before {
   content: "";
   position: absolute;
@@ -622,11 +631,14 @@ html.theme-transition #site-header { view-transition-name: none; }
   opacity: 0.9;
 }
 
-/* Kami BottomToUp entry — PROGRESSIVE: cards are only pre-hidden under
-   html.js; the .entered class (added by IntersectionObserver) plays the
-   spring animation with a per-card stagger. No JS -> fully visible. */
+/* Kami BottomToUp entry — progressive + settles visible:
+   .entered carries a static opacity:1 (the post-animation state);
+   the keyframe only fills the delay window (backwards), so after
+   the spring animation the card stays fully visible and hover
+   transforms are never pinned by the animation. */
 .js .dish { opacity: 0; }
 .js .dish.entered {
+  opacity: 1;
   animation: dish-in 0.55s var(--spring) backwards;
   animation-delay: calc(var(--i, 0) * 55ms);
 }
@@ -635,7 +647,6 @@ html.theme-transition #site-header { view-transition-name: none; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.dish.entered:hover,
 .dish:hover {
   box-shadow: var(--shadow-card-darker);
   transform: translateY(-2px);
@@ -864,7 +875,6 @@ html.theme-transition #site-header { view-transition-name: none; }
   min-height: 1em;
 }
 
-/* --- Effects prefs row --- */
 .selector-prefs {
   display: flex;
   gap: 1rem;
@@ -1030,13 +1040,33 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
   animation: bounce-soft 1.2s ease-in-out infinite;
 }
 
+/* Empty state gets an actionable escape hatch: on quiet days
+   (weekends) the default groups often have nothing — the site
+   should explain itself and offer to open the selector instead
+   of looking broken. */
 .no-meals, .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
   text-align: center;
   padding: 3rem 0;
   color: hsl(var(--muted-foreground));
   font-size: 1.05rem;
 }
 .error { color: hsl(var(--destructive)); }
+
+.no-meals-btn {
+  border: none;
+  background: var(--gradient-shoka-button);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.55rem 1.6rem;
+  font-size: 0.92rem;
+  box-shadow: 0 0 0.75rem var(--color-pink-a3);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.no-meals-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
 @keyframes bounce-soft {
   0%, 100% { transform: translateY(0); }
@@ -1045,7 +1075,7 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
 
 /* ============================================================
    17. Motion & accessibility
-   (koharu motion.css pattern: master motion-off + reduced-motion)
+   (koharu motion.css pattern)
    ============================================================ */
 html.motion-off .loading-emoji,
 html.motion-off .wave .parallax > use {
@@ -1097,5 +1127,4 @@ html.motion-off .dish {
 
 .app {
   transition: transform 0.3s var(--ease);
-  will-change: transform;
 }

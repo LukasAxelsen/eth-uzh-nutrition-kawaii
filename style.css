@@ -1,89 +1,59 @@
 /* ============================================================
-   Mensa Kawaii — style.css (rewrite)
-   A deliberate fusion of two proven design systems, extracted
-   from their sources (no reinvention):
+   Mensa Kawaii — style.css (kami-first redesign)
 
-   KOHARU (astro-koharu v6.2.2) — the skin:
-   - shadcn HSL tokens, rose-pink primary (351 77% 62%)
-   - gradient backgrounds (#fdfbfb → #ebedee / #21252b → #000)
-   - parallax hero wave (wave.tsx, 12s/7s/4s)
-   - View-Transitions gradient-sweep theme change
-   - sun/moon morph toggle (theme-toggle.css)
-   - rounded modern display type (Nunito + QingKe HuangYou,
-     ChillRound equivalent), note-block card bars
-   - wave-off / motion-off preference classes
-
-   KAMI (mx-space/kami) — the structure:
-   - semantic colors + iOS gray scale (variables.css)
-   - glass surfaces: blur(20px) saturate(180%) + 72% alpha,
-     header opacity formula (threshold 50, 0.01 steps), hide on
-     mobile past first screen (HeaderBase.tsx)
+   Art direction: mx-space/kami (Innei) — "Colorful, flat, cute
+   and comfortable".
+   - semantic color tokens + iOS gray scale (variables.css)
+   - teal primary (--green #39c5bb / dark #1f8f93), configurable
+     by swapping one token
+   - pure light/dark backgrounds (#fff / #111), no gradients
+   - glass = floating layers only (header, drawer, footer):
+     blur(20px) saturate(180%) + 72% alpha + scroll-driven opacity
+   - homepage intro pattern: avatar-badge with glow copy, TextUp
+     title, introduce line
    - colored capsule section titles with emoji slot (news-head)
-   - spring rebound easing for entry motion (factor.tsx)
-   - Energy number transition, TextUp char stagger
-   - drawer / groups / prefs patterns
+   - flat cards: surface + hairline border + radius + hover shadow
+   - primary-colored scrollbar / focus ring / selection
 
-   RELIABILITY (this rewrite):
-   - PROGRESSIVE ENHANCEMENT: content is visible WITHOUT JS; every
-     hidden state lives under html.js (added by app.js on boot)
-   - ENTRY ANIMATIONS SETTLE CORRECTLY: .entered sets a static
-     opacity:1 fallback; the keyframe animation uses `backwards`
-     fill only for its delay window, so after the animation the
-     element returns to the VISIBLE static state (fixes the
-     previous build where cards/title vanished after animating)
-   - hover effects stay instant (animation never pins transform)
+   Typography: koharu (ChillRound equivalent) — Nunito + ZCOOL
+   QingKe HuangYou rounded display, system-rounded body, 0.02em
+   tracking, tabular numbers for data.
+
+   Reliability (kept from previous rewrite):
+   - PROGRESSIVE ENHANCEMENT: content visible without JS; every
+     hidden state lives under html.js
+   - entry animations settle VISIBLE (static opacity:1 on .entered,
+     keyframe only fills the delay window)
    ============================================================ */
 
 /* ============================================================
-   1. Design tokens
+   1. Design tokens — kami variables.css (verbatim values)
    ============================================================ */
 :root {
-  /* --- koharu / shadcn theme --- */
-  --background: 0 12% 99%;
-  --foreground: 0 0% 20%;
-  --card: 0 12% 99%;
-  --card-foreground: 240 10% 3.9%;
-  --primary: 351 77% 62%;
-  --primary-foreground: 355.7 100% 97.3%;
-  --secondary: 240 4.8% 95.9%;
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 0 0% 35%;
-  --accent: 240 4.8% 95.9%;
-  --destructive: 0 84.2% 60.2%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 346.8 77.2% 49.8%;
-  --radius: 0.75rem;
-
-  /* --- koharu gradients --- */
-  --gradient-bg-start: #fdfbfb;
-  --gradient-bg-end: #ebedee;
-  --gradient-bg: linear-gradient(180deg, var(--gradient-bg-start) 10%, var(--gradient-bg-end) 100%);
-  --gradient-pink: linear-gradient(279deg, #f96676 0%, #e91e63 100%);
-  --gradient-header: linear-gradient(-225deg, #e3fdf5 0, #ffe6fa 100%);
-  --gradient-shoka-button-start: #ed6ea0;
-  --gradient-shoka-button-end: #ec8c69;
-  --gradient-shoka-button: linear-gradient(to right, var(--gradient-shoka-button-start) 0, var(--gradient-shoka-button-end) 100%);
-  --color-pink: #ed6ea0;
-  --color-pink-a3: rgba(237, 110, 160, 0.3);
-
-  /* --- kami semantic colors (variables.css) --- */
+  /* --- kami semantic colors --- */
   --red: rgb(255, 59, 48);
   --yellow: #ffc107;
   --blue: #6495ed;
-  --green: #39c5bb;
+  --green: #39c5bb;        /* teal — the primary */
   --brown: #795548;
   --purple: #8a2be2;
-  --pink-kami: #eb445a;
+  --pink: #eb445a;
+  --light-bg: #fff;
   --shallow: #eee;
+  --black: #353535;
 
-  /* --- kami iOS gray scale (hierarchy) --- */
+  /* --- kami iOS gray scale (hierarchy: 1 deepest -> 6 lightest) --- */
   --gray-1: #8e8e93;
   --gray-2: #aeaeb2;
   --gray-3: rgb(199, 199, 204);
   --gray-4: rgb(209, 209, 214);
   --gray-5: rgb(229, 229, 234);
   --gray-6: rgb(242, 242, 247);
+
+  /* --- primary/secondary/accent: aliases to semantic colors --- */
+  --primary: var(--green);
+  --secondary: var(--yellow);
+  --accent: var(--green);
 
   /* --- kami glass --- */
   --bg-opacity: rgba(255, 255, 255, 0.72);
@@ -93,60 +63,36 @@
   --shadow-card: 0 0.625rem 1.875rem rgba(90, 97, 105, 0.12);
   --shadow-card-darker: 0 0 2rem rgba(0, 0, 0, 0.1);
 
-  /* --- motion --- */
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* kami rebound */
+  /* --- kami motion --- */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* --- layout & fonts ---
-     koharu typography: rounded modern display face (Nunito latin/digits
-     + QingKe HuangYou CJK), system-rounded body, 0.02em tracking */
-  --content-w: 980px;
+  /* --- layout & typography (koharu ChillRound equivalent) --- */
+  --content-w: 1040px;
   --font-display: "Nunito", "ZCOOL QingKe HuangYou", "Yuanti SC", "YouYuan",
                   "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Yuanti SC", "YouYuan",
                "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  /* --- koharu theme-toggle colors --- */
+  /* --- theme-toggle colors --- */
   --theme-toggle-color: #ffbb52;
   --theme-background-color: #17181c;
 }
 
-.dark {
-  /* --- koharu / shadcn dark --- */
-  --background: 216 13% 15%;
-  --foreground: 0 0% 95%;
-  --card: 216 13% 15%;
-  --card-foreground: 0 0% 95%;
-  --primary: 350 77% 70%;
-  --primary-foreground: 355.7 100% 97.3%;
-  --secondary: 216 13% 22%;
-  --muted: 216 13% 22%;
-  --muted-foreground: 0 0% 63%;
-  --accent: 216 13% 22%;
-  --destructive: 0 62.8% 30.6%;
-  --border: 216 13% 25%;
-  --input: 216 13% 25%;
-  --ring: 346.8 77.2% 49.8%;
-
-  /* --- koharu dark gradients --- */
-  --gradient-bg-start: #21252b;
-  --gradient-bg-end: #000;
-  --gradient-header: linear-gradient(-225deg, #2d3230 0, #322d31 100%);
-  --gradient-shoka-button-start: #f18bb3cc;
-  --gradient-shoka-button-end: #f0a387cc;
-  --color-pink: #f18bb3;
-  --color-pink-a3: rgba(237, 110, 160, 0.3);
-
+html.dark {
+  color-scheme: dark;
   /* --- kami semantic colors (dark remap) --- */
   --red: rgb(255, 69, 58);
-  --blue: #6495ed;
-  --green: #1f8f93;
+  --green: #1f8f93;        /* dark teal */
   --yellow: #ffc107;
+  --blue: #6495ed;
   --brown: #c6aa9f;
   --purple: #b260ea;
-  --pink-kami: #eb4b63;
+  --pink: #eb4b63;
+  --light-bg: #111;
   --shallow: #333;
+  --black: #ddd;
 
   /* --- kami iOS gray scale (dark) --- */
   --gray-2: rgb(99, 99, 102);
@@ -155,7 +101,9 @@
   --gray-5: rgb(44, 44, 46);
   --gray-6: rgb(28, 28, 30);
 
-  /* --- kami glass (dark) --- */
+  --primary: var(--green);
+  --accent: var(--green);
+
   --bg-opacity: rgba(29, 29, 31, 0.72);
   --shadow-card-darker: 0 0 2rem rgba(0, 0, 0, 0.5);
 }
@@ -163,24 +111,24 @@
 /* kami: glass fallback for browsers without backdrop-filter */
 @supports not (backdrop-filter: blur(1px)) {
   :root { --bg-opacity: #fff; }
-  .dark { --bg-opacity: rgba(29, 29, 31, 0.98); }
+  html.dark { --bg-opacity: rgba(29, 29, 31, 0.98); }
 }
 
 /* ============================================================
-   2. Reset & base
+   2. Reset & base (kami theme.css essentials)
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scrollbar-gutter: stable; }
 
 body {
-  background: linear-gradient(to top, var(--gradient-bg-end) 0, var(--gradient-bg-start) 30%) no-repeat bottom;
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  background-color: var(--light-bg);
+  color: var(--black);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
   letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior-y: none;
@@ -192,45 +140,44 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 700; }
 button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
 
-::selection { background: hsl(var(--primary) / 0.25); }
-
-:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+/* kami: selection = primary background, white text */
+::selection { background: var(--primary); color: #fff; }
 
 html.scroll-locked { overflow: hidden; }
 
-/* kami scrollbar (theme.css): primary thumb */
-::-webkit-scrollbar { width: 10px; height: 10px; background: hsl(var(--background)); }
-::-webkit-scrollbar-thumb { background: hsl(var(--primary)); border-radius: 5px; border: 3px solid hsl(var(--background)); }
-::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.8); }
+/* kami scrollbar: primary thumb */
+::-webkit-scrollbar { width: 10px; height: 10px; background: var(--light-bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; border: 3px solid var(--light-bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--green); }
 
-/* kami: focus ring via primary box-shadow instead of outline */
+/* kami: focus ring via primary box-shadow */
 *:not(input):not(textarea):focus-visible {
   outline: 0 !important;
-  box-shadow: hsl(var(--primary)) 0px 0px 0px 2px !important;
+  box-shadow: var(--primary) 0px 0px 0px 2px !important;
+}
+
+/* kami global micro-transitions (color fast; box-shadow transitions
+   live on the components that actually need them) */
+body * {
+  transition: color 0.1s ease, background-color 0.1s ease, border-color 0.1s ease;
 }
 
 /* ============================================================
-   3. Utilities
-   ============================================================ */
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.shadow-text { text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5); }
-
-/* ============================================================
-   4. Scroll progress (koharu scrollProgress)
+   3. Scroll progress
    ============================================================ */
 .progress {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 3px;
   z-index: 400;
-  background: var(--gradient-shoka-button);
+  background: var(--primary);
   transform: scaleX(0);
   transform-origin: 0 50%;
   pointer-events: none;
 }
 
 /* ============================================================
-   5. Header — kami glass bar
+   4. Header — kami glass bar
    (HeaderBase.tsx: opacity = position/50 clamped 0..1,
     hide only on mobile past the first screen height)
    ============================================================ */
@@ -255,6 +202,9 @@ html.scroll-locked { overflow: hidden; }
   transition: opacity 0.3s ease-out;
   pointer-events: none;
 }
+/* No-JS fallback: the glass bar must be visible without JS driving
+   --header-opacity (progressive enhancement). */
+html:not(.js) .site-header::before { opacity: 1; }
 
 .site-header.hide { transform: translateY(-100%); }
 
@@ -272,9 +222,9 @@ html.scroll-locked { overflow: hidden; }
 
 .header-date {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: hsl(var(--foreground));
-  text-shadow: 0 0.15rem 0.25rem rgba(0, 0, 0, 0.35);
+  font-size: 1.05rem;
+  color: var(--black);
+  text-shadow: 0 0.15rem 0.25rem rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   position: absolute;
   left: 4.5rem;
@@ -294,62 +244,65 @@ html.scroll-locked { overflow: hidden; }
 .theme-toggle:hover { transform: translateY(-50%) scale(1.1); }
 
 /* ============================================================
-   6. Hero cover + parallax wave (koharu)
+   5. Intro — kami homepage pattern
+   (avatar-badge glow + TextUp title + introduce line)
    ============================================================ */
-.hero {
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 7rem 1.25rem 4rem;
+}
+
+/* Avatar-badge: rounded emoji tile with a blurred self-copy glow
+   (kami avatar-shadow pattern). */
+.intro-badge {
   position: relative;
-  min-height: 46dvh;
-  max-height: 56dvh;
+  width: 88px;
+  height: 88px;
+  border-radius: 1.4rem;
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background: var(--gradient-header);
-  text-align: center;
-  padding: 5rem 1.5rem 0;
+  font-size: 2.6rem;
+  box-shadow: var(--shadow-card);
+}
+.intro-badge::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 10%;
+  z-index: -1;
+  border-radius: 1.4rem;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  filter: blur(10px) brightness(0.9) opacity(0.45);
+  transform: scale(0.95);
 }
 
-.hero-content { position: relative; z-index: 1; padding-bottom: 4dvh; }
-
-/* kami news-head style: kicker as a small colored capsule */
-.hero-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
+.intro-title {
   font-family: var(--font-display);
-  color: #fff;
-  background: var(--gradient-shoka-button);
-  font-size: clamp(0.8rem, 2vw, 0.95rem);
-  letter-spacing: 0.14em;
-  border-radius: 999px;
-  padding: 0.35em 1.2em;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 0.9rem var(--color-pink-a3);
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 8vw, 5rem);
-  line-height: 1.15;
-  background: var(--gradient-pink);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 0.4rem 1.2rem var(--color-pink-a3);
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  line-height: 1.2;
+  color: var(--black);
 }
 
 /* Kami TextUp — progressive + settles visible:
-   .entered also sets static opacity:1, so after the keyframe
-   (backwards fill = only the delay window) the title stays. */
-.js .hero-title .char {
+   .entered also sets static opacity:1 AND transform:none, so after
+   the keyframe (backwards fill = only the delay window) the chars
+   stay in their final position (no 10px bounce-back). */
+.js .intro-title .char {
   display: inline-block;
   white-space: pre;
   opacity: 0;
   transform: translateY(10px);
 }
-.js .hero-title.entered .char {
+.js .intro-title.entered .char {
   opacity: 1;
+  transform: translateY(0);
   animation: char-up 0.55s var(--spring) backwards;
   animation-delay: calc(var(--i) * 45ms);
 }
@@ -358,61 +311,18 @@ html.scroll-locked { overflow: hidden; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-sub {
-  margin-top: 0.8rem;
-  font-size: clamp(0.85rem, 2.2vw, 1.05rem);
-  color: hsl(var(--muted-foreground));
+.intro-sub {
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+  color: var(--gray-1);
 }
-
-/* --- Wave (koharu wave.tsx + wave.css) --- */
-.wave-wrap {
-  width: 100%;
-  height: 15dvh;
-  min-height: 3.125rem;
-  max-height: 9.375rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-}
-.wave-wrap .wave { display: block; width: 100%; margin: 0; height: 100%; }
-.wave-wrap .wave .parallax > use { animation: move-forever 12s linear infinite; }
-.wave-wrap .wave .parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  transform: translate(-160px, 0%);
-  fill: var(--gradient-bg-start);
-  opacity: 0.75;
-  filter: brightness(1.1);
-}
-.wave-wrap .wave .parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 7s;
-  fill: var(--gradient-bg-start);
-  opacity: 0.6;
-  filter: brightness(1.25);
-}
-.wave-wrap .wave .parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 4s;
-  transform: translate(-75px, 0%);
-  opacity: 1;
-  fill: var(--gradient-bg-start);
-}
-
-@keyframes move-forever {
-  0% { transform: translate(-90px, 0%); }
-  100% { transform: translate(85px, 0%); }
-}
-
-html.wave-off .wave-wrap { display: none; }
 
 /* ============================================================
-   7. Segmented control (sliding gradient thumb)
+   6. Segmented control
    ============================================================ */
 .segmented {
   position: relative;
   display: inline-flex;
-  background: hsl(var(--secondary));
+  background: var(--gray-6);
   border-radius: 999px;
   padding: 0.25rem;
   gap: 0.25rem;
@@ -424,8 +334,8 @@ html.wave-off .wave-wrap { display: none; }
   left: 0.25rem;
   width: calc(50% - 0.25rem);
   border-radius: 999px;
-  background: var(--gradient-shoka-button);
-  box-shadow: 0 0 0.6rem var(--color-pink-a3);
+  background: var(--primary);
+  box-shadow: 0 0 0.6rem var(--primary);
   transition: transform 0.3s var(--ease);
 }
 .segmented[data-meal="Dinner"] .seg-thumb { transform: translateX(100%); }
@@ -437,15 +347,15 @@ html.wave-off .wave-wrap { display: none; }
   background: none;
   padding: 0.45rem 1.4rem;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 999px;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   transition: color 0.3s ease;
 }
 .seg-option.active { color: #fff; }
 
 /* ============================================================
-   8. Theme toggle — koharu sun/moon morph (verbatim)
+   7. Theme toggle — koharu sun/moon morph (verbatim)
    ============================================================ */
 .toggle { display: block; cursor: pointer; }
 .toggle-input { position: absolute; opacity: 0; pointer-events: none; }
@@ -506,7 +416,7 @@ html.wave-off .wave-wrap { display: none; }
 }
 
 /* ============================================================
-   9. Theme transition — koharu gradient sweep (verbatim)
+   8. Theme transition — gradient sweep (koharu enhancement)
    ============================================================ */
 @keyframes gradient-sweep {
   from { mask-position: 100% 0; }
@@ -541,12 +451,12 @@ html.theme-transition::view-transition-new(root) {
 html.theme-transition #site-header { view-transition-name: none; }
 
 /* ============================================================
-   10. Content: mensa sections + dish cards
+   9. Content: mensa sections + dish cards
    ============================================================ */
 .main {
   max-width: var(--content-w);
   margin-inline: auto;
-  padding: 2.5rem 1.25rem 3rem;
+  padding: 0 1.25rem 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -554,7 +464,7 @@ html.theme-transition #site-header { view-transition-name: none; }
 
 .mensa-section { display: flex; flex-direction: column; gap: 0.9rem; }
 
-/* Kami news-head capsule: colored pill + emoji slot + group color */
+/* Kami news-head capsule: white bold text, semantic bg, emoji slot */
 .mensa-title {
   position: relative;
   display: inline-flex;
@@ -562,7 +472,8 @@ html.theme-transition #site-header { view-transition-name: none; }
   align-self: flex-start;
   gap: 0.6rem;
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 3.4vw, 1.4rem);
+  font-size: clamp(1.05rem, 3vw, 1.3rem);
+  font-weight: 700;
   color: #fff;
   background: var(--purple);
   border-radius: 1em;
@@ -573,13 +484,20 @@ html.theme-transition #site-header { view-transition-name: none; }
 }
 .mensa-title:hover { filter: brightness(1.12); transform: translateY(-1px); }
 
+/* kami: darker icon slot inside the capsule */
 .mensa-title::before {
   content: attr(data-emoji);
   position: absolute;
-  left: 0.55em;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.1em;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4em;
+  border-radius: 1em;
+  background: rgb(0 0 0 / 10%);
+  font-size: 1em;
   line-height: 1;
 }
 
@@ -606,40 +524,30 @@ html.theme-transition #site-header { view-transition-name: none; }
   transition: max-height 0.35s var(--ease);
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1rem;
 }
 
-/* --- Dish card: koharu note-block + kami entry motion --- */
+/* --- Dish card: kami flat card --- */
 .dish {
   position: relative;
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border) / 0.7);
-  border-radius: var(--radius);
-  padding: 1.1rem 1.4rem 1.1rem 1.6rem;
+  background: var(--light-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.5rem;
+  padding: 1.1rem 1.4rem;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: box-shadow 0.5s ease, transform 0.2s ease, border-color 0.1s ease;
 }
 
-.dish::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.9rem;
-  bottom: 0.9rem;
-  width: 4px;
-  border-radius: 0 4px 4px 0;
-  background: var(--gradient-shoka-button);
-  opacity: 0.9;
+.dish:hover {
+  box-shadow: var(--shadow-card-darker);
+  transform: translateY(-2px);
+  border-color: var(--primary);
 }
 
-/* Kami BottomToUp entry — progressive + settles visible:
-   .entered carries a static opacity:1 (the post-animation state);
-   the keyframe only fills the delay window (backwards), so after
-   the spring animation the card stays fully visible and hover
-   transforms are never pinned by the animation. */
+/* Kami BottomToUp entry — progressive + settles visible */
 .js .dish { opacity: 0; }
 .js .dish.entered {
   opacity: 1;
@@ -651,40 +559,36 @@ html.theme-transition #site-header { view-transition-name: none; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.dish:hover {
-  box-shadow: var(--shadow-card-darker);
-  transform: translateY(-2px);
-  border-color: hsl(var(--primary) / 0.35);
-}
-
 .dish-main { flex: 1; min-width: 0; }
 
 .dish-label {
   font-family: var(--font-display);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   margin-bottom: 0.2rem;
 }
 
 .dish-name {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  font-weight: 700;
   line-height: 1.35;
-  color: hsl(var(--foreground));
+  color: var(--black);
 }
 
 .dish-desc {
   margin-top: 0.3rem;
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
 /* ============================================================
-   11. Nutrition table
+   10. Nutrition table
    ============================================================ */
 .nutrition-col { flex-shrink: 0; }
 
@@ -695,38 +599,40 @@ html.theme-transition #site-header { view-transition-name: none; }
 }
 .nutrition-table thead th {
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   text-align: right;
   padding: 0.3rem 0.5rem;
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid var(--glass-border);
 }
 .nutrition-table thead th:first-child { text-align: left; }
 
 .nutrition-table td {
   padding: 0.28rem 0.5rem;
   text-align: right;
-  border-bottom: 1px dashed hsl(var(--border) / 0.7);
+  border-bottom: 1px dashed var(--gray-5);
   font-variant-numeric: tabular-nums;
 }
 .nutrition-table td:first-child { text-align: left; }
 .nutrition-table tbody tr:last-child td { border-bottom: none; }
 
-.n-label { color: hsl(var(--muted-foreground)); }
-.n-val { color: hsl(var(--foreground)); }
+.n-label { color: var(--gray-1); }
+.n-val { color: var(--black); }
 
-/* Energy is the hero number of a dish (kami NumberRecorder display) */
+/* Energy is the hero number of a dish */
 .nutrition-table tbody tr:first-child .n-val:not(:empty) {
   font-family: var(--font-display);
   font-size: 1.2rem;
+  font-weight: 700;
   line-height: 1.2;
-  color: hsl(var(--primary));
+  color: var(--primary);
 }
 
 /* ============================================================
-   12. Selector drawer — kami glass panel
+   11. Selector drawer — kami glass panel
    ============================================================ */
 #selector {
   position: fixed;
@@ -752,8 +658,9 @@ html.theme-transition #site-header { view-transition-name: none; }
 
 .selector-pane-title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: hsl(var(--primary));
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
   margin-bottom: 0.6rem;
   letter-spacing: 0.08em;
 }
@@ -777,24 +684,24 @@ html.theme-transition #site-header { view-transition-name: none; }
   user-select: none;
   transition: background-color 0.2s ease;
 }
-.mensa-row:hover { background: hsl(var(--muted) / 0.6); }
+.mensa-row:hover { background: var(--shallow); }
 
 .mensa-check {
   width: 18px; height: 18px;
-  border: 2px solid hsl(var(--muted-foreground) / 0.7);
+  border: 2px solid var(--gray-2);
   border-radius: 50%;
   flex-shrink: 0;
   display: inline-block;
   transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 .mensa-row.selected .mensa-check {
-  border-color: hsl(var(--primary));
-  background: radial-gradient(circle, hsl(var(--primary)) 0 45%, transparent 55%);
+  border-color: var(--primary);
+  background: radial-gradient(circle, var(--primary) 0 45%, transparent 55%);
 }
 
 .mensa-label {
   font-size: 0.92rem;
-  color: hsl(var(--foreground));
+  color: var(--black);
   line-height: 1.3;
 }
 
@@ -810,55 +717,55 @@ html.theme-transition #site-header { view-transition-name: none; }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
+  border: 1px solid var(--gray-4);
+  background: var(--light-bg);
+  color: var(--black);
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
   font-size: 0.85rem;
-  transition: border-color 0.25s ease, color 0.25s ease;
+  font-weight: 600;
+  transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
 }
 .group-chip:hover:not(:disabled) {
-  border-color: hsl(var(--primary));
-  color: hsl(var(--primary));
+  border-color: var(--primary);
+  color: var(--primary);
 }
 .group-chip:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* kami interaction: the group whose members equal the current
-   selection is highlighted as the active filter */
+/* kami interaction: the group matching the current selection is active */
 .group-chip.active {
-  border-color: hsl(var(--primary));
-  background: hsl(var(--primary) / 0.12);
-  color: hsl(var(--primary));
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
   font-weight: 700;
 }
-.group-chip.active .chip-count { background: hsl(var(--primary) / 0.18); color: hsl(var(--primary)); }
+.group-chip.active .chip-count { background: rgb(255 255 255 / 25%); color: #fff; }
 
 .chip-count {
   font-size: 0.72rem;
-  background: hsl(var(--muted));
-  color: hsl(var(--muted-foreground));
+  background: var(--gray-6);
+  color: var(--gray-1);
   border-radius: 999px;
   padding: 0.05rem 0.5rem;
 }
-.group-chip:hover:not(:disabled) .chip-count { color: hsl(var(--primary)); }
+.group-chip:hover:not(:disabled) .chip-count { color: var(--primary); }
 
 .chip-x {
   font-size: 0.9rem;
   line-height: 1;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   padding: 0 0.1rem;
 }
-.chip-x:hover { color: hsl(var(--destructive)); }
+.chip-x:hover { color: var(--red); }
 
 .group-add { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
 .group-add input {
   flex: 1;
   min-width: 8rem;
-  border: 1px solid hsl(var(--input));
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
+  border: 1px solid var(--gray-4);
+  background: var(--light-bg);
+  color: var(--black);
   border-radius: 0.5rem;
   padding: 0.5rem 0.8rem;
   font-size: 0.9rem;
@@ -867,17 +774,18 @@ html.theme-transition #site-header { view-transition-name: none; }
 }
 .group-add input:focus-visible {
   outline: none;
-  border-color: hsl(var(--primary));
-  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary);
 }
 
 .group-add button {
   border: none;
-  background: var(--gradient-shoka-button);
+  background: var(--primary);
   color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem 1.1rem;
   font-size: 0.9rem;
+  font-weight: 700;
   transition: filter 0.2s ease, transform 0.2s ease;
 }
 .group-add button:hover { filter: brightness(1.1); transform: translateY(-1px); }
@@ -885,7 +793,7 @@ html.theme-transition #site-header { view-transition-name: none; }
 .group-add-msg {
   width: 100%;
   font-size: 0.8rem;
-  color: hsl(var(--primary));
+  color: var(--primary);
   min-height: 1em;
 }
 
@@ -893,25 +801,25 @@ html.theme-transition #site-header { view-transition-name: none; }
   display: flex;
   gap: 1rem;
   padding-top: 0.9rem;
-  border-top: 1px dashed hsl(var(--border));
+  border-top: 1px dashed var(--gray-4);
 }
 .pref {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
   font-size: 0.85rem;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   cursor: pointer;
   user-select: none;
 }
 .pref input {
-  accent-color: hsl(var(--primary));
+  accent-color: var(--primary);
   width: 1rem; height: 1rem;
   cursor: pointer;
 }
 
 /* ============================================================
-   13. Hamburger (body-level fixed)
+   12. Hamburger (body-level fixed)
    ============================================================ */
 .menu-btn {
   position: fixed;
@@ -919,10 +827,10 @@ html.theme-transition #site-header { view-transition-name: none; }
   z-index: 300;
   width: 42px; height: 42px;
   padding: 0;
-  background: var(--gradient-shoka-button);
+  background: var(--primary);
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 0.75rem var(--color-pink-a3);
+  box-shadow: 0 0 0.75rem var(--primary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -930,7 +838,7 @@ html.theme-transition #site-header { view-transition-name: none; }
   gap: 5px;
   transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
 }
-.menu-btn:hover { box-shadow: 0 0 0.9rem var(--color-pink); }
+.menu-btn:hover { box-shadow: 0 0 0.9rem var(--green); }
 
 .menu-bar {
   display: block;
@@ -946,7 +854,7 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
 }
 
 /* ============================================================
-   14. Raw data section
+   13. Raw data section
    ============================================================ */
 .raw-section {
   max-width: var(--content-w);
@@ -956,25 +864,26 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
 }
 
 .raw-btn {
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
+  border: 1px solid var(--gray-4);
+  background: var(--light-bg);
+  color: var(--black);
   border-radius: 999px;
   padding: 0.5rem 1.4rem;
   font-size: 0.9rem;
+  font-weight: 700;
   transition: border-color 0.25s ease, color 0.25s ease;
 }
 .raw-btn:hover {
-  border-color: hsl(var(--primary));
-  color: hsl(var(--primary));
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .raw-panel {
   display: none;
   margin-top: 0.9rem;
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  background: hsl(var(--muted) / 0.55);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.5rem;
+  background: var(--shallow);
   overflow: hidden;
 }
 .raw-panel.open { display: block; }
@@ -984,33 +893,35 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
   align-items: center;
   justify-content: space-between;
   padding: 0.6rem 1rem;
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid var(--glass-border);
 }
 .raw-title {
   font-family: var(--font-display);
   font-size: 0.85rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
 }
 
 .copy-btn {
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
+  border: 1px solid var(--gray-4);
+  background: var(--light-bg);
+  color: var(--black);
   border-radius: 0.5rem;
   padding: 0.3rem 0.9rem;
   font-size: 0.82rem;
+  font-weight: 600;
   transition: border-color 0.25s ease, color 0.25s ease;
 }
-.copy-btn:hover { border-color: hsl(var(--primary)); color: hsl(var(--primary)); }
-.copy-btn.copied { border-color: hsl(var(--green)); color: hsl(var(--green)); }
+.copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+.copy-btn.copied { border-color: var(--green); color: var(--green); }
 
 .raw-text {
   padding: 1rem;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   line-height: 1.6;
-  color: hsl(var(--foreground) / 0.9);
+  color: var(--black);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   max-height: 50vh;
@@ -1018,35 +929,57 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
 }
 
 /* ============================================================
-   15. Footer
+   14. Footer — kami glass + social circle
    ============================================================ */
 .footer {
+  position: relative;
   max-width: var(--content-w);
   margin-inline: auto;
-  padding: 0 1.25rem 3rem;
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 1.25rem 1.5rem;
   text-align: center;
   font-size: 0.85rem;
-  color: hsl(var(--muted-foreground));
+  color: var(--gray-1);
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: var(--bg-opacity);
+  border: 1px solid var(--glass-border);
 }
 
-.footer a { color: hsl(var(--muted-foreground)); transition: color 0.25s ease; }
-.footer a:hover { color: hsl(var(--primary)); }
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  font-size: 1.3rem;
+  box-shadow: 0 0 0.9rem var(--primary);
+  transition: transform 0.3s var(--spring);
+}
+.footer-social:hover { transform: scale(1.12) rotate(8deg); }
+
+.footer a { color: var(--gray-1); transition: color 0.25s ease; }
+.footer a:hover { color: var(--primary); }
 .footer-dot { margin: 0 0.4rem; opacity: 0.6; }
-.footer-heart { color: hsl(var(--primary)); }
+.footer-heart { color: var(--primary); }
 
 /* ============================================================
-   16. Loading / empty / error states
+   15. Loading / empty / error states
    ============================================================ */
 .loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
-  padding: 4rem 0;
-  color: hsl(var(--muted-foreground));
+  padding: 3rem 0;
+  color: var(--gray-1);
 }
 .loading-emoji {
   display: inline-block;
@@ -1054,30 +987,27 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
   animation: bounce-soft 1.2s ease-in-out infinite;
 }
 
-/* Empty state gets an actionable escape hatch: on quiet days
-   (weekends) the default groups often have nothing — the site
-   should explain itself and offer to open the selector instead
-   of looking broken. */
 .no-meals, .error {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
   text-align: center;
-  padding: 3rem 0;
-  color: hsl(var(--muted-foreground));
+  padding: 2.5rem 0;
+  color: var(--gray-1);
   font-size: 1.05rem;
 }
-.error { color: hsl(var(--destructive)); }
+.error { color: var(--red); }
 
 .no-meals-btn {
   border: none;
-  background: var(--gradient-shoka-button);
+  background: var(--primary);
   color: #fff;
   border-radius: 999px;
   padding: 0.55rem 1.6rem;
   font-size: 0.92rem;
-  box-shadow: 0 0 0.75rem var(--color-pink-a3);
+  font-weight: 700;
+  box-shadow: 0 0 0.75rem var(--primary);
   transition: filter 0.2s ease, transform 0.2s ease;
 }
 .no-meals-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
@@ -1088,14 +1018,10 @@ body.menu-open .menu-btn { transform: translateX(calc(100vw - 54px)); }
 }
 
 /* ============================================================
-   17. Motion & accessibility
-   (koharu motion.css pattern)
+   16. Motion & accessibility
    ============================================================ */
-html.motion-off .loading-emoji,
-html.motion-off .wave .parallax > use {
-  animation: none;
-}
-html.motion-off .hero-title .char,
+html.motion-off .loading-emoji { animation: none; }
+html.motion-off .intro-title .char,
 html.motion-off .dish {
   opacity: 1 !important;
   animation: none !important;
@@ -1103,8 +1029,7 @@ html.motion-off .dish {
 
 @media (prefers-reduced-motion: reduce) {
   .loading-emoji,
-  .wave .parallax > use,
-  .hero-title .char,
+  .intro-title .char,
   .dish {
     animation: none !important;
     opacity: 1 !important;
@@ -1115,7 +1040,7 @@ html.motion-off .dish {
 }
 
 /* ============================================================
-   18. Responsive (koharu max-width breakpoints)
+   17. Responsive
    ============================================================ */
 @media (max-width: 992px) {
   .header-inner { padding: 0.75rem 3.5rem; }
@@ -1126,9 +1051,9 @@ html.motion-off .dish {
   .dish { flex-direction: column; gap: 0.9rem; }
   .nutrition-col { width: 100%; }
   .nutrition-table { min-width: 0; width: 100%; }
-  .hero { min-height: 40dvh; }
   .header-date { display: none; }
   .header-inner { justify-content: center; padding: 0.75rem 3.5rem; }
+  .intro { padding: 6.5rem 1.25rem 3rem; }
 }
 
 @media (max-width: 480px) {
@@ -1136,7 +1061,9 @@ html.motion-off .dish {
   body.menu-open .app { transform: translateX(100vw); }
 }
 @media (min-width: 481px) {
-  body.menu-open .app { transform: translateX(min(380px, 60vw)); }
+  /* drawer width and app shift use the same 380px so the drawer never
+     overlaps the shifted app (subagent review fix) */
+  body.menu-open .app { transform: translateX(380px); }
 }
 
 .app {

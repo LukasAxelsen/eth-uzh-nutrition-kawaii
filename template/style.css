@@ -256,13 +256,13 @@ html:not(.js) .site-header::before { opacity: 1; }
   padding: 7rem 1.25rem 4rem;
 }
 
-/* Avatar-badge: rounded emoji tile with a blurred self-copy glow
-   (kami avatar-shadow pattern). */
+/* Avatar-badge: ROUNDED emoji tile (kami avatar is a circle) with a
+   blurred self-copy glow (kami avatar-shadow pattern). */
 .intro-badge {
   position: relative;
   width: 88px;
   height: 88px;
-  border-radius: 1.4rem;
+  border-radius: 100%;
   background: var(--primary);
   display: flex;
   align-items: center;
@@ -275,7 +275,7 @@ html:not(.js) .site-header::before { opacity: 1; }
   position: absolute;
   left: 0; top: 10%;
   z-index: -1;
-  border-radius: 1.4rem;
+  border-radius: 100%;
   width: 100%;
   height: 100%;
   background: var(--primary);
@@ -484,7 +484,7 @@ html.theme-transition #site-header { view-transition-name: none; }
 }
 .mensa-title:hover { filter: brightness(1.12); transform: translateY(-1px); }
 
-/* kami: darker icon slot inside the capsule */
+/* kami: darker icon slot inside the capsule; micro-delight on hover */
 .mensa-title::before {
   content: attr(data-emoji);
   position: absolute;
@@ -499,7 +499,9 @@ html.theme-transition #site-header { view-transition-name: none; }
   background: rgb(0 0 0 / 10%);
   font-size: 1em;
   line-height: 1;
+  transition: transform 0.3s var(--spring);
 }
+.mensa-title:hover::before { transform: scale(1.18); }
 
 .mensa-title[data-group-color="Central"] { background: var(--purple); }
 .mensa-title[data-group-color="Hoengg"] { background: var(--blue); }
@@ -546,6 +548,8 @@ html.theme-transition #site-header { view-transition-name: none; }
   transform: translateY(-2px);
   border-color: var(--primary);
 }
+/* micro-delight: the line label picks up the primary on hover */
+.dish:hover .dish-label { color: var(--primary); }
 
 /* Kami BottomToUp entry — progressive + settles visible */
 .js .dish { opacity: 0; }

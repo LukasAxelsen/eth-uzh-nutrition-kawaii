@@ -55,8 +55,9 @@ main.main#content (aria-live; renderContent() replaces its innerHTML)
         .entered via IntersectionObserver + scroll fallback; animation settles VISIBLE;
         hover = shadow deepen + border primary)
         .dish-main (.dish-label, .dish-name, .dish-desc)
-        .nutrition-col > table.nutrition-table (thead Nutrition|per 100g|Total; tbody 9 fixed rows;
-          first data row Energy rendered large in primary; Energy cell rolls via rAF on render)
+        .nutrition-col > table.nutrition-table (thead Nutrition|per 100g[|Total]; tbody 9 fixed rows;
+          Total column rendered ONLY when at least one total value exists (aesthetic: no empty
+          right half); first data row Energy rendered large in primary; Energy cell rolls via rAF)
 .raw-section (#raw-toggle button, #raw-panel with #copy-btn, #raw-text)
 footer.footer (kami glass: blur + --bg-opacity + radius; .footer-social circle = primary)
 #selector (kami glass drawer; body.menu-open .app slides; .selector-columns > .selector-pane x2)

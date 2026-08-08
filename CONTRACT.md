@@ -42,19 +42,23 @@ header.site-header#site-header (fixed 56px kami glass bar; ::before = backdrop-f
     button.theme-toggle#theme-toggle
       .toggle > input.toggle-input + .toggle-indicator (koharu sun/moon morph)
 section.intro (kami homepage pattern — OUTSIDE #content, sibling of main)
-  .intro-badge (rounded teal tile + ::after glow copy: blur(10px) brightness(0.9) opacity(0.45))
+  .intro-badge (CIRCLE teal tile + ::after glow copy: blur(10px) brightness(0.9) opacity(0.45))
   h1.intro-title#intro-title (JS wraps chars in span.char with --i; .entered kicks stagger)
   p.intro-sub#intro-date
+  .intro-social > a.social-circle (kami Social pattern: primary circle, spring hover)
 main.main#content (aria-live; renderContent() replaces its innerHTML)
   section.mensa-section (collapsible: click .mensa-title toggles; .collapsed)
     h2.mensa-title (kami news-head capsule: data-emoji -> ::before icon slot,
       data-group-color -> semantic bg Central=purple Hoengg=blue Irchel=green
       Oerlikon=red Other=gray-1; .mensa-caret)
-    .mensa-dishes
-      .dish (kami flat card: light-bg + glass-border + 0.5rem radius; --i stagger index;
+    .mensa-dishes (GRID: auto-fill minmax(330px,1fr) — 2 columns on desktop,
+      1 on mobile; collapse via max-height)
+      .dish (kami flat card in grid, column layout; --i stagger index;
         .entered via IntersectionObserver + scroll fallback; animation settles VISIBLE;
-        hover = shadow deepen + border primary)
-        .dish-main (.dish-label, .dish-name, .dish-desc)
+        hover = shadow deepen + border primary + label primary)
+        .dish-head (.dish-main > .dish-label + .dish-name; .dish-kcal circular
+          primary badge with per-100g energy)
+        .dish-desc (2-line clamp)
         .nutrition-col > table.nutrition-table (thead Nutrition|per 100g[|Total]; tbody 9 fixed rows;
           Total column rendered ONLY when at least one total value exists (aesthetic: no empty
           right half); first data row Energy rendered large in primary; Energy cell rolls via rAF)

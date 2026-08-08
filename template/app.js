@@ -567,12 +567,19 @@ function dishHTML(d, i) {
   const line = String(d.line || '').trim();
   const dish = String(d.dish || '').trim();
   const label = line && line.toLowerCase() !== dish.toLowerCase() ? line : '';
+  // kcal badge: per-100g energy when present (kami data-display style)
+  const kcal = nutrition.p100 && nutrition.p100.kcal != null && nutrition.p100.kcal !== ''
+    ? fmtNum(nutrition.p100.kcal) + ' kcal'
+    : '';
   return '<div class="dish" style="--i:' + (i || 0) + '">' +
+    '<div class="dish-head">' +
     '<div class="dish-main">' +
     (label ? '<div class="dish-label">' + esc(label) + '</div>' : '') +
     '<h3 class="dish-name">' + esc(dish) + '</h3>' +
-    (d.desc ? '<p class="dish-desc">' + esc(d.desc) + '</p>' : '') +
     '</div>' +
+    (kcal ? '<div class="dish-kcal" aria-label="Energy ' + esc(kcal) + '">' + esc(kcal) + '</div>' : '') +
+    '</div>' +
+    (d.desc ? '<p class="dish-desc">' + esc(d.desc) + '</p>' : '') +
     '<div class="nutrition-col">' + nutritionTableHTML(nutrition) + '</div>' +
     '</div>';
 }
@@ -606,6 +613,7 @@ function mensaSectionHTML(m, sectionIndex) {
   const collapsed = prefs.collapsedMensas.has(m.id);
   const emoji = GROUP_EMOJI[m.group] || '✨';
   const base = Math.min((sectionIndex || 0) * 3, 9);
+  const count = dishes.length;
 
   const bodyStyle = 'overflow:hidden;transition:max-height .35s ease' + (collapsed ? ';max-height:0' : '');
   const body = '<div class="mensa-dishes" style="' + bodyStyle + '">' +
@@ -619,6 +627,7 @@ function mensaSectionHTML(m, sectionIndex) {
     ' data-emoji="' + esc(emoji) + '" data-group-color="' + esc(m.group || 'Other') + '">' +
     '<span class="mensa-caret" aria-hidden="true"></span>' +
     esc(m.name) +
+    (count ? '<span class="mensa-count" aria-hidden="true">' + count + '</span>' : '') +
     '</h2>' + body +
     '</section>';
 }

@@ -532,9 +532,15 @@ function refreshMensaRows() {
 
 function groupRowHTML(g) {
   const count = g.members.length;
-  return '<button class="group-chip' + (g.custom ? ' custom' : '') + '" type="button"' +
+  // kami: highlight the group that exactly matches the current selection
+  const active = g.members.length > 0 &&
+    prefs.selected.size === g.members.length &&
+    g.members.every((id) => prefs.selected.has(id));
+  return '<button class="group-chip' + (g.custom ? ' custom' : '') + (active ? ' active' : '') + '" type="button"' +
     (count ? '' : ' disabled') +
-    ' data-group="' + esc(g.name) + '" aria-label="Apply group ' + esc(g.name) + '">' +
+    ' data-group="' + esc(g.name) + '" aria-label="Apply group ' + esc(g.name) + '"' +
+    (active ? ' aria-pressed="true"' : '') +
+    '>' +
     '<span class="chip-name">' + esc(g.name) + '</span>' +
     '<span class="chip-count">' + count + '</span>' +
     (g.custom

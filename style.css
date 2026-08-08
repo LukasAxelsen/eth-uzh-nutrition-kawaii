@@ -331,6 +331,7 @@ html:not(.js) .site-header::before { opacity: 1; }
   height: 44px;
   border-radius: 50%;
   background: var(--primary);
+  color: #fff;
   font-size: 1.3rem;
   box-shadow: 0 0 0.9rem var(--primary);
   transition: transform 0.3s var(--spring);

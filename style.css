@@ -9,7 +9,8 @@
    - parallax hero wave (wave.tsx, 12s/7s/4s)
    - View-Transitions gradient-sweep theme change
    - sun/moon morph toggle (theme-toggle.css)
-   - ZCOOL KuaiLe rounded display type, note-block card bars
+   - rounded modern display type (Nunito + QingKe HuangYou,
+     ChillRound equivalent), note-block card bars
    - wave-off / motion-off preference classes
 
    KAMI (mx-space/kami) — the structure:
@@ -96,11 +97,14 @@
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* kami rebound */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* --- layout & fonts --- */
+  /* --- layout & fonts ---
+     koharu typography: rounded modern display face (Nunito latin/digits
+     + QingKe HuangYou CJK), system-rounded body, 0.02em tracking */
   --content-w: 980px;
-  --font-display: "ZCOOL KuaiLe", "Yuanti SC", "YouYuan", "PingFang SC", sans-serif;
-  --font-body: "Yuanti SC", "YouYuan", -apple-system, BlinkMacSystemFont, "Segoe UI",
-               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-display: "Nunito", "ZCOOL QingKe HuangYou", "Yuanti SC", "YouYuan",
+                  "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Yuanti SC", "YouYuan",
+               "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* --- koharu theme-toggle colors --- */
@@ -183,7 +187,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 400; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 700; }
 
 button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
@@ -819,6 +823,16 @@ html.theme-transition #site-header { view-transition-name: none; }
   color: hsl(var(--primary));
 }
 .group-chip:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* kami interaction: the group whose members equal the current
+   selection is highlighted as the active filter */
+.group-chip.active {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary));
+  font-weight: 700;
+}
+.group-chip.active .chip-count { background: hsl(var(--primary) / 0.18); color: hsl(var(--primary)); }
 
 .chip-count {
   font-size: 0.72rem;

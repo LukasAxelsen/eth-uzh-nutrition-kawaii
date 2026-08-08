@@ -580,16 +580,23 @@ function dishHTML(d, i) {
 function nutritionTableHTML(nutrition) {
   const p100 = nutrition.p100 || {};
   const total = nutrition.total || {};
+
+  // Aesthetic: when NO row has a total value, hide the Total column
+  // entirely instead of showing an empty right half of the table.
+  const hasTotal = NUTRI_KEYS.some((key) => total[key] != null && total[key] !== '');
+
   const rows = NUTRITION_ROWS.map((row) =>
     '<tr>' +
     '<td class="n-label">' + row.label + '</td>' +
     '<td class="n-val">' + fmtCell(p100[row.key], row.key) + '</td>' +
-    '<td class="n-val">' + fmtCell(total[row.key], row.key) + '</td>' +
+    (hasTotal ? '<td class="n-val">' + fmtCell(total[row.key], row.key) + '</td>' : '') +
     '</tr>'
   ).join('');
 
   return '<table class="nutrition-table">' +
-    '<thead><tr><th>Nutrition</th><th>per 100g</th><th>Total</th></tr></thead>' +
+    '<thead><tr><th>Nutrition</th><th>per 100g</th>' +
+    (hasTotal ? '<th>Total</th>' : '') +
+    '</tr></thead>' +
     '<tbody>' + rows + '</tbody>' +
     '</table>';
 }

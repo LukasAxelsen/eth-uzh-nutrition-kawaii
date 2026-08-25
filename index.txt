@@ -1,33 +1,34 @@
-ETH/UZH Mensa Menus — 2026-08-24
+ETH/UZH Mensa Menus — 2026-08-25
 ============================================================
 
-ETH Clausiusbar/Lunch: WOK STREET — Jeyuk Bokkeum | Schwein | Gochujang-Sauce | Peperoni | Karotten | Frühlingszwiebeln | Jasminreis | per100g: kcal=102.8, protein=5.6g, fat=2.4g, saturated=0.1g, carbs=14g, sugar=2.3g, salt=1.21g
-ETH Clausiusbar/Lunch: WOK GREEN — Dubu Jorim | Seitan | Gochujang-Sauce | Peperoni | Karotten | Frühlingszwiebeln | Jasminreis | per100g: kcal=83.9, protein=3.8g, fat=2g, saturated=0.3g, carbs=12g, sugar=4.9g, salt=3.24g
-ETH Clausiusbar/Lunch: DELIGHT — Bulgogi Chicken | Pouletwings | Soja-Sesam-Marinade | Karotten | Frühlingszwiebeln | Knoblauch-Ingwer-Sud | Jasminreis | per100g: kcal=144.4, protein=9g, fat=7.5g, saturated=1.7g, carbs=10g, sugar=1.5g, salt=1.12g
-ETH Clausiusbar/Lunch: GARDEN — Kimchi Son Mandu | Gedämpfte koreanische Teigtaschen | Joghurt Chilisauce - koreanische Art | Asianudeln | Eisberg | Spinat | .. | per100g: kcal=112.8, protein=5g, fat=2.3g, saturated=0.9g, carbs=18g, sugar=1.5g, salt=1.45g
-ETH Dozentenfoyer/Lunch: Chefs World — Beef Brisket | Chimichurri | Truffled BBQ- Kartoffeln | Coleslaw | per100g: kcal=153.4, protein=5.8g, fat=10g, saturated=1.5g, carbs=8.6g, sugar=2g, salt=1.15g
-ETH Dozentenfoyer/Lunch: Favorite — Johor | Dorsch Knusperli | sweet Chilisauce | gebratener Reis | Broccoli | Blumenkohl | rote Zwiebel | per100g: kcal=153.2, protein=4.6g, fat=4.6g, saturated=0.4g, carbs=23g, sugar=6.4g, salt=1.28g
-ETH Dozentenfoyer/Lunch: Vitality — Cappellacci Funghi | Salbeibutter | Karamellisierte Feige | Rucola | Grana Padano | per100g: kcal=215.8, protein=8.2g, fat=9.1g, saturated=3.8g, carbs=25g, sugar=0.6g, salt=1.32g
-ETH food&lab/Lunch: West — Chicken Burrito | Weizentortilla | Poulet | Peperoni | Mais | rote Bohnen | Salsa Sauce | Sauerrahmdip | Tomaten-Gurkensalat | nutrition=N/A
-ETH food&lab/Lunch: East — Vegane Cevapcici | Ajvar | Djuvečreis | Zwiebelpickles | gegrillte Peperoni | nutrition=N/A
-ETH Archimedes/Lunch: The Gardener — Libanesische Bowl | Falafel | Randen Hummus | Couscous | Ras el Hanout Karotten | Harissa Auberginen | Petersilie | per100g: kcal=171.6, protein=4.6g, fat=5.2g, saturated=0.7g, carbs=25g, sugar=2.8g, salt=0.9g
-ETH Archimedes/Lunch: The Chef — Panang Chicken Curry | Poulet | Panang Curry | Asiagemüse | Jasminreis | per100g: kcal=120.2, protein=4.8g, fat=4.5g, saturated=2.5g, carbs=15g, sugar=1g, salt=0.96g
-ETH Archimedes/Lunch: The Expert — Zucchetti Piccata | Pikante Tomatensauce | Spaghetti | Reibkäse | Blattsalat | per100g: kcal=118.5, protein=5.1g, fat=4g, saturated=1.1g, carbs=15g, sugar=2.1g, salt=0.55g
-ETH Mensa Polyterrasse/Lunch: STREET — Pad Kra Pao | Rindshackfleisch | Chili | Thaibasilikum | grüne Bohnen | Austernsauce | Soja | Jasminreis | Spiegelei | per100g: kcal=140.5, protein=8.6g, fat=4.9g, saturated=1.9g, carbs=15g, sugar=1.3g, salt=2.1g
-ETH Mensa Polyterrasse/Lunch: GARDEN — Dal Makhani | Belugalinsen | Masala Sauce | Gemüsewürfel | Basmatireis | Joghurt- Dip alternative | Koriander | Naan Brot .. | per100g: kcal=126.4, protein=3.7g, fat=2.6g, saturated=1.3g, carbs=21g, sugar=0.9g, salt=0.57g
-ETH Mensa Polyterrasse/Lunch: HOME — Fleischkäse | Senfsauce | Kartoffel-Erbsenpüree | glasierte Karotten | Petersilie | per100g: kcal=153.2, protein=5.7g, fat=12g, saturated=3.8g, carbs=5.9g, sugar=2g, salt=0.69g
+ETH Clausiusbar/Lunch: WOK STREET — Rendang | Truthahn | Rendang Sauce | Süsskartoffel | Karotten | Zucchetti | Jasminreis | per100g: kcal=94.2, protein=6g, fat=0.5g, saturated=0.2g, carbs=16g, sugar=1.6g, salt=0.49g
+ETH Clausiusbar/Lunch: WOK GREEN — Rendang | Austernseitlinge | Rendang Sauce | Süsskartoffel | Karotten | Zucchetti | Jasminreis | per100g: kcal=87.5, protein=2.2g, fat=0.3g, carbs=18g, sugar=1.8g, salt=0.52g
+ETH Clausiusbar/Lunch: DELIGHT — Dwaeji Vindaloo | Schwein | Tamarinde | Tomaten | Gurkenraita | Basmatireis | per100g: kcal=138.1, protein=6.6g, fat=5.4g, saturated=2g, carbs=15g, sugar=1.4g, salt=0.93g
+ETH Clausiusbar/Lunch: GARDEN — Pao Je | gedämpftes Bao Bun | Planted Chicken | Miso - Chilisauce | gebratene Glasnudeln - Korean Style | Karotten | .. | per100g: kcal=101.1, protein=5g, fat=4.4g, saturated=0.3g, carbs=9.3g, sugar=1.4g, salt=1.05g
+ETH Dozentenfoyer/Lunch: Chefs World — Loup de mer | Wolfsbarsch | Safransauce | Tomaten Tagliatelle | Blattspinat | per100g: kcal=117.1, protein=9.6g, fat=3.5g, saturated=1g, carbs=11g, sugar=1.1g, salt=0.55g
+ETH Dozentenfoyer/Lunch: Favorite — Wiener Rahmgulasch | Trutenragout | Karotten | Sellerie | Zwiebeln | Spätzli | Peperoni | pro 100 g | per100g: kcal=140.8, protein=6.2g, fat=6.2g, saturated=1.2g, carbs=14g, sugar=1.5g, salt=0.74g
+ETH Dozentenfoyer/Lunch: Vitality — Yumame Yellow Curry | Yumame | Broccoli | Karotten | Mungbohnen | Koriander | Jasminreis | per100g: kcal=115.2, protein=3.7g, fat=3.3g, saturated=2g, carbs=17g, sugar=1.5g, salt=0.75g
+ETH food&lab/Lunch: West — Miso Bacon Beef | Sesam Bun | Beef Burger | Eisbergsalat | Cheddar Chees | Miso- glacierter bacon crumble | BBQ Sauce | Pommes | nutrition=N/A
+ETH food&lab/Lunch: East — Korean Burger | Sesam Bun | Tempeh Patty | Kimchi | Cucumber | Lollorosso | Miso Mayo | Pommes | nutrition=N/A
+ETH food&lab/Lunch: Pasta — Pasta Plausch | Strozzapreti | Rind Bolognese | Salsa di ricotta e spinacie | Basilikum Pesto | Reibkäse | nutrition=N/A
+ETH Archimedes/Lunch: The Gardener — Dal Makhani | Belugalinsen | Masala Sauce | Gemüsewürfel | Basmatireis | Joghurt-Dip | Koriander | Mischsalat | per100g: kcal=114.5, protein=4.2g, fat=3g, saturated=0.7g, carbs=16g, sugar=1.3g, salt=0.59g
+ETH Archimedes/Lunch: The Chef — Schweinsgeschnetzeltes Walliser Art | Tomaten-Champignon Rahmsauce | Rösti | Broccoli | per100g: kcal=102.5, protein=4.9g, fat=5.5g, saturated=1.3g, carbs=7.2g, sugar=1.1g, salt=0.61g
+ETH Archimedes/Lunch: The Expert — Pad Kra Pao | IP-SUISSE Schweinehackfleisch | Chili | Thaibasilikum | grüne Bohnen | Austernsauce | Soja | Jasminreis | Sp.. | per100g: kcal=128.1, protein=7.1g, fat=3.7g, saturated=1.3g, carbs=16g, sugar=1.8g, salt=2.69g
+ETH Mensa Polyterrasse/Lunch: STREET — Thai Chicken Strips | Sweet & Sour Sauce | Sesam | Gebratene Nudeln | per100g: kcal=133.4, protein=10g, fat=2.2g, saturated=0.4g, carbs=18g, sugar=2.9g, salt=2.11g
+ETH Mensa Polyterrasse/Lunch: GARDEN — Libanesische Bowl | Falafel | Randen Hummus | Couscous | Ras el Hanout Karotten | Harissa Auberginen | Petersilie | per100g: kcal=171.8, protein=4.6g, fat=5.1g, saturated=0.7g, carbs=25g, sugar=3.1g, salt=0.96g
+ETH Mensa Polyterrasse/Lunch: HOME — Greek Manestra | Kritharaki Teigwaren | Rindsbolognese | Reibkäse | Feta | Salat | per100g: kcal=136.5, protein=6.3g, fat=4.7g, saturated=1.9g, carbs=16g, sugar=1.8g, salt=0.69g
 ETH Mensa Polyterrasse/Lunch: Hot & Cold 100g — Hot & Cold Buffet | Reichhaltiges Salatbuffet und zusätzlich warme Komponenten - Gesund und Lecker! | nutrition=N/A
 ETH Mensa Polyterrasse/Lunch: DESSERT — Tagesdessert | Täglich süsse Köstlichkeiten | nutrition=N/A
 ETH Mensa Polyterrasse/Lunch: THAI ICED TEA — Homemade Thai Vibes | Hausgemachter Thai Iced Tea – cremig | süss und eiskalt. Grab a bottle & sip the vibes. | nutrition=N/A
-ETH Mensa Polyterrasse/Dinner: STREET ABEND — Beef Rendang | Rindsvoressen | Rendang Currysauce | Karotten | Sellerie | Auberginen | Basmatireis | Chili | Frühlingszwieb.. | per100g: kcal=89.1, protein=4.7g, fat=2.1g, saturated=1.3g, carbs=12g, sugar=1.6g, salt=0.59g
-ETH Mensa Polyterrasse/Dinner: GARDEN ABEND — Pflanzen Geschnetzeltes Walliser Art | Tomaten-Champignon Rahmsauce | Rösti | Broccoli | per100g: kcal=105.4, protein=7.5g, fat=2.9g, saturated=0.6g, carbs=11g, sugar=2g, salt=0.58g
-ETH Mensa Polyterrasse/Dinner: HOME ABEND — Schweinsgeschnetzeltes Walliser Art | Tomaten-Champignon Rahmsauce | Rösti | Broccoli | per100g: kcal=102.3, protein=4.9g, fat=5.5g, saturated=1.3g, carbs=7.2g, sugar=1.2g, salt=0.61g
+ETH Mensa Polyterrasse/Dinner: STREET ABEND — BBQ Pulled Pork Burger | IP-SUISSE Pulled Pork | BBQ Sauce | Sesam Bun | Red Cole Slaw | Country Cuts | per100g: kcal=191.7, protein=9.5g, fat=7.1g, saturated=1.8g, carbs=21g, sugar=7.7g, salt=1.31g
+ETH Mensa Polyterrasse/Dinner: GARDEN ABEND — Rigatoni al tonno | Veganer Thon | Pikante Tomatensauce | Zwiebeln | Peperoni | Aubergine | Kapern | Oliven | Reibkäse | Petersi.. | per100g: kcal=149.4, protein=6.3g, fat=4.1g, saturated=0.8g, carbs=20g, sugar=1.5g, salt=0.65g
+ETH Mensa Polyterrasse/Dinner: HOME ABEND — Rigatoni al tonno | Thon | Pikante Tomatensauce | Zwiebeln | Peperoni | Aubergine | Kapern | Oliven | Reibkäse | Petersilie | Ta.. | per100g: kcal=142.4, protein=7.9g, fat=3.2g, saturated=0.8g, carbs=19g, sugar=1.4g, salt=0.68g
 ETH Mensa Polyterrasse/Dinner: Poly-Bowls | Täglich frisch zubereitet – wahlweise mit Fleisch oder vegetarisch. Frisch | leicht | lecker! | nutrition=N/A
-ETH Polysnack/Lunch: PASTA — Pasta aglio e olio | Spaghetti | Knoblauchöl | Petersilie | Peperoncini | Reibkäse | per100g: kcal=167.8, protein=6.7g, fat=5.4g, saturated=1.3g, carbs=22g, sugar=0.4g, salt=0.29g
-ETH Polysnack/Lunch: AL FORNO — Pizza prosciutto cotto e mascarpone | Tomatensauce | Mozzarella | Schinken | Mascarpone | per100g: kcal=224.7, protein=12g, fat=8.8g, saturated=5.3g, carbs=23g, sugar=1g, salt=1.3g
+ETH Polysnack/Lunch: PASTA — Cornetti al ragù | Hörnli | Bolognese Sauce | gehobelter Parmesan | italienische Kräuter | per100g: kcal=156.5, protein=7.4g, fat=4g, saturated=2.1g, carbs=22g, sugar=1.1g, salt=0.41g
+ETH Polysnack/Lunch: AL FORNO — Pizza Verde | Tomatensauce | Mozzarella | Romanesco | Cime di Rapa | Zucchetti | Erbsen | per100g: kcal=136.7, protein=7.8g, fat=3.2g, saturated=1.8g, carbs=18g, sugar=1.6g, salt=0.64g
 ETH Polysnack/Lunch: VERDE — Bunter Salat | Kopfsalat | Cherry Tomaten | Gurken | Karotten | Radieschen | Frühlingszwiebel | Beetroot Dressing | per100g: kcal=51.6, protein=3g, fat=3.8g, saturated=0.4g, carbs=8.8g, sugar=0.5g, salt=0.22g
-ETH Tannenbar/Lunch: World — Chicken Katsu Bowl | Crispy Chicken | Tonkatsu Sauce | Edamame | Mango | Karotten | Kabis | Jasminreis | Sesam | per100g: kcal=83.7, protein=2.9g, fat=1.2g, saturated=0.1g, carbs=14g, sugar=6.5g, salt=0.48g
-ETH Tannenbar/Lunch: Green — Katsu Bowl | Gemüse Nuggets | Tonkatsu Sauce | Edamame | Mango | Karotten | Kabis | Jasminreis | Sesam | per100g: kcal=85.8, protein=2.1g, fat=1.4g, saturated=0.3g, carbs=15g, sugar=6.8g, salt=0.48g
+ETH Tannenbar/Lunch: World — Chicken Katsu Bowl | Crispy Chicken | Tonkatsu Sauce | Edamame | Mango | Karotten | Kabis | Jasminreis | Sesam | per100g: kcal=84.4, protein=3g, fat=1.2g, saturated=0.1g, carbs=14g, sugar=6.4g, salt=0.49g
+ETH Tannenbar/Lunch: Green — Katsu Bowl | Gemüse Nuggets | Tonkatsu Sauce | Edamame | Mango | Karotten | Kabis | Jasminreis | Sesam | per100g: kcal=77.9, protein=1.9g, fat=1.2g, saturated=0.2g, carbs=14g, sugar=7.1g, salt=0.38g
 ETH Alumni quattro Lounge/Lunch: Classic Pot — G'hacktes mit Hörnli | Rindsgehacktes | Hörnli | Apfelmus | Extrahartkäse | per100g: kcal=141.5, protein=6.1g, fat=3.2g, saturated=1.5g, carbs=21g, sugar=3.5g, salt=0.36g
 ETH Alumni quattro Lounge/Dinner: Classic Pot Abend — G'hacktes mit Hörnli Vegan | Sojagehacktes | Hörnli | Apfelmus | veganer Käse | per100g: kcal=125.7, protein=4.6g, fat=1.4g, saturated=0.7g, carbs=23g, sugar=3.5g, salt=0.58g
 ETH Mendokoro/Lunch: Ichi — Miso Ramen | Pak Choi | Nori | Mariniertes Ei | Gerösteter Sesam | per100g: kcal=70, protein=2.8g, fat=3.6g, saturated=0.2g, carbs=10g, sugar=0.9g, salt=1.21g
@@ -35,24 +36,25 @@ ETH Mendokoro/Lunch: Ni — Shoyu Ramen | Austernpilze | Nori | Mariniertes Ei |
 ETH Mendokoro/Lunch: San — Cold Moiroka Ramen | Wassermelonen | Gurken | Kimchi | Mariniertes Ei | Frühlingszwiebeln | per100g: kcal=64.8, protein=2.3g, fat=3g, saturated=0.1g, carbs=10g, sugar=1.1g, salt=1.15g
 ETH Mendokoro/Lunch: Shi — Chicken Tonkatsu Bowl | Crunchy Chicken | Tonkatsu Sauce | Sushireis | Japanischer Krautsalat | Sesam | per100g: kcal=175.2, protein=5.8g, fat=3.8g, saturated=0.5g, carbs=29g, sugar=6.1g, salt=1.06g
 ETH Mendokoro/Lunch: Roku — Tori Ramen | Pouletbrust | Edamame | Karotten | Nori | Mariniertes Ei | Gerösteter Sesam | per100g: kcal=76, protein=5g, fat=3.5g, saturated=0.2g, carbs=9.5g, sugar=0.8g, salt=1.18g
-ETH food market/Lunch: Fire — Wiener Rahmgulasch | Trutenragout | Karotten | Sellerie | Zwiebeln | Spätzli | per100g: kcal=131.2, protein=6g, fat=4.4g, saturated=1.2g, carbs=16g, sugar=1.8g, salt=0.83g
-ETH food market/Lunch: Grill — Alpenkräuter Schweinssteak vom Grill | Kräuterbutter | Lollo Rot | Karotten | Gurken | Randen | Galia & Wassermelone | Pommes frites | per100g: kcal=112.3, protein=5.7g, fat=6g, saturated=2.1g, carbs=9.9g, sugar=1.3g, salt=0.53g
-ETH food market/Lunch: Green Daily — Mapo Tofu | Sojasauce | Miso | Gerste | Karotten | Sellerie | Chili | Parfumreis | per100g: kcal=115.4, protein=6.1g, fat=2g, saturated=0.3g, carbs=17g, sugar=0.9g, salt=0.86g
+ETH food market/Lunch: Fire — Oriental Naan | Naan Brot | Gurken Raita | Rindshack | Kartoffeln | Rotkabis gepickelt | per100g: kcal=109.2, protein=4g, fat=3.7g, saturated=1.1g, carbs=14g, sugar=3.5g, salt=0.76g
+ETH food market/Lunch: Grill — Khao Mok Gai | Pouletschenkel Steak | Thai Gewürze | Jasminreis | Minze Dip | Gurken | per100g: kcal=116.2, protein=5.2g, fat=3.8g, saturated=0.2g, carbs=15g, sugar=3.7g, salt=0.93g
+ETH food market/Lunch: Green Daily — Sweet Potatoes Dream | Pikante Süsskartoffeln | Feta | Blattsalat | Mais | Karotten | Granatapfelkernen | Superfood Dressing | per100g: kcal=111.1, protein=3.2g, fat=5.9g, saturated=1.5g, carbs=13g, sugar=3.3g, salt=0.73g
 ETH food market/Lunch: Green Delight — Choose 5 | Wähle 5 Komponenten heiss oder kalt | nutrition=N/A
 ETH food market/Lunch: Pizza Classica — Pizza Margherita | Salat oder Lemonade Topping: Scharfer Salami & Rote Zwiebeln + CHF 3.00 | per100g: kcal=205.1, protein=9.6g, fat=5.3g, saturated=2.5g, carbs=29g, sugar=1.2g, salt=1.28g
-ETH food market/Lunch: Pasta Classica — Fusilli alla bolognese | Rindshackfleisch | Tomatensauce | Reibkäse | Salat oder Lemonade | per100g: kcal=141.5, protein=6.3g, fat=3g, saturated=0.9g, carbs=22g, sugar=2.1g, salt=0.32g
-ETH food market/Lunch: Pasta della Nonna — Bangkok Beef Noodles | Rindfleisch | Kabis | Karotten | Sojasauce | Mungobohnensprossen | gerösteter Sesam | Koriander | per100g: kcal=101.1, protein=9.4g, fat=1.7g, saturated=0.3g, carbs=11g, sugar=2g, salt=0.47g
+ETH food market/Lunch: Pasta Classica Vegi — Penne al Gorgonzola | Reibkäse | Salat oder Lemonade | per100g: kcal=234.9, protein=7.3g, fat=11g, saturated=6.5g, carbs=26g, sugar=1g, salt=0.39g
+ETH food market/Lunch: Pasta della Nonna — Rigatoni ai Funghi Porcini | Steinpilze | alternative Rahmsauce | Basilikum | Vegane Reibkäse | Salat oder Lemonade | per100g: kcal=146.5, protein=4.8g, fat=3.1g, saturated=1.1g, carbs=24g, sugar=0.9g, salt=0.62g
 ETH Rice Up!/Lunch: Rice Up! Bowl | Jasmine Rice | Poulet-Bällchen | Broccoli | Grünes Curry | Asia Krautsalat | Kräutersalat | Saison Topping | nutrition=N/A
 ETH Rice Up!/Lunch: Tofu Cashew Bowl | Roter Reis | Marinierter Tofu | Saison Gemüse | Satay Sauce | Asia Krautsalat | Kräutersalat | Saison Topping | nutrition=N/A
 ETH Rice Up!/Lunch: Chicken Satay Bowl | Reisnudeln | Gegrilltes Poulet Satay | Grüne Bohnen | Rotes Curry | Asia Krautsalat | Kräutersalat | Thai Chilli | nutrition=N/A
 ETH Rice Up!/Lunch: Planted Bowl | Salatmischung | Planted Chicken Teriyaki | Sweet Corn | Tamarinden Sauce | Asia Kräutersalat | Erdnüsse | nutrition=N/A
 ETH Rice Up!/Lunch: Grilled Shrimps — Grilled Shrimps Bowl | Jasmine Rice | Grilled Shrimps | Broccoli | rotes Curry | Asia Krautsalat | Kräutersalat | Puffed Rice | nutrition=N/A
-ETH Octavo/Lunch: Eins — Shrimps | Sweet & Sour | Black Tiger | Koriander | Basmati Reis Zitronenraps | Thai Gemüse | Beilagensalat | per100g: kcal=96.3, protein=3.9g, fat=1.8g, saturated=0.2g, carbs=15g, sugar=3.7g, salt=0.84g
-ETH Octavo/Lunch: Zwei — American Hot Dog | Pommes frites | Sauerkraut | Cheddar | Gurke | Röstzwiebeln | Beilagensalat | per100g: kcal=172.8, protein=5.2g, fat=8.5g, saturated=2.4g, carbs=18g, sugar=2.2g, salt=1.05g
-ETH Octavo/Lunch: Drei — Glasnoodle Bowl | Onion Bahjis | Glasnudeln | Karotten | Tomaten | Erdnüssen | Sweet Chili Sauce | Beilagensalat | per100g: kcal=109.5, protein=1.3g, fat=4g, saturated=0.7g, carbs=17g, sugar=7.2g, salt=0.91g
+ETH Octavo/Lunch: Eins — Kräuterschwein Cordon Bleu | Pommes Rissolées | Erbsen | Zitrone | Ketchup | Beilagensalat | per100g: kcal=134.3, protein=7g, fat=6.2g, saturated=1.1g, carbs=12g, sugar=2g, salt=0.83g
+ETH Octavo/Lunch: Zwei — Butter Chicken | Schweiz | Jasmin Reis | Wurzelgemüse | Beilagensalat | per100g: kcal=107.1, protein=4g, fat=3.9g, saturated=1g, carbs=13g, sugar=2.1g, salt=0.77g
+ETH Octavo/Lunch: Drei — Pasta Mista | Sugo Rustico | verschiedenen gefüllte Pastasorten | Reibkäse | Beilagensalat | per100g: kcal=105.2, protein=5.1g, fat=3.8g, saturated=1.2g, carbs=12g, sugar=1.7g, salt=0.72g
 ETH Octavo/Lunch: Vier — Bowl4You | „Gestalten Sie Ihre Bowl ganz nach Ihrem Geschmack.“ | per100g: kcal=75.8, protein=1g, fat=7.3g, saturated=0.8g, carbs=1.6g, sugar=1.4g, salt=0.6g
 ETH Octavo/Lunch: 5uppe — Tagessuppe | Tagessuppe lt. Chef | per100g: kcal=15.5, protein=0.5g, fat=0.1g, carbs=2.6g, sugar=1.8g, salt=0.62g
-ETH Flavour Kitchen/Lunch: PASTA OF THE DAY — Pasta Pipii`strella | Chorizo | Eierschwämmchen | Rahm | Paprika | Rucola | nutrition=N/A
+ETH Octavo/Lunch: Kaffeebar — TINYFISH @ Octavo | Sushi ab 10.50 CHF an der Kaffeebar | nutrition=N/A
+ETH Flavour Kitchen/Lunch: PASTA OF THE DAY — Pasta Pipistrella | Chorizo | Eierschwämmchen | Rahm | Paprika | Rucola | nutrition=N/A
 ETH Flavour Kitchen/Lunch: PLANTS & MORE — Schawarma Halloumi | Taschenbrot | Hummus | Aubergine | Koriander | Halloumi | Chamaigon | Joghurt | Tahini | Tomaten | Zitrone | nutrition=N/A
 ETH Flavour Kitchen/Lunch: CLASSIC FLAVOUR — Schawarma Poulet | Taschenbrot | Hummus | Aubergine | Koriander | Poulet | Joghurt | Tahini Tomaten | Zitrone | nutrition=N/A
 ETH Flavour Kitchen/Lunch: WEEKLY BOWL — Karafuru Bowl | Kurkumareis | Wokgemüse | Teriyaki Bites | Radieschen Pickles | Wasabinüsse | nutrition=N/A

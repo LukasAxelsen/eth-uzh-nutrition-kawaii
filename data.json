@@ -1,4 +1,1104 @@
 {
- "date": "2026-09-13",
- "mensas": []
+ "date": "2026-09-14",
+ "mensas": [
+  {
+   "id": "eth-3",
+   "name": "ETH Clausiusbar",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "WOK STREET",
+      "dish": "Si Praya",
+      "desc": "Ente | Panang Curry Sauce (pikant) | Zucchetti | Karotten | Pfälzer | Jasminreis",
+      "nutrition": {
+       "p100": {
+        "kcal": 114.5,
+        "protein": 6.4,
+        "fat": 1.8,
+        "saturated": 0.2,
+        "carbs": 18.0,
+        "sugar": 1.2,
+        "salt": 0.85
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "WOK GREEN",
+      "dish": "Wang Nah",
+      "desc": "Hausgemachter Seitan | Panang Currysauce | Zucchetti | Karotten | Pfälzer | Jasminreis",
+      "nutrition": {
+       "p100": {
+        "kcal": 125.2,
+        "protein": 6.2,
+        "fat": 2.6,
+        "saturated": 1.4,
+        "carbs": 19.0,
+        "sugar": 2.1,
+        "salt": 0.96
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "DELIGHT",
+      "dish": "Sisig",
+      "desc": "Schweinefleisch Philippinische Art | Chili | Limetten | Zwiebeln | Chinakohl | Ei | Basmatireis",
+      "nutrition": {
+       "p100": {
+        "kcal": 131.7,
+        "protein": 6.4,
+        "fat": 5.4,
+        "saturated": 1.8,
+        "carbs": 14.0,
+        "sugar": 1.0,
+        "salt": 0.89
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "GARDEN",
+      "dish": "Seoul",
+      "desc": "Veganer crispy Chicker Burger - Korea Style | Burger Bun | Miso-Chili-Dip | Süsskartoffeln | Kimchi | Rotkabis",
+      "nutrition": {
+       "p100": {
+        "kcal": 237.6,
+        "protein": 8.4,
+        "fat": 12.0,
+        "saturated": 0.6,
+        "carbs": 23.0,
+        "sugar": 2.9,
+        "salt": 1.54
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-5",
+   "name": "ETH Dozentenfoyer",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "Chefs World",
+      "dish": "Zander Knusperli",
+      "desc": "Tartarsauce | Schnittlauchkartoffeln | Gurkensalat | Dill",
+      "nutrition": {
+       "p100": {
+        "kcal": 149.6,
+        "protein": 4.1,
+        "fat": 9.5,
+        "saturated": 1.3,
+        "carbs": 11.0,
+        "sugar": 1.2,
+        "salt": 1.02
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Favorite",
+      "dish": "Schweizer Pouletbrust",
+      "desc": "Gemüsestrudel | Sellerie Zitronen Stampf | Pilzrahmsauce pro 100g",
+      "nutrition": {
+       "p100": {
+        "kcal": 133.6,
+        "protein": 9.4,
+        "fat": 7.6,
+        "saturated": 2.7,
+        "carbs": 5.9,
+        "sugar": 1.5,
+        "salt": 0.74
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Vitality",
+      "dish": "Cappellacci Taleggio e Cipolla",
+      "desc": "Krautstiel | Kürbiskerne | Balsamico",
+      "nutrition": {
+       "p100": {
+        "kcal": 185.9,
+        "protein": 8.8,
+        "fat": 11.0,
+        "saturated": 3.0,
+        "carbs": 13.0,
+        "sugar": 2.4,
+        "salt": 1.01
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-7",
+   "name": "ETH food&lab",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "West",
+      "dish": "Mar Jasha",
+      "desc": "Trutenragout | Tomaten | Ingwer | Cashew | Jogurt | Basmatireis | Spinat | Chili",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "East",
+      "dish": "Gobi Sweet Sour",
+      "desc": "Blumenkohl | Koriander | Jeera Daal | Basmatireis",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-8",
+   "name": "ETH Archimedes",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "The Gardener",
+      "dish": "Arancini Tomaten & Mozzarella",
+      "desc": "Ratatouille | Rösti",
+      "nutrition": {
+       "p100": {
+        "kcal": 130.3,
+        "protein": 3.3,
+        "fat": 4.2,
+        "saturated": 0.9,
+        "carbs": 18.0,
+        "sugar": 2.1,
+        "salt": 0.94
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "The Chef",
+      "dish": "Schweins Frikasse",
+      "desc": "Basilikumsauce | Nudeln | Blumenkohl | Erbsen | Bohnen | Karotten",
+      "nutrition": {
+       "p100": {
+        "kcal": 121.4,
+        "protein": 4.1,
+        "fat": 4.2,
+        "saturated": 1.2,
+        "carbs": 16.0,
+        "sugar": 2.4,
+        "salt": 0.48
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "The Expert",
+      "dish": "Poulet Gyros",
+      "desc": "Fladenbrot | Pommes Frites | Tzatziki | Kabis | Zwiebeln",
+      "nutrition": {
+       "p100": {
+        "kcal": 175.2,
+        "protein": 6.6,
+        "fat": 7.1,
+        "saturated": 1.1,
+        "carbs": 20.0,
+        "sugar": 1.8,
+        "salt": 0.72
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "The Traveller",
+      "dish": "Geräuchtes Tofusteak",
+      "desc": "Süss Saure Sauce | Peperoni | Ananas | Jasminreis | Pac Choi | Sesam",
+      "nutrition": {
+       "p100": {
+        "kcal": 93.0,
+        "protein": 2.5,
+        "fat": 1.4,
+        "saturated": 0.2,
+        "carbs": 17.0,
+        "sugar": 3.0,
+        "salt": 0.78
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "The Farmer",
+      "dish": "Salat Bowl",
+      "desc": "Stärkebeilage nach Wahl | Salate nach Wahl | Proteinquelle nach Wahl | Pouletspiess",
+      "nutrition": {
+       "p100": {
+        "kcal": 130.0,
+        "protein": 9.1,
+        "fat": 4.0,
+        "saturated": 0.8,
+        "carbs": 14.0,
+        "sugar": 2.2,
+        "salt": 0.82
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-9",
+   "name": "ETH Mensa Polyterrasse",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "STREET",
+      "dish": "Fleischkäse mit Spiegelei",
+      "desc": "Rösti | Zwiebelsauce | Schnittlauch",
+      "nutrition": {
+       "p100": {
+        "kcal": 149.1,
+        "protein": 5.1,
+        "fat": 9.8,
+        "saturated": 2.8,
+        "carbs": 9.7,
+        "sugar": 1.1,
+        "salt": 0.74
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "VEGAN",
+      "dish": "Falafel Bowl",
+      "desc": "Falafel | Randen Couscous | Hummus | Kurkuma Blumenkohl | Jung Spinat | Geröstete Mandeln",
+      "nutrition": {
+       "p100": {
+        "kcal": 171.6,
+        "protein": 5.4,
+        "fat": 7.3,
+        "saturated": 0.9,
+        "carbs": 20.0,
+        "sugar": 3.5,
+        "salt": 0.82
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "GARDEN",
+      "dish": "Lasagne Mediterranea",
+      "desc": "Zucchetti | Peperoni | Auberginen | Pflanzenhack | Italienische Kräuter | Tomatensauce | Bechamel | Käse übe..",
+      "nutrition": {
+       "p100": {
+        "kcal": 105.4,
+        "protein": 5.7,
+        "fat": 3.3,
+        "saturated": 1.6,
+        "carbs": 12.0,
+        "sugar": 2.8,
+        "salt": 0.77
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "HOME",
+      "dish": "Poulet Basilikum",
+      "desc": "Poulethackbällchen | Basilikumsauce | Gnocchi | Blumenkohl | Erbsen | Bohnen | Karotten",
+      "nutrition": {
+       "p100": {
+        "kcal": 167.1,
+        "protein": 5.5,
+        "fat": 9.2,
+        "saturated": 1.9,
+        "carbs": 15.0,
+        "sugar": 2.3,
+        "salt": 0.92
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Hot & Cold 100g",
+      "dish": "Hot & Cold Buffet",
+      "desc": "Reichhaltiges Salatbuffet und zusätzlich warme Komponenten - Gesund und Lecker!",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "DESSERT",
+      "dish": "Tagesdessert",
+      "desc": "Täglich süsse Köstlichkeiten",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": [
+     {
+      "line": "STREET ABEND",
+      "dish": "Poulet Frühlingsrollen",
+      "desc": "Sweet-Chili Sauce | Gebratener Reis",
+      "nutrition": {
+       "p100": {
+        "kcal": 188.3,
+        "protein": 3.8,
+        "fat": 3.7,
+        "saturated": 0.6,
+        "carbs": 34.0,
+        "sugar": 21.0,
+        "salt": 2.55
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "GARDEN ABEND",
+      "dish": "G' Hackets mit Hörnli",
+      "desc": "Plantbased Hack | Reibkäse | Apfelmus | Salat",
+      "nutrition": {
+       "p100": {
+        "kcal": 112.3,
+        "protein": 5.4,
+        "fat": 2.5,
+        "saturated": 0.7,
+        "carbs": 16.0,
+        "sugar": 1.8,
+        "salt": 0.46
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "HOME ABEND",
+      "dish": "G' Hackets mit Hörnli",
+      "desc": "Rindhackfleisch | Reibkäse | Apfelmus | Salat",
+      "nutrition": {
+       "p100": {
+        "kcal": 124.8,
+        "protein": 6.4,
+        "fat": 3.6,
+        "saturated": 1.2,
+        "carbs": 16.0,
+        "sugar": 1.2,
+        "salt": 0.41
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "POLY-BOWLS",
+      "dish": "Poly-Bowls",
+      "desc": "Täglich frisch zubereitet – wahlweise mit Fleisch oder vegetarisch. Frisch | leicht | lecker!",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "eth-10",
+   "name": "ETH Polysnack",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "PASTA",
+      "dish": "Farfalle pancetta e zucca",
+      "desc": "Farfalle | Speckwürfel | Kürbis | Kürbiskerne | Grana Padano",
+      "nutrition": {
+       "p100": {
+        "kcal": 205.3,
+        "protein": 11.0,
+        "fat": 10.0,
+        "saturated": 4.1,
+        "carbs": 16.0,
+        "sugar": 1.4,
+        "salt": 1.08
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "AL FORNO",
+      "dish": "Pizza bianca con zucchine e peperoni",
+      "desc": "Crème Fraiche | Mozzarella | Zucchetti | Peperoni | Rucola",
+      "nutrition": {
+       "p100": {
+        "kcal": 175.9,
+        "protein": 7.3,
+        "fat": 8.5,
+        "saturated": 3.7,
+        "carbs": 17.0,
+        "sugar": 1.3,
+        "salt": 0.75
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "VERDE",
+      "dish": "Insalata Greca",
+      "desc": "Salat | Peperoni | Gurken | Oliven | rote Zwiebeln | Fetakäse",
+      "nutrition": {
+       "p100": {
+        "kcal": 128.6,
+        "protein": 3.9,
+        "fat": 11.0,
+        "saturated": 3.6,
+        "carbs": 2.4,
+        "sugar": 2.1,
+        "salt": 1.11
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-11",
+   "name": "ETH Tannenbar",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "Viola's Diner 2",
+      "dish": "Shrimp Buddha Bowl",
+      "desc": "ASC Crevetten | Teriyaki-Sauce | Karotten | Blattspinat | Edamame | Mango | Koriander | Ingwer | Chili + Bas..",
+      "nutrition": {
+       "p100": {
+        "kcal": 100.9,
+        "protein": 6.9,
+        "fat": 1.4,
+        "saturated": 0.2,
+        "carbs": 14.0,
+        "sugar": 2.6,
+        "salt": 0.77
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Viola's Diner 3",
+      "dish": "Smoked Tofu Bowl",
+      "desc": "Geräucherter Tofu | Teriyaki-Sauce | Karotten | Blattspinat | Edamame | Mango | Koriander | Ingwer | Chili +..",
+      "nutrition": {
+       "p100": {
+        "kcal": 108.5,
+        "protein": 3.9,
+        "fat": 1.6,
+        "saturated": 0.2,
+        "carbs": 19.0,
+        "sugar": 3.1,
+        "salt": 0.77
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-14",
+   "name": "ETH Alumni quattro Lounge",
+   "group": "Central",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "Classic Pot",
+      "dish": "G`hacktes mit Hörnli",
+      "desc": "Rindsgehacktes | Hörnli | Apfelmus | Extrahartkäse",
+      "nutrition": {
+       "p100": {
+        "kcal": 133.4,
+        "protein": 6.0,
+        "fat": 3.6,
+        "saturated": 1.4,
+        "carbs": 19.0,
+        "sugar": 2.7,
+        "salt": 0.5
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Classic Pot Vegan",
+      "dish": "G`hacktes mit Hörnli vegan",
+      "desc": "Sojagehacktes | Hörnli | Apfelmus | veganer Käse",
+      "nutrition": {
+       "p100": {
+        "kcal": 118.5,
+        "protein": 4.7,
+        "fat": 1.1,
+        "saturated": 0.4,
+        "carbs": 21.0,
+        "sugar": 3.5,
+        "salt": 0.65
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "World Pot",
+      "dish": "Zürcher Art",
+      "desc": "Schweinestreifen | Rösti | Champignons | Karotten Duo",
+      "nutrition": {
+       "p100": {
+        "kcal": 103.3,
+        "protein": 4.4,
+        "fat": 5.5,
+        "saturated": 1.4,
+        "carbs": 7.9,
+        "sugar": 1.2,
+        "salt": 0.55
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": [
+     {
+      "line": "Classic Pot Abend",
+      "dish": "G`hacktes mit Hörnli",
+      "desc": "Rindsgehacktes | Hörnli | Apfelmus | Extrahartkäse",
+      "nutrition": {
+       "p100": {
+        "kcal": 137.0,
+        "protein": 6.4,
+        "fat": 4.0,
+        "saturated": 1.7,
+        "carbs": 18.0,
+        "sugar": 2.7,
+        "salt": 0.52
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Classic Vegan Abend",
+      "dish": "G`hacktes mit Hörnli vegan",
+      "desc": "Sojagehacktes | Hörnli | Apfelmus | veganer Käse",
+      "nutrition": {
+       "p100": {
+        "kcal": 118.5,
+        "protein": 4.7,
+        "fat": 1.1,
+        "saturated": 0.4,
+        "carbs": 21.0,
+        "sugar": 3.5,
+        "salt": 0.65
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "World Pot Abend",
+      "dish": "Zürcher Art",
+      "desc": "Schweinestreifen | Rösti | Champignons | Karotten Duo",
+      "nutrition": {
+       "p100": {
+        "kcal": 103.3,
+        "protein": 4.4,
+        "fat": 5.5,
+        "saturated": 1.4,
+        "carbs": 7.9,
+        "sugar": 1.2,
+        "salt": 0.56
+       },
+       "total": {}
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "eth-16",
+   "name": "ETH Mendokoro",
+   "group": "Hoengg",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "Ichi",
+      "dish": "Miso Ramen",
+      "desc": "Pak Choi | Nori | Mariniertes Ei | Gerösteter Sesam",
+      "nutrition": {
+       "p100": {
+        "kcal": 70.0,
+        "protein": 2.8,
+        "fat": 3.6,
+        "saturated": 0.2,
+        "carbs": 10.0,
+        "sugar": 0.9,
+        "salt": 1.22
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Ni",
+      "dish": "Shoyu Ramen",
+      "desc": "Austernpilze | Nori | Mariniertes Ei | Frühlingszwiebeln",
+      "nutrition": {
+       "p100": {
+        "kcal": 73.6,
+        "protein": 2.9,
+        "fat": 3.7,
+        "saturated": 0.2,
+        "carbs": 11.0,
+        "sugar": 0.8,
+        "salt": 1.3
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "San",
+      "dish": "Tantanmen Ramen",
+      "desc": "Pflanzenhack | Pak Choi | Nori | Mariniertes Ei | Chiliöl",
+      "nutrition": {
+       "p100": {
+        "kcal": 74.6,
+        "protein": 3.8,
+        "fat": 3.5,
+        "saturated": 0.2,
+        "carbs": 10.0,
+        "sugar": 0.9,
+        "salt": 1.29
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Shi",
+      "dish": "Chicken Tonkatsu Bowl",
+      "desc": "Crunchy Chicken | Tonkatsu Sauce | Sushireis | Japanischer Krautsalat | Sesam",
+      "nutrition": {
+       "p100": {
+        "kcal": 175.2,
+        "protein": 5.8,
+        "fat": 3.8,
+        "saturated": 0.5,
+        "carbs": 29.0,
+        "sugar": 6.1,
+        "salt": 1.06
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Roku",
+      "dish": "Tori Ramen",
+      "desc": "Pouletbrust | Edamame | Karotten | Nori | Mariniertes Ei | Gerösteter Sesam",
+      "nutrition": {
+       "p100": {
+        "kcal": 72.2,
+        "protein": 4.9,
+        "fat": 3.3,
+        "saturated": 0.2,
+        "carbs": 9.7,
+        "sugar": 0.8,
+        "salt": 1.18
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-19",
+   "name": "ETH food market",
+   "group": "Irchel",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "Fire",
+      "dish": "Chili con carne",
+      "desc": "IP-SUISSE Rindfleisch | Paprika | Bohnen | Mais | Mexikanischer Reis | Sour Creme | Koriander | Nachos",
+      "nutrition": {
+       "p100": {
+        "kcal": 160.6,
+        "protein": 6.0,
+        "fat": 5.5,
+        "saturated": 2.3,
+        "carbs": 21.0,
+        "sugar": 1.0,
+        "salt": 0.64
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Grill",
+      "dish": "Fish`n`Chips",
+      "desc": "Tartarsauce | Country cuts | Limette | Cole slaw",
+      "nutrition": {
+       "p100": {
+        "kcal": 173.8,
+        "protein": 5.5,
+        "fat": 11.0,
+        "saturated": 1.4,
+        "carbs": 13.0,
+        "sugar": 1.1,
+        "salt": 1.51
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Green Daily",
+      "dish": "Seitan Stroganoff",
+      "desc": "Champignons | Peperoni | Paprikasauce | Orecchiette | Mandel-Crème fraîche alternative",
+      "nutrition": {
+       "p100": {
+        "kcal": 111.6,
+        "protein": 5.7,
+        "fat": 2.5,
+        "saturated": 0.7,
+        "carbs": 16.0,
+        "sugar": 1.0,
+        "salt": 0.49
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Green Delight",
+      "dish": "Choose 5",
+      "desc": "Wähle 5 Komponenten heiss oder kalt",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "Pizza Classica",
+      "dish": "Pizza Margherita",
+      "desc": "Salat oder Lemonade",
+      "nutrition": {
+       "p100": {
+        "kcal": 205.3,
+        "protein": 9.6,
+        "fat": 5.3,
+        "saturated": 2.5,
+        "carbs": 29.0,
+        "sugar": 1.2,
+        "salt": 1.28
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Pizza Mamma Mia",
+      "dish": "Flammkuchen nach Elsässer Art",
+      "desc": "Creme Fraiche | Speck | Zwiebeln | Salat oder Lemonade",
+      "nutrition": {
+       "p100": {
+        "kcal": 238.0,
+        "protein": 7.2,
+        "fat": 14.0,
+        "saturated": 7.2,
+        "carbs": 21.0,
+        "sugar": 1.4,
+        "salt": 0.92
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Pasta Classica Vegi",
+      "dish": "Gemelli al Pesto",
+      "desc": "Basilikumpesto | Mozzarella Perlen | Reibkäse | Salat oder Lemonade",
+      "nutrition": {
+       "p100": {
+        "kcal": 163.2,
+        "protein": 6.6,
+        "fat": 6.1,
+        "saturated": 1.6,
+        "carbs": 20.0,
+        "sugar": 0.9,
+        "salt": 0.44
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Pasta della Nonna",
+      "dish": "Udon Tempura Bowl",
+      "desc": "Babymais | Okra | Karotten | Bohnen | Udon Nudeln | Wok Gemüse | Pak Choi | Sesamöl",
+      "nutrition": {
+       "p100": {
+        "kcal": 120.7,
+        "protein": 3.3,
+        "fat": 4.0,
+        "saturated": 1.0,
+        "carbs": 17.0,
+        "sugar": 1.4,
+        "salt": 1.95
+       },
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-20",
+   "name": "ETH FUSION meal",
+   "group": "Hoengg",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "MEATWORKS",
+      "dish": "Chicken Nuggets",
+      "desc": "Pommes Frites | Ketchup | Tagessalat oder Homemade-Getränk",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "VEGI",
+      "dish": "Spaghetti mit Linsen-Bolognese",
+      "desc": "Reibkäse | Tagessalat oder Homemade-Getränk",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "VEGAN",
+      "dish": "Loaded Baked Potatoes",
+      "desc": "Chipotle-Jackfruit | Mango | Zwiebeln | Kokos-Crunch",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "SOUL FOOD",
+      "dish": "Pulled Pork",
+      "desc": "Gemischtes Gemüse | Süsskartoffeln",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "WORLD OF ASIA",
+      "dish": "Beef Bulgogi",
+      "desc": "Asia Gemüse | Mango-Reis | Sojasprossen",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "WORLD OF ASIA VEGI",
+      "dish": "Aloo Gobi",
+      "desc": "Asia Gemüse | Basmati Reis | Spicy Cashews",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "FRESH ISLAND",
+      "dish": "Salat Buffet",
+      "desc": "Frisches Salatangebot mit saisonalen und regionalen Spezialitäten",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "POWER KITCHEN",
+      "dish": "Protein Buffet",
+      "desc": "Kreiere Dir Deinen eigenen Protein-Teller Frisch | ausgewogen und sättigend",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "GLOBETROTTER",
+      "dish": "Warmes Buffet",
+      "desc": "Alle nationalen und internationalen Klassiker mit saisonalem Gemüse",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-22",
+   "name": "ETH Rice Up!",
+   "group": "Hoengg",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "Rice Up! Bowl",
+      "dish": "Rice Up! Bowl",
+      "desc": "Jasmine Rice | Poulet-Bällchen | Broccoli | Grünes Curry | Asia Krautsalat | Kräutersalat | Saison Topping",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "Tofu Cashew Bowl",
+      "dish": "Tofu Cashew Bowl",
+      "desc": "Roter Reis | Marinierter Tofu | Saison Gemüse | Satay Sauce | Asia Krautsalat | Kräutersalat | Saison Topping",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "Chicken Satay Bowl",
+      "dish": "Chicken Satay Bowl",
+      "desc": "Reisnudeln | Gegrilltes Poulet Satay | Grüne Bohnen | Rotes Curry | Asia Krautsalat | Kräutersalat | Thai Chilli",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "Planted Bowl",
+      "dish": "Planted Bowl",
+      "desc": "Salatmischung | Planted Chicken Teriyaki | Sweet Corn | Tamarinden Sauce | Asia Kräutersalat | Erdnüsse",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "Grilled Shrimps",
+      "dish": "Grilled Shrimps Bowl",
+      "desc": "Jasmine Rice | Grilled Shrimps | Broccoli | rotes Curry | Asia Krautsalat | Kräutersalat | Puffed Rice",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-27",
+   "name": "ETH Science Lounge",
+   "group": "Irchel",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "VITAL",
+      "dish": "Gröstel",
+      "desc": "Kartoffelpfanne | Gemüse | Bohnen | Apfelschnitze | Hüttenkäse | Spiegelei",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "CLASSIC",
+      "dish": "Cannelloni Carne",
+      "desc": "Rindfleisch | Tomatensauce | Menüsalat",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "SALAT & ANTIPASTI",
+      "dish": "Salatbuffet in Selbstbedienung",
+      "desc": "Wechselnde Auswahl an Blatt- | Rohkost- sowie angemachten Salaten Dressings | Öl und Essig",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  },
+  {
+   "id": "eth-28",
+   "name": "ETH Flavour Kitchen",
+   "group": "Irchel",
+   "meals": {
+    "Lunch": [
+     {
+      "line": "PASTA OF THE DAY",
+      "dish": "Pasta Pulled Pork",
+      "desc": "Pulled-Pork | Bratensauce | Erbsen | Cipolotti",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "PLANTS & MORE",
+      "dish": "Green Mountain Balls",
+      "desc": "Pflanzliche Erbsen Bällchen | Preiselbeer Sauce | Tagliatelle | Bohnen",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "CLASSIC FLAVOUR",
+      "dish": "Stroganoff",
+      "desc": "Rindsgeschnetzeltes | Peperoni | Champignon | Broccoli | Spätzli",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     },
+     {
+      "line": "WEEKLY BOWL",
+      "dish": "Beluga Linsensalat",
+      "desc": "Gerösteter Blumenkohl | Jalapeno Pesto | vegan Ranch | Gewürz Crunch | Kräutersalat",
+      "nutrition": {
+       "p100": {},
+       "total": {}
+      }
+     }
+    ],
+    "Dinner": []
+   }
+  }
+ ]
 }

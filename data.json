@@ -1,5 +1,5 @@
 {
- "date": "2026-11-03",
+ "date": "2026-11-04",
  "mensas": [
   {
    "id": "eth-3",
@@ -9,68 +9,68 @@
     "Lunch": [
      {
       "line": "WOK STREET",
-      "dish": "Zen Flavor",
-      "desc": "Ente | Mango Five Spice Sauce | Mungbohnen | Kefen | Peperoni | Chilli | Jasminreis",
+      "dish": "Kalkun Satay",
+      "desc": "Truten | Satay Sauce | Zucchetti | Karotten | Pfälzer | Jasminreis",
       "nutrition": {
        "p100": {
-        "kcal": 99.7,
-        "protein": 6.1,
-        "fat": 1.7,
-        "saturated": 0.2,
-        "carbs": 15.0,
-        "sugar": 0.8,
-        "salt": 1.23
+        "kcal": 128.1,
+        "protein": 7.6,
+        "fat": 5.8,
+        "saturated": 2.6,
+        "carbs": 11.0,
+        "sugar": 3.2,
+        "salt": 0.6
        },
        "total": {}
       }
      },
      {
       "line": "WOK GREEN",
-      "dish": "Zen Flavor Harmony",
-      "desc": "Planted | Mango Five Spice Sauce | Mungbohnen | Kefen | Peperoni | Chili | Jasminreis",
+      "dish": "Tumis Kacang",
+      "desc": "Austernseitlinge | Satay Sauce | Zucchetti | Karotten | Pfälzer | Jasminreis",
       "nutrition": {
        "p100": {
-        "kcal": 108.0,
-        "protein": 9.0,
-        "fat": 1.5,
-        "saturated": 0.2,
-        "carbs": 14.0,
-        "sugar": 0.7,
-        "salt": 1.18
+        "kcal": 101.6,
+        "protein": 2.3,
+        "fat": 3.3,
+        "saturated": 1.8,
+        "carbs": 15.0,
+        "sugar": 3.1,
+        "salt": 0.52
        },
        "total": {}
       }
      },
      {
       "line": "DELIGHT",
-      "dish": "Truthahn Rendang",
-      "desc": "Galgant | Zitronengras | Chili | Knoblauch | grüne Bohnen mit Sesam | Nasi Putih Reis",
+      "dish": "Buta No Kakuni",
+      "desc": "Schweinebauch | Ei | Sushireis | grüne Bohnen",
       "nutrition": {
        "p100": {
-        "kcal": 114.2,
-        "protein": 6.4,
-        "fat": 3.4,
-        "saturated": 2.0,
-        "carbs": 14.0,
-        "sugar": 1.8,
-        "salt": 0.89
+        "kcal": 104.2,
+        "protein": 7.1,
+        "fat": 1.8,
+        "saturated": 0.4,
+        "carbs": 13.0,
+        "sugar": 2.6,
+        "salt": 0.74
        },
        "total": {}
       }
      },
      {
       "line": "GARDEN",
-      "dish": "Kottu Roti",
-      "desc": "Roti | Planted Chicken | Ei | Kabis | Karotte | Lauch | Koriander - Joghurtdip",
+      "dish": "Okonomiyaki",
+      "desc": "Ramen Nudeln | Chinakohl | Karotten | Mayonnaise | Bulldogsauce",
       "nutrition": {
        "p100": {
-        "kcal": 71.9,
-        "protein": 4.2,
-        "fat": 4.2,
-        "saturated": 1.8,
-        "carbs": 4.1,
-        "sugar": 3.4,
-        "salt": 0.81
+        "kcal": 189.8,
+        "protein": 4.3,
+        "fat": 10.0,
+        "saturated": 0.8,
+        "carbs": 20.0,
+        "sugar": 2.1,
+        "salt": 1.75
        },
        "total": {}
       }
@@ -87,51 +87,51 @@
     "Lunch": [
      {
       "line": "Chefs World",
-      "dish": "Loup de mer",
-      "desc": "Wolfsbarsch | Safransauce | Tomaten Tagliatelle | Blattspinat",
+      "dish": "Poulet-Brust-Suprême",
+      "desc": "Seller Püree | Pfälzer Karotten | Bimi | Morchel-Orangen Sauce",
       "nutrition": {
        "p100": {
-        "kcal": 119.3,
-        "protein": 9.5,
-        "fat": 3.7,
-        "saturated": 1.1,
-        "carbs": 11.0,
-        "sugar": 1.2,
-        "salt": 0.57
+        "kcal": 77.2,
+        "protein": 9.0,
+        "fat": 2.8,
+        "saturated": 0.9,
+        "carbs": 2.9,
+        "sugar": 1.7,
+        "salt": 0.85
        },
        "total": {}
       }
      },
      {
       "line": "Favorite",
-      "dish": "Aargauer Schweinsbraten",
-      "desc": "Thymiansauce | Kartoffelstock | Apfelrotkohl pro 100g",
+      "dish": "Kabeljau in Knusperpanade",
+      "desc": "Seelachs in Knusperpanade | Tartar Sauce | Salzkartoffeln | Blattspinat | 100 gr.",
       "nutrition": {
        "p100": {
-        "kcal": 96.1,
-        "protein": 3.3,
-        "fat": 4.3,
-        "saturated": 1.2,
-        "carbs": 9.7,
-        "sugar": 3.0,
-        "salt": 0.93
+        "kcal": 129.1,
+        "protein": 5.2,
+        "fat": 6.4,
+        "saturated": 1.1,
+        "carbs": 12.0,
+        "sugar": 0.9,
+        "salt": 0.68
        },
        "total": {}
       }
      },
      {
       "line": "Vitality",
-      "dish": "Freekeh",
-      "desc": "Rüebli | Ricotta | Salzzitrone | Estragon",
+      "dish": "Yumame Yellow Curry",
+      "desc": "Yumame | Broccoli | Karotten | Mungbohnen | Koriander | Jasminreis",
       "nutrition": {
        "p100": {
-        "kcal": 93.2,
-        "protein": 2.7,
-        "fat": 1.9,
-        "saturated": 0.8,
-        "carbs": 14.0,
-        "sugar": 0.5,
-        "salt": 0.66
+        "kcal": 115.4,
+        "protein": 3.7,
+        "fat": 3.3,
+        "saturated": 2.0,
+        "carbs": 17.0,
+        "sugar": 1.5,
+        "salt": 0.75
        },
        "total": {}
       }
@@ -148,34 +148,34 @@
     "Lunch": [
      {
       "line": "East",
-      "dish": "Juicy Planted Burger",
-      "desc": "Ciabatta | Planted Patty | Tomaten | Eisbergsalat | Cocktailsauce | Pommes",
+      "dish": "Planted Züri Geschnetzeltes",
+      "desc": "Kräuter-Spätzli | Champignons | Kürbis | Wirz",
       "nutrition": {
        "p100": {
-        "kcal": 178.3,
-        "protein": 6.6,
-        "fat": 6.8,
-        "saturated": 1.3,
-        "carbs": 21.0,
-        "sugar": 0.9,
-        "salt": 1.1
+        "kcal": 142.4,
+        "protein": 4.0,
+        "fat": 6.2,
+        "saturated": 0.8,
+        "carbs": 17.0,
+        "sugar": 2.3,
+        "salt": 0.81
        },
        "total": {}
       }
      },
      {
       "line": "West",
-      "dish": "Foodlab Cheese Burger",
-      "desc": "Sesam Bun | rote Zwiebeln gepickelt | Beef Burger | Eisbergsalat | Käse | Tomaten | Cocktail Sauce | Pommes..",
+      "dish": "Teriyaki Dog",
+      "desc": "Wienerli | Brioche Bun | Coleslaw | Nori | Wasabimayonnaise | Teriyakisauce",
       "nutrition": {
        "p100": {
-        "kcal": 210.8,
-        "protein": 8.3,
+        "kcal": 223.9,
+        "protein": 7.0,
         "fat": 11.0,
         "saturated": 2.9,
-        "carbs": 19.0,
-        "sugar": 2.8,
-        "salt": 1.45
+        "carbs": 23.0,
+        "sugar": 7.5,
+        "salt": 1.85
        },
        "total": {}
       }
@@ -209,68 +209,68 @@
     "Lunch": [
      {
       "line": "The Gardener",
-      "dish": "Vegetarische Hackbällchen",
-      "desc": "Rahmsauce | Spätzli | Blumenkohl | Karotten | Bohnen",
+      "dish": "Penne ticolore pomodori e olive",
+      "desc": "Tomatensauce | Röstzwiebeln | Knoblauch | Oliven | Reibkäse | Salat",
       "nutrition": {
        "p100": {
-        "kcal": 147.9,
-        "protein": 5.6,
-        "fat": 6.6,
-        "saturated": 1.1,
-        "carbs": 15.0,
-        "sugar": 1.0,
-        "salt": 0.85
+        "kcal": 127.2,
+        "protein": 4.0,
+        "fat": 3.7,
+        "saturated": 0.9,
+        "carbs": 19.0,
+        "sugar": 2.0,
+        "salt": 0.44
        },
        "total": {}
       }
      },
      {
       "line": "The Chef",
-      "dish": "Griechische Moussaka",
-      "desc": "Rindfleisch | Kartoffeln | Auberginen | Zucchetti | Béchamel | Gurkensalat",
+      "dish": "Indisches Linsen Dal",
+      "desc": "Schweinefleisch | Gemüse | Basmatireis | Erbsen | Koriander | Röstzwiebeln | Naan Brot",
       "nutrition": {
        "p100": {
-        "kcal": 69.6,
-        "protein": 3.6,
-        "fat": 3.6,
-        "saturated": 1.2,
-        "carbs": 4.9,
-        "sugar": 2.3,
-        "salt": 0.64
+        "kcal": 147.9,
+        "protein": 5.5,
+        "fat": 4.7,
+        "saturated": 1.9,
+        "carbs": 20.0,
+        "sugar": 1.5,
+        "salt": 0.73
        },
        "total": {}
       }
      },
      {
       "line": "The Expert",
-      "dish": "Pad Kra Pao",
-      "desc": "IP-SUISSE Schweinehackfleisch | Chili | Thaibasilikum | grüne Bohnen | Austernsauce | Soja | Jasminreis | Sp..",
+      "dish": "Chicken Teriyaki Nuggets",
+      "desc": "Chicken Nuggets | Teriyaki | Sweet-Chili Sauce | Sesam | Wok Gemüse | Basmatireis | Limette",
       "nutrition": {
        "p100": {
-        "kcal": 121.7,
-        "protein": 6.8,
-        "fat": 3.4,
-        "saturated": 1.2,
-        "carbs": 16.0,
-        "sugar": 2.3,
-        "salt": 3.14
+        "kcal": 138.9,
+        "protein": 6.2,
+        "fat": 2.3,
+        "saturated": 0.3,
+        "carbs": 22.0,
+        "sugar": 4.5,
+        "salt": 1.34
        },
        "total": {}
       }
      },
      {
       "line": "The Traveller",
-      "dish": "Kotteri Ramen",
-      "desc": "Plantbased Hack | Ei | Mais | Pilze | Chili | Furikake | Kürbis | Frühlingszwiebeln",
+      "dish": "Assari Ramen",
+      "desc": "Tofu | Ei | Pilze | Spinat | Furikake | Ramennudeln | Sesam | Röstzwiebeln",
       "nutrition": {
        "p100": {
-        "kcal": 116.2,
-        "protein": 4.4,
-        "fat": 5.4,
-        "saturated": 0.7,
-        "carbs": 12.0,
-        "sugar": 1.4,
-        "salt": 1.31
+        "kcal": 89.4,
+        "protein": 4.0,
+        "fat": 3.5,
+        "saturated": 0.8,
+        "carbs": 10.0,
+        "sugar": 1.0,
+        "salt": 0.97
        },
        "total": {}
       }
@@ -278,16 +278,16 @@
      {
       "line": "The Farmer",
       "dish": "Salat Bowl",
-      "desc": "Stärkebeilage nach Wahl | Salate nach Wahl | Proteinquelle nach Wahl | Poulet Frühlingsrollen",
+      "desc": "Stärkebeilage nach Wahl | Salate nach Wahl | Proteinquelle nach Wahl | Tilapia Knusperli | Tartarsauce",
       "nutrition": {
        "p100": {
-        "kcal": 158.2,
-        "protein": 5.0,
-        "fat": 6.7,
-        "saturated": 1.1,
-        "carbs": 19.0,
-        "sugar": 3.5,
-        "salt": 0.99
+        "kcal": 169.5,
+        "protein": 6.5,
+        "fat": 9.6,
+        "saturated": 1.6,
+        "carbs": 15.0,
+        "sugar": 2.5,
+        "salt": 0.95
        },
        "total": {}
       }
@@ -304,85 +304,85 @@
     "Lunch": [
      {
       "line": "LOCAL",
-      "dish": "Hausgemachtes Jumbo Cordon bleu",
-      "desc": "Pommes Frites | Karotten | Zitronenschnitz",
+      "dish": "Tagliatelle al cervo e rosmarino",
+      "desc": "Sauerrahmsauce | Hirschstreifen | Grillgemüse | Rosmarin | Reibkäse | Salat",
       "nutrition": {
        "p100": {
-        "kcal": 159.9,
-        "protein": 12.0,
-        "fat": 6.9,
-        "saturated": 1.6,
-        "carbs": 19.0,
-        "sugar": 0.7,
-        "salt": 1.14
+        "kcal": 128.8,
+        "protein": 5.9,
+        "fat": 4.4,
+        "saturated": 1.2,
+        "carbs": 16.0,
+        "sugar": 1.7,
+        "salt": 0.46
        },
        "total": {}
       }
      },
      {
       "line": "STREET",
-      "dish": "Kara Ninniku Ramen",
-      "desc": "Poulet | Ei | Pak Choi | Chilli | Knoblauch | Koriander",
+      "dish": "Crispy Cheeseburger",
+      "desc": "Planted Crispy Burger | Cheese Style Sauce | Salat | Kartoffeln | Coleslaw | Coca Cola Zero Zero GRATIS dazu",
       "nutrition": {
        "p100": {
-        "kcal": 85.8,
-        "protein": 4.2,
-        "fat": 4.4,
-        "saturated": 0.6,
-        "carbs": 7.0,
-        "sugar": 0.4,
-        "salt": 0.77
+        "kcal": 171.1,
+        "protein": 3.9,
+        "fat": 9.5,
+        "saturated": 1.1,
+        "carbs": 17.0,
+        "sugar": 1.8,
+        "salt": 0.96
        },
        "total": {}
       }
      },
      {
       "line": "VEGAN",
-      "dish": "Plantbased Geschnetzeltes Zürcher Art",
-      "desc": "Plantbased Chunks | Champignons | Cremesauce | Karotten | Rösti",
+      "dish": "Takikomi Gohan",
+      "desc": "Pilze | Reis | Karotten | Edamame | Kefen",
       "nutrition": {
        "p100": {
-        "kcal": 109.9,
-        "protein": 3.8,
-        "fat": 6.4,
-        "saturated": 1.1,
-        "carbs": 8.1,
-        "sugar": 1.7,
-        "salt": 0.78
+        "kcal": 141.7,
+        "protein": 4.7,
+        "fat": 2.3,
+        "saturated": 0.4,
+        "carbs": 27.0,
+        "sugar": 1.0,
+        "salt": 0.74
        },
        "total": {}
       }
      },
      {
       "line": "GARDEN",
-      "dish": "Camembert Risotto",
-      "desc": "Panierter Camembert | Cicorino Rosso | Baumnüsse | Thymian | Preiselbeer Chutney | Tagessalat",
+      "dish": "Gnocchi al pomodoro e olive",
+      "desc": "Tomatensauce | Röstzwiebeln | Knoblauch | Oliven | Reibkäse | Salat",
       "nutrition": {
        "p100": {
-        "kcal": 146.3,
-        "protein": 4.5,
-        "fat": 5.9,
-        "saturated": 1.8,
-        "carbs": 17.0,
-        "sugar": 4.8,
-        "salt": 0.84
+        "kcal": 171.1,
+        "protein": 3.3,
+        "fat": 9.0,
+        "saturated": 1.2,
+        "carbs": 18.0,
+        "sugar": 1.8,
+        "salt": 0.96
        },
        "total": {}
       }
      },
      {
       "line": "HOME",
-      "dish": "Pasta Plausch",
-      "desc": "Spaghetti | Sauce alla carbonara oder Sauce Bolognese IP-SUISSE | Reibkäse | Blattsalat",
+      "dish": "Chicken Tikka Masala",
+      "desc": "Poulet | Tomaten | Basmatireis | Zitronenraita mit Sambal | Naan Brot",
       "nutrition": {
        "p100": {
-        "kcal": 132.9,
-        "protein": 5.5,
-        "fat": 4.8,
-        "saturated": 1.6,
-        "carbs": 16.0,
-        "sugar": 2.1,
-        "salt": 0.42
+        "kcal": 128.1,
+        "protein": 5.9,
+        "fat": 3.9,
+        "saturated": 0.9,
+        "carbs": 17.0,
+        "sugar": 1.8,
+        "salt": 0.75
        },
        "total": {}
       }
@@ -398,17 +398,8 @@
      },
      {
       "line": "TAGESSUPPE",
-      "dish": "Steinpilzcremesuppe",
+      "dish": "Tagessuppe",
       "desc": "Probieren Sie unsere hausgemachte Tagessuppe!",
-      "nutrition": {
-       "p100": {},
-       "total": {}
-      }
-     },
-     {
-      "line": "SMOOTHIE",
-      "dish": "Smoothie - immer Dienstags",
-      "desc": "Frisch gemixte Smoothies – erfrischend und voller Vitamine",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -418,51 +409,51 @@
     "Dinner": [
      {
       "line": "STREET ABEND",
-      "dish": "Schweizer Curry Wurst",
-      "desc": "Kalbs Bratwurst | Curry Zwiebelsauce | Chnusprigi Riesen Frites",
+      "dish": "Cappelletti Tomaten & Mozzarella",
+      "desc": "Pesto | Ratatouille | Reibkäse | Rucola",
       "nutrition": {
        "p100": {
-        "kcal": 182.4,
-        "protein": 5.5,
-        "fat": 11.0,
-        "saturated": 2.8,
-        "carbs": 15.0,
-        "sugar": 3.2,
-        "salt": 1.2
+        "kcal": 178.8,
+        "protein": 7.3,
+        "fat": 6.9,
+        "saturated": 1.8,
+        "carbs": 21.0,
+        "sugar": 2.1,
+        "salt": 1.3
        },
        "total": {}
       }
      },
      {
       "line": "GARDEN ABEND",
-      "dish": "Butcher Bällchen",
-      "desc": "Plantbased Hackbällchen | Calvadossauce | Nudeln | Broccoli | Mandeln",
+      "dish": "Rotes Linsen Dal",
+      "desc": "Feines Gemüse | Basmatireis | Erbsen | Koriander | Röstzwiebeln | Naan Brot",
       "nutrition": {
        "p100": {
-        "kcal": 128.6,
-        "protein": 6.6,
+        "kcal": 140.1,
+        "protein": 4.2,
         "fat": 3.8,
-        "saturated": 1.0,
-        "carbs": 15.0,
-        "sugar": 2.6,
-        "salt": 0.58
+        "saturated": 1.9,
+        "carbs": 21.0,
+        "sugar": 1.7,
+        "salt": 0.67
        },
        "total": {}
       }
      },
      {
       "line": "HOME ABEND",
-      "dish": "Creamy Chicken",
-      "desc": "Poulet- Hackbällchen | Calvadossauce | Nudeln | Broccoli | Mandeln",
+      "dish": "Indisches Linsen Dal",
+      "desc": "Schweinefleisch | Gemüse | Basmatireis | Erbsen | Koriander | Röstzwiebeln | Naan Brot",
       "nutrition": {
        "p100": {
-        "kcal": 137.4,
-        "protein": 6.5,
-        "fat": 5.2,
-        "saturated": 1.6,
-        "carbs": 15.0,
-        "sugar": 2.2,
-        "salt": 0.64
+        "kcal": 152.0,
+        "protein": 5.2,
+        "fat": 5.4,
+        "saturated": 2.2,
+        "carbs": 20.0,
+        "sugar": 1.7,
+        "salt": 0.67
        },
        "total": {}
       }
@@ -487,8 +478,8 @@
     "Lunch": [
      {
       "line": "Al forno",
-      "dish": "geschlossen",
-      "desc": "geschlossen",
+      "dish": "Pizza Rucola e Parmigiano",
+      "desc": "Tomatensauce | Mozzarella | Rucola | Parmesanhobel",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -496,8 +487,8 @@
      },
      {
       "line": "Pasta",
-      "dish": "geschlossen",
-      "desc": "geschlossen",
+      "dish": "Tortellini burro e salvia",
+      "desc": "Tortellini Tricolore mit Basilikumfüllung | Salbeibutter | Reibkäse",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -505,8 +496,8 @@
      },
      {
       "line": "Verde",
-      "dish": "geschlossen",
-      "desc": "geschlossen",
+      "dish": "Insalata Caprese",
+      "desc": "Tomaten | Mozzarella | Blattsalate | Basilikum | Oliven | Zwiebeln | Olivenöl | Balsamico",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -524,34 +515,34 @@
     "Lunch": [
      {
       "line": "World",
-      "dish": "Chow Mein",
-      "desc": "Crevetten | Mie Nudeln | Asiagemüse | Pak Choi | Soja | Koriander",
+      "dish": "Teriyaki Beef Balls",
+      "desc": "IP-SUISSE Rindsbällchen | Sesam | Ginger | Thai-Schnittlauch | Bambussprossen | Parfumreis",
       "nutrition": {
        "p100": {
-        "kcal": 123.3,
-        "protein": 5.1,
-        "fat": 0.8,
-        "saturated": 0.2,
-        "carbs": 24.0,
+        "kcal": 145.1,
+        "protein": 6.6,
+        "fat": 4.0,
+        "saturated": 1.6,
+        "carbs": 20.0,
         "sugar": 1.8,
-        "salt": 2.6
+        "salt": 1.53
        },
        "total": {}
       }
      },
      {
       "line": "Green",
-      "dish": "Chow Mein",
-      "desc": "Tofu | Mie Nudeln | Asiagemüse | Pak Choi | Soja | Koriander",
+      "dish": "Teriyaki Minced Balls",
+      "desc": "Vegetarische Hackbällchen | Sesam | Ginger | Thai-Schnittlauch | Bambussprossen | Parfumreis",
       "nutrition": {
        "p100": {
-        "kcal": 127.4,
-        "protein": 6.1,
-        "fat": 2.4,
-        "saturated": 0.4,
-        "carbs": 20.0,
-        "sugar": 1.6,
-        "salt": 2.31
+        "kcal": 68.4,
+        "protein": 2.9,
+        "fat": 1.1,
+        "saturated": 0.1,
+        "carbs": 11.0,
+        "sugar": 1.5,
+        "salt": 0.65
        },
        "total": {}
       }
@@ -775,35 +766,52 @@
    "meals": {
     "Lunch": [
      {
-      "line": "Grill",
-      "dish": "Teriyaki Donburi Bowl",
-      "desc": "Lachs | Onsenei | Sushireis | Broccoli | Sesamgurken",
+      "line": "Fire",
+      "dish": "Taco - Arroz Rojo",
+      "desc": "Rindshackfleisch | Mais | Bohnen | Jalapenos | Mexikanischer Reis | Cheddar | Sauerrahm",
       "nutrition": {
        "p100": {
-        "kcal": 135.8,
+        "kcal": 158.5,
         "protein": 6.1,
-        "fat": 3.9,
-        "saturated": 0.8,
-        "carbs": 19.0,
-        "sugar": 3.0,
-        "salt": 0.83
+        "fat": 5.6,
+        "saturated": 2.2,
+        "carbs": 20.0,
+        "sugar": 1.5,
+        "salt": 0.44
+       },
+       "total": {}
+      }
+     },
+     {
+      "line": "Grill",
+      "dish": "The Smoky Bacon Burger",
+      "desc": "Rindfleisch | Sesam Bun | Cheddar | Bacon | Smoky Relish | Lattich | Texas Pommes",
+      "nutrition": {
+       "p100": {
+        "kcal": 206.0,
+        "protein": 8.8,
+        "fat": 9.8,
+        "saturated": 3.0,
+        "carbs": 20.0,
+        "sugar": 2.2,
+        "salt": 1.37
        },
        "total": {}
       }
      },
      {
       "line": "Green Daily",
-      "dish": "Älpler Rösti mit Spiegelei",
-      "desc": "Rösti | Hörnli | Röstzwiebeln | Emmentaler | Spiegelei | Apfelmus | Schnittlauch",
+      "dish": "Japanisches Kürbis Curry",
+      "desc": "Tofu | Sushireis | Frühlingszwiebeln",
       "nutrition": {
        "p100": {
-        "kcal": 118.5,
-        "protein": 4.6,
-        "fat": 4.2,
-        "saturated": 0.9,
+        "kcal": 123.8,
+        "protein": 3.3,
+        "fat": 5.7,
+        "saturated": 2.3,
         "carbs": 15.0,
-        "sugar": 2.5,
-        "salt": 0.47
+        "sugar": 2.7,
+        "salt": 0.94
        },
        "total": {}
       }
@@ -836,61 +844,52 @@
      },
      {
       "line": "Pizza Mamma Mia",
-      "dish": "Lahmacun",
-      "desc": "Rindfleisch | Paprika | Tomaten | Peterli | Cacik | Rote Zwiebeln | Salat oder Lemonade",
+      "dish": "Pizza alla bufala",
+      "desc": "Tomatensauce | Büffel Mozzarella | Basilikum | Salat oder Lemonade",
       "nutrition": {
        "p100": {
-        "kcal": 153.4,
-        "protein": 5.6,
-        "fat": 5.2,
-        "saturated": 1.3,
-        "carbs": 20.0,
-        "sugar": 2.2,
-        "salt": 0.83
+        "kcal": 203.4,
+        "protein": 11.0,
+        "fat": 7.6,
+        "saturated": 4.2,
+        "carbs": 22.0,
+        "sugar": 1.2,
+        "salt": 1.13
        },
        "total": {}
       }
      },
      {
-      "line": "Pasta Classica",
-      "dish": "Cajun Chicken Pasta",
-      "desc": "Makkaroni | Cajun | Pouletstreifen | Käserahmsauce | Peperoni | Petersilie | Salat oder Lemonade",
+      "line": "Pasta Classica Vegi",
+      "dish": "Morchelpasta",
+      "desc": "Pappardelle | Morchelsauce | Reibkäse | Salat oder Lemonade",
       "nutrition": {
        "p100": {
-        "kcal": 145.8,
-        "protein": 7.4,
-        "fat": 4.4,
-        "saturated": 1.1,
+        "kcal": 129.3,
+        "protein": 4.7,
+        "fat": 4.1,
+        "saturated": 1.5,
         "carbs": 18.0,
-        "sugar": 1.5,
-        "salt": 0.42
+        "sugar": 0.9,
+        "salt": 0.51
        },
        "total": {}
       }
      },
      {
       "line": "Pasta della Nonna",
-      "dish": "Fregola Sarda",
-      "desc": "Mandel Frischkäse | Tomaten | Oliven | Rucola | Salat oder Lemonade",
+      "dish": "Pad Thai",
+      "desc": "Poulet | Erdnüssen | Ei | Mungosprossen | Koriander | Limette",
       "nutrition": {
        "p100": {
-        "kcal": 163.2,
-        "protein": 4.9,
-        "fat": 4.8,
-        "saturated": 0.8,
-        "carbs": 24.0,
-        "sugar": 2.4,
-        "salt": 0.48
+        "kcal": 144.6,
+        "protein": 6.1,
+        "fat": 4.0,
+        "saturated": 0.6,
+        "carbs": 23.0,
+        "sugar": 2.6,
+        "salt": 0.73
        },
-       "total": {}
-      }
-     },
-     {
-      "line": "Fire",
-      "dish": "Geschnetzeltes Zürcher Art",
-      "desc": "Schweinsstreifen | Champignonsauce | Nudeln | Karotten Duo",
-      "nutrition": {
-       "p100": {},
        "total": {}
       }
      }
@@ -906,8 +905,8 @@
     "Lunch": [
      {
       "line": "MEATWORKS",
-      "dish": "Pouletbrust - Café de Paris Sauce",
-      "desc": "Schupfnudeln | Broccoli",
+      "dish": "Gehacktes & Hörnli",
+      "desc": "Rindshack | Reibkäse | Apfelmus oder Salat",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -915,8 +914,8 @@
      },
      {
       "line": "VEGI",
-      "dish": "Gefüllte Peperoni mit Feta",
-      "desc": "Reis | Ajvar | Salat oder Homemade-Getränk",
+      "dish": "Gnocchi Mediterraner Art",
+      "desc": "Tomatensauce | Reibkäse | Salat oder Homemade-Getränk",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -924,8 +923,8 @@
      },
      {
       "line": "VEGAN",
-      "dish": "Seitan Stroganoff",
-      "desc": "Linguine | Salat oder Homemade Getränk",
+      "dish": "Küstenburger",
+      "desc": "Red Bun | Krautsalat | Tomaten | Gurken | Limetten-Sauce | Kartoffeln",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -933,8 +932,8 @@
      },
      {
       "line": "SOUL FOOD",
-      "dish": "Bayrischer Burger",
-      "desc": "Laugen-Bun | Fleischkäse | Spiegelei | Krautsalat | Eisberg | Süsser-Senf Mayo | Pommes Frites",
+      "dish": "Döner Teller",
+      "desc": "Poulet Fleisch | Pommes Frites | Tomaten | Gurken | Rotkabis | Eisberg | Joghurt-Sauce",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -942,8 +941,8 @@
      },
      {
       "line": "WORLD OF ASIA",
-      "dish": "Lamm Vindaloo",
-      "desc": "Jasmin Reis | Asia-Gemüse",
+      "dish": "Beef Stir-Fry",
+      "desc": "Jasmin Reis | Asia Gemüse",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -951,8 +950,8 @@
      },
      {
       "line": "WORLD OF ASIA VEGI",
-      "dish": "Bibimbap & Spiegelei",
-      "desc": "Jasmin Reis",
+      "dish": "Matter Paneer",
+      "desc": "Jasmin Reis | Asia Gemüse",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -1052,51 +1051,51 @@
     "Lunch": [
      {
       "line": "Eins",
-      "dish": "Kräuterschwein Cordon Bleu",
-      "desc": "Pommes Rissolées | Erbsen | Zitrone | Ketchup | Beilagensalat",
+      "dish": "Teriyaki Donburi Bowl",
+      "desc": "Japan@Octavo | Lachs | Onsenei | Sushireis | Broccoli | Sesamgurken | Beilagensalat",
       "nutrition": {
        "p100": {
-        "kcal": 134.3,
-        "protein": 7.0,
-        "fat": 6.2,
-        "saturated": 1.1,
-        "carbs": 11.0,
-        "sugar": 1.9,
-        "salt": 0.82
+        "kcal": 128.3,
+        "protein": 5.2,
+        "fat": 4.6,
+        "saturated": 0.8,
+        "carbs": 16.0,
+        "sugar": 2.8,
+        "salt": 0.62
        },
        "total": {}
       }
      },
      {
       "line": "Zwei",
-      "dish": "Tonkatsu",
-      "desc": "Japan@Octavo | Schweinesteak | Bulldogsauce | Sushireis | Coleslaw | Beilagensalat",
+      "dish": "Schweinebratren",
+      "desc": "Bratensauce | Kräuterkartoffeln | Rotkraut | Beilagensalat",
       "nutrition": {
        "p100": {
-        "kcal": 148.4,
-        "protein": 6.7,
-        "fat": 4.9,
-        "saturated": 0.9,
-        "carbs": 19.0,
-        "sugar": 5.3,
-        "salt": 0.82
+        "kcal": 84.1,
+        "protein": 5.7,
+        "fat": 2.5,
+        "saturated": 0.4,
+        "carbs": 8.6,
+        "sugar": 2.3,
+        "salt": 0.92
        },
        "total": {}
       }
      },
      {
       "line": "Drei",
-      "dish": "Vollkorn Tagliatelle",
-      "desc": "Gebratenem Kürbis | veganer Pilzrahmsauce | Röstzwiebeln | Beilagensalat",
+      "dish": "Plantbased Geschnetzeltes \"Zürcher Art\"",
+      "desc": "Rösti | Broccoli | Beilagensalat",
       "nutrition": {
        "p100": {
-        "kcal": 118.5,
-        "protein": 2.8,
+        "kcal": 97.8,
+        "protein": 3.5,
         "fat": 5.7,
-        "saturated": 1.4,
-        "carbs": 13.0,
-        "sugar": 1.5,
-        "salt": 0.57
+        "saturated": 0.9,
+        "carbs": 7.5,
+        "sugar": 0.7,
+        "salt": 0.74
        },
        "total": {}
       }
@@ -1120,7 +1119,7 @@
      },
      {
       "line": "5uppe",
-      "dish": "Orientalische Rüeblisuppe",
+      "dish": "Kartoffelsuppe",
       "desc": "Tagessuppe lt. Chef",
       "nutrition": {
        "p100": {
@@ -1155,8 +1154,8 @@
     "Lunch": [
      {
       "line": "VITAL",
-      "dish": "Green Thaicurry",
-      "desc": "Tofu | Karotten | Broccoli | Jasminreis | Koriander",
+      "dish": "Krautflekerln",
+      "desc": "Orecchiette | Weisskabis | Karotten | Fenchel | Käse | Menüsalat",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -1164,8 +1163,8 @@
      },
      {
       "line": "CLASSIC",
-      "dish": "Mie Goreng Singapore",
-      "desc": "Asianudeln | Schweinefleisch | Broccoli | Chinakohl | Karotten | Ingwer | Chili | Sojasauce",
+      "dish": "Kalbsbratwurst 100%",
+      "desc": "Kalbsbratwurst | Zwiebelsauce | Röstigaletten | Kräuterbohnen",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -1192,8 +1191,8 @@
     "Lunch": [
      {
       "line": "PASTA OF THE DAY",
-      "dish": "Pasta Edamame-pesto",
-      "desc": "Edamame Pesto | Shiitake | Kefen | Kresse",
+      "dish": "Pasta Estragon-pesto",
+      "desc": "Estragon- Pesto | Räuchertofu | Wurzelgemüse",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -1201,8 +1200,8 @@
      },
      {
       "line": "PLANTS & MORE",
-      "dish": "Iberico Bowl",
-      "desc": "Paellareis | Gemüse | Plantedstreifen | junger Spinat | Kräuteröl | Popcorn",
+      "dish": "YUMAME Bowl",
+      "desc": "Yumame | Sellerie-Kartoffelstampf | gebratener Wirsing | Datteln | Orangen | Mandeln | Haselnussöl",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -1210,8 +1209,8 @@
      },
      {
       "line": "CLASSIC FLAVOUR",
-      "dish": "Wolfenschiesser Brätchügeli",
-      "desc": "Brätchügeli | Rotwein-Rosmarinsauce | Schupfnudeln | grüne Bohnen",
+      "dish": "Butter Chicken",
+      "desc": "Poulet | Tomaten | Raita | Basmatireis | Zucchetti | Kichererbsen",
       "nutrition": {
        "p100": {},
        "total": {}
@@ -1219,8 +1218,8 @@
      },
      {
       "line": "WEEKLY BOWL",
-      "dish": "Maiscremesuppe",
-      "desc": "Maiscremesuppe | Quinoa | Petersilien- Koriander- Salsa | Salsa blanca",
+      "dish": "Udon-tantanmen",
+      "desc": "Erbsenhack | pikante Misosuppe | Rosenkohl | Karotten | Udonnudeln | Chili Crunch",
       "nutrition": {
        "p100": {},
        "total": {}
